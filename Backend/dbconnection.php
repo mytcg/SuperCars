@@ -50,4 +50,9 @@ class dbconnection {
 	}
 }
 
+function myqu($sQuery) {
+	$conn = new dbconnection();
+	return $conn->_myqu($sQuery);
+}
+
 ?>
