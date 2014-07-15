@@ -11,6 +11,7 @@ $retXml = '<output>';
 // Check that the user is valid
 $sUsername = 'james';//$_SERVER['HTTP_AUTH_USER'];
 $sPassword = 'password';//$_SERVER['HTTP_AUTH_PW'];
+$user_id = '';
 
 $userDetails = myqu('SELECT * FROM users WHERE username = "'.$sUsername.'"');
 $validUser = true;
@@ -18,6 +19,9 @@ if ($user=$userDetails[0]) {
 	if ($user['password'] != $sPassword) {
 		$retXml .= '<result>false</result><content>Invalid username/password.</content>';
 		$validUser = false;
+	}
+	else {
+		$user_id = $user['user_id'];
 	}
 }
 else {
@@ -34,6 +38,9 @@ $request = $_GET['request'];
 switch($request) {
 	case "categories":
 		$retXml .= getCategories($_GET['category_id']);
+		break;
+	case "cards":
+		$retXml .= getUserCards($_GET['category_id'], $user_id);
 		break;
 	default:
 		$retXml .= '<result>true</result><content>No request sent.</content>';
