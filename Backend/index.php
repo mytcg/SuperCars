@@ -50,15 +50,16 @@ switch($request) {
 	case "categories":
 		$retXml .= getCategories($_GET['category_id']);
 		break;
-	case "cards":
-		$retXml .= getUserCards($_GET['category_id'], $user_id);
+	case "albumcards":
+		$retXml .= getUserAlbumCards($_GET['category_id'], $user_id);
+		break;
+	case "scrapcard":
+		$retXml .= scrapUserCards($_GET['card_id'], $user_id);
 		break;
 	default:
 		$retXml .= '<result>true</result><content>No request sent.</content>';
 }
 
 close($retXml);
-
-
 
 ?>

@@ -20,7 +20,7 @@ function getCategories($parent = '') {
 	return $categoryXml;
 }
 
-function getUserCards($category, $user_id) {
+function getUserAlbumCards($category, $user_id) {
 	$categoryXml = '<cards>';
 	
 	$sql = 'SELECT c.card_id,
@@ -80,6 +80,43 @@ function registerUser($username, $password) {
 	$result = myqu($sql);
 	if ($user=$result[0]) {
 		return '<result>true</result><content>User created.</content>';
+	}
+	else {
+		return '<result>false</result><content>Registration failed. Please contact an administrator.</content>';
+	}
+}
+
+function scrapUserCards($card_id, $user_id) {
+	$sql = 'SELECT uc.user_card_id, c.scrap_value, c.name
+		FROM user_cards uc
+		INNER JOIN card_statuses cs 
+		ON cs.card_status_id = uc.user_card_status
+		INNER JOIN cards c
+		ON c.card_id = uc.card_id
+		WHERE uc.user_id = '.$user_id.' AND uc.card_id = '.$card_id.' AND cs.description = "album"
+		LIMIT 1';
+	
+	$result = myqu($sql);
+	if ($usercard=$result[0]) {
+		$usercardId = $usercard['user_card_id'];
+		$scrapValue = $usercard['scrap_value'];
+		$cardName = $usercard['name'];
+		
+		myqu('UPDATE user_cards
+		   SET user_card_status =
+				  (SELECT card_status_id
+					 FROM card_statuses
+					WHERE description = "scrap")
+		 WHERE user_card_id = '.$usercardId);
+		
+		myqu('UPDATE users
+		   SET parts = parts + '.$scrapValue.'
+		 WHERE user_id = '.$user_id);
+		
+		return '<result>true</result><content>'.$cardName.' scrapped! You gained '.$scrapValue.' parts!</content>';
+	}
+	else {
+		return '<result>false</result><content>Failed to scrap car. Card not found.</content>';
 	}
 }
 
