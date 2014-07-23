@@ -47,6 +47,9 @@ if (!$validUser) {
 
 // Main logic section. This is just a big swtich that check on the request sent through, and does something accordingly.
 switch($request) {
+	case "login":
+		$retXml .= '<result>true</result><content>Log in success.</content>';
+		break;
 	case "categories":
 		$retXml .= getCategories($_GET['category_id']);
 		break;
