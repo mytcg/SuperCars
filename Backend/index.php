@@ -8,6 +8,18 @@ date_default_timezone_set('Africa/Johannesburg');
 
 $retXml = '<output>';
 
+$request = $_GET['request'];
+
+// If this is a registration request, attempt to register the user.
+if ($request=="register") {
+	$username = $_GET['username'];
+	$password = $_GET['password'];
+	
+	$retXml .= registerUser($username, $password);
+	
+	close($retXml);
+}
+
 // Check that the user is valid
 $sUsername = 'james';//$_SERVER['HTTP_AUTH_USER'];
 $sPassword = 'password';//$_SERVER['HTTP_AUTH_PW'];
@@ -34,7 +46,6 @@ if (!$validUser) {
 }
 
 // Main logic section. This is just a big swtich that check on the request sent through, and does something accordingly.
-$request = $_GET['request'];
 switch($request) {
 	case "categories":
 		$retXml .= getCategories($_GET['category_id']);

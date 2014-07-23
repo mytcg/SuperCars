@@ -50,6 +50,39 @@ function getUserCards($category, $user_id) {
 	return $categoryXml;
 }
 
+function registerUser($username, $password) {
+	// Check that the username and password are at least the minimum length.
+	if (strlen($username) < 5) {
+		return '<result>false</result><content>Username less than 5 characters.</content>';
+	}
+	else if (strlen($password) < 5) {
+		return '<result>false</result><content>Password less than 5 characters.</content>';
+	}
+	
+	// Check that the username isnt taken.
+	$sql = 'SELECT *
+		FROM users
+		WHERE username = "'.$username.'"';
+	$result = myqu($sql);
+	if ($user=$result[0]) {
+		return '<result>false</result><content>User already exists.</content>';
+	}
+	
+	// If we get this far, things are looking good. Create the user.
+	$sql = 'INSERT INTO users(username, password, date_registered)
+		VALUES ("'.$username.'", "'.$password.'", now())';
+	
+	myqu($sql);
+	
+	$sql = 'SELECT *
+		FROM users
+		WHERE username = "'.$username.'"';
+	$result = myqu($sql);
+	if ($user=$result[0]) {
+		return '<result>true</result><content>User created.</content>';
+	}
+}
+
 function close($retXml) {
 	$retXml .= '</output>';
 
