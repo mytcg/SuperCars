@@ -11,7 +11,7 @@ $retXml = '<output>';
 $request = $_GET['request'];
 
 // If this is a registration request, attempt to register the user.
-if ($request=="register") {
+if ($request==$REQUEST_REGISTER) {
 	$username = $_GET['username'];
 	$password = $_GET['password'];
 	
@@ -45,19 +45,27 @@ if (!$validUser) {
 	close($retXml);
 }
 
+// Check if it is the first time the user is logging in for the day, and if so, give them stuff!
+dailyChecks($user_id);
+// Then set their last request to now.
+updateLastRequestDate($user_id);
+
 // Main logic section. This is just a big swtich that check on the request sent through, and does something accordingly.
 switch($request) {
-	case "login":
+	case $REQUEST_LOGIN:
 		$retXml .= '<result>true</result><content>Log in success.</content>';
 		break;
-	case "categories":
+	case $REQUEST_CATEGORIES:
 		$retXml .= getCategories($_GET['category_id']);
 		break;
-	case "albumcards":
+	case $REQUEST_ALBUMCARDS:
 		$retXml .= getUserAlbumCards($_GET['category_id'], $user_id);
 		break;
-	case "scrapcard":
+	case $REQUEST_SCRAPCARD:
 		$retXml .= scrapUserCards($_GET['card_id'], $user_id);
+		break;
+	case $REQUEST_PRODUCTS:
+		$retXml .= getProducts();
 		break;
 	default:
 		$retXml .= '<result>true</result><content>No request sent.</content>';

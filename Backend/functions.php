@@ -1,5 +1,42 @@
 <?php
 
+function addCredits($user_id, $credits) {
+	// Add credits to a user's account
+	$sql = 'UPDATE users
+	   SET credits = credits + '.$credits.'
+	 WHERE user_id = '.$user_id;
+	
+	myqu($sql);
+}
+
+function dailyChecks($user_id) {
+	global $DAILY_CREDITS;
+
+	// Check that it is the next days since the user's last activity
+	$sql = 'SELECT (YEAR(now()) - YEAR(last_request)) AS yeardiff,
+		   (MONTH(now()) - MONTH(last_request)) AS monthdiff,
+		   (DAYOFYEAR(now()) - DAYOFYEAR(last_request)) AS daydiff
+	  FROM users
+	 WHERE user_id = '.$user_id;
+	
+	$results = myqu($sql);
+	if ($result=$results[0]) {
+		// Check if the year, then the month, then the day are different
+		if ($result['yeardiff'] > 0 || $result['monthdiff'] > 0 || $result['daydiff'] > 0) {
+			addCredits($user_id, $DAILY_CREDITS);
+		}
+	}
+}
+
+function updateLastRequestDate($user_id) {
+	// Update the user's last_request date to now.
+	$sql = 'UPDATE users
+	   SET last_request = now()
+	 WHERE user_id = '.$user_id;
+	
+	myqu($sql);
+}
+
 function getCategories($parent = '') {
 	$categoryXml = '<categories>';
 	
@@ -20,6 +57,24 @@ function getCategories($parent = '') {
 	return $categoryXml;
 }
 
+function getProducts() {
+	$productXml = '<products>';
+	
+	$sql = 'SELECT p.product_id, p.price, p.description
+			  FROM products p
+			  ORDER BY p.description';
+	
+	$products = myqu($sql);
+	foreach ($products as $product) {
+		$productXml .= '<product product_id="'.$product['product_id'].'" price="'.$product['price'].'" description="'.$product['description'].'">';
+		$productXml .= '</product>';
+	}
+	
+	$productXml .= '</products>';
+	
+	return $productXml;
+}
+
 function getUserAlbumCards($category, $user_id) {
 	$categoryXml = '<cards>';
 	
@@ -33,7 +88,7 @@ function getUserAlbumCards($category, $user_id) {
 					  FROM user_cards uc
 						   INNER JOIN card_statuses cs
 							  ON cs.card_status_id = uc.user_card_status
-					 WHERE uc.user_id = '.$user_id.' AND cs.description = "album"
+					 WHERE uc.user_id = '.$user_id.' AND cs.description = "'.$CARDSTATUS_ALBUM.'"
 					GROUP BY uc.card_id) uc
 					  ON uc.card_id = c.card_id
 			 WHERE c.category_id = '.$category.'
@@ -93,7 +148,7 @@ function scrapUserCards($card_id, $user_id) {
 		ON cs.card_status_id = uc.user_card_status
 		INNER JOIN cards c
 		ON c.card_id = uc.card_id
-		WHERE uc.user_id = '.$user_id.' AND uc.card_id = '.$card_id.' AND cs.description = "album"
+		WHERE uc.user_id = '.$user_id.' AND uc.card_id = '.$card_id.' AND cs.description = "'.$CARDSTATUS_ALBUM.'"
 		LIMIT 1';
 	
 	$result = myqu($sql);
@@ -106,7 +161,7 @@ function scrapUserCards($card_id, $user_id) {
 		   SET user_card_status =
 				  (SELECT card_status_id
 					 FROM card_statuses
-					WHERE description = "scrap")
+					WHERE description = "'.$CARDSTATUS_SCRAP.'")
 		 WHERE user_card_id = '.$usercardId);
 		
 		myqu('UPDATE users
