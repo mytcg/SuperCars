@@ -3,6 +3,7 @@
 include('dbconnection.php');
 include('functions.php');
 include('constants.php');
+include('productfunctions.php');
 
 date_default_timezone_set('Africa/Johannesburg');
 
@@ -66,6 +67,9 @@ switch($request) {
 		break;
 	case $REQUEST_PRODUCTS:
 		$retXml .= getProducts();
+		break;
+	case $REQUEST_PURCHASEPRODUCT:
+		$retXml .= buyProduct($user_id, $_GET['product_id']);
 		break;
 	default:
 		$retXml .= '<result>true</result><content>No request sent.</content>';
