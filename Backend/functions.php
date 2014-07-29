@@ -282,6 +282,65 @@ function scrapUserCards($card_id, $user_id) {
 	}
 }
 
+function removeCardFromDeck($deck_id, $card_id) {
+	$sql = 'DELETE FROM deck_cards
+		WHERE deck_id = '.$deck_id.' AND card_id = '.$card_id;
+	
+	myqu($sql);
+	return '<result>true</result><content>Card removed!</content>';
+}
+
+function addCardToDeck($user_id, $deck_id, $card_id) {
+	global $DECK_MAXIMUMCARDS;
+	global $CARDSTATUS_ALBUM;
+
+	// First make sure that there aren't already the maximum amount of cards in the deck
+	$sql = 'SELECT count(*) cards
+		  FROM deck_cards
+		 WHERE deck_id = '.$deck_id;
+	
+	$result = myqu($sql);
+	if ($result[0]['cards'] < $DECK_MAXIMUMCARDS) {
+		// Then check that there isn't already a copy of this card in the deck.
+		$sql = 'SELECT CASE WHEN count(*) > 0 THEN "true" ELSE "false" END has_card
+			  FROM deck_cards
+			 WHERE card_id = '.$card_id.' AND deck_id = '.$deck_id;
+	
+		$result = myqu($sql);
+		if ($result[0]['has_card'] == 'false') {
+			// Lastly, check that the user actually has a valid copy of the card.
+			$sql = 'SELECT CASE WHEN count(uc.user_card_id) > 0 THEN "true" ELSE "false" END
+					  has_card
+			  FROM user_cards uc
+				   INNER JOIN card_statuses cs ON cs.card_status_id = uc.user_card_status
+			 WHERE uc.card_id = '.$card_id.' AND uc.user_id = '.$user_id.' AND cs.description = "'.$CARDSTATUS_ALBUM.'"';
+	
+			$result = myqu($sql);
+			if ($result[0]['has_card'] == 'true') {
+				// If all the conditions have been met, add the card to the deck.
+				$sql = 'INSERT INTO deck_cards(deck_id, card_id)
+						VALUES ('.$deck_id.', '.$card_id.')';
+				
+				myqu($sql);
+				
+				return '<result>true</result><content>Card added!</content>';
+			}
+			else {
+				return '<result>false</result><content>You don\'t have that card!</content>';
+			}
+		}
+		else {
+			return '<result>false</result><content>That card is already in the deck!</content>';
+		}
+	}
+	else {
+		return '<result>false</result><content>The deck is full!</content>';
+	}
+}
+
+function removeCardToDeck($user_id, $deck_id, $card_id) {
+}
+
 function close($retXml) {
 	$retXml .= '</output>';
 

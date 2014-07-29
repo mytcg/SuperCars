@@ -80,6 +80,12 @@ switch($request) {
 	case $REQUEST_GETUSERCARDSNOTINDECK:
 		$retXml .= getUserCardsNotInDeck($user_id, $_GET['deck_id']);
 		break;
+	case $REQUEST_ADDCARDTODECK:
+		$retXml .= addCardToDeck($user_id, $_GET['deck_id'], $_GET['card_id']);
+		break;
+	case $REQUEST_REMOVECARDFROMDECK:
+		$retXml .= removeCardFromDeck($_GET['deck_id'], $_GET['card_id']);
+		break;
 	default:
 		$retXml .= '<result>true</result><content>No request sent.</content>';
 }
