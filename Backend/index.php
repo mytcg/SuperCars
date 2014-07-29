@@ -71,6 +71,15 @@ switch($request) {
 	case $REQUEST_PURCHASEPRODUCT:
 		$retXml .= buyProduct($user_id, $_GET['product_id']);
 		break;
+	case $REQUEST_GETDECKS:
+		$retXml .= getDecks($user_id);
+		break;
+	case $REQUEST_GETDECKCARDS:
+		$retXml .= getDeckCards($_GET['deck_id']);
+		break;
+	case $REQUEST_GETUSERCARDSNOTINDECK:
+		$retXml .= getUserCardsNotInDeck($user_id, $_GET['deck_id']);
+		break;
 	default:
 		$retXml .= '<result>true</result><content>No request sent.</content>';
 }

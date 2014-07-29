@@ -8,6 +8,9 @@ $REQUEST_ALBUMCARDS = "albumcards";
 $REQUEST_SCRAPCARD = "scrapcard";
 $REQUEST_PRODUCTS = "products";
 $REQUEST_PURCHASEPRODUCT = "purchaseproduct";
+$REQUEST_GETDECKS = "getdecks";
+$REQUEST_GETDECKCARDS = "getdeckcards";
+$REQUEST_GETUSERCARDSNOTINDECK = "getusercardsnotindeck";
 
 // Card statuses
 $CARDSTATUS_ALBUM = "album";

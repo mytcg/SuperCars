@@ -83,6 +83,28 @@ function updateLastRequestDate($user_id) {
 	myqu($sql);
 }
 
+function getDecks($user_id) {
+	$deckXml = '<decks>';
+	
+	$sql = 'SELECT d.deck_id, d.description, ifnull(dc.cards_in_deck, 0) cards_in_deck
+		  FROM decks d
+			   LEFT OUTER JOIN (SELECT count(card_id) cards_in_deck, deck_id
+								  FROM deck_cards
+								GROUP BY deck_id) dc
+				  ON dc.deck_id = d.deck_id
+		 WHERE d.user_id = '.$user_id;
+	
+	$decks = myqu($sql);
+	foreach ($decks as $deck) {
+		$deckXml .= '<deck deck_id="'.$deck['deck_id'].'" description="'.$deck['description'].'" cards_in_deck="'.$deck['cards_in_deck'].'">';
+		$deckXml .= '</deck>';
+	}
+	
+	$deckXml .= '</decks>';
+	
+	return $deckXml;
+}
+
 function getCategories($parent = '') {
 	$categoryXml = '<categories>';
 	
@@ -121,8 +143,47 @@ function getProducts() {
 	return $productXml;
 }
 
-function getUserAlbumCards($category, $user_id) {
+function getDeckCards($deck_id) {
 	$categoryXml = '<cards>';
+	
+	$sql = 'SELECT c.card_id, c.name
+		  FROM deck_cards dc INNER JOIN cards c ON c.card_id = dc.card_id
+		 WHERE dc.deck_id = '.$deck_id;
+	
+	$cards = myqu($sql);
+	foreach ($cards as $card) {
+		$categoryXml .= '<card card_id="'.$card['card_id'].'" name="'.$card['name'].'">';
+		$categoryXml .= '</card>';
+	}
+	
+	$categoryXml .= '</cards>';
+	
+	return $categoryXml;
+}
+
+function getUserCardsNotInDeck($user_id, $deck_id) {
+	$cardXml = '<cards>';
+	
+	$sql = 'SELECT DISTINCT c.card_id, c.name
+		  FROM cards c INNER JOIN user_cards uc ON c.card_id = uc.card_id
+		 WHERE uc.user_id = '.$user_id.'
+			   AND c.card_id NOT IN (SELECT card_id
+									   FROM deck_cards
+									  WHERE deck_id = '.$deck_id.')';
+	
+	$cards = myqu($sql);
+	foreach ($cards as $card) {
+		$cardXml .= '<card card_id="'.$card['card_id'].'" name="'.$card['name'].'">';
+		$cardXml .= '</card>';
+	}
+	
+	$cardXml .= '</cards>';
+	
+	return $cardXml;
+}
+
+function getUserAlbumCards($category, $user_id) {
+	$cardXml = '<cards>';
 	
 	$sql = 'SELECT c.card_id,
 				   c.name,
@@ -142,13 +203,13 @@ function getUserAlbumCards($category, $user_id) {
 	
 	$cards = myqu($sql);
 	foreach ($cards as $card) {
-		$categoryXml .= '<card card_id="'.$card['category_id'].'" name="'.$card['name'].'" description="'.$card['description'].'" owned="'.$card['owned'].'">';
-		$categoryXml .= '</card>';
+		$cardXml .= '<card card_id="'.$card['card_id'].'" name="'.$card['name'].'" description="'.$card['description'].'" owned="'.$card['owned'].'">';
+		$cardXml .= '</card>';
 	}
 	
-	$categoryXml .= '</cards>';
+	$cardXml .= '</cards>';
 	
-	return $categoryXml;
+	return $cardXml;
 }
 
 function registerUser($username, $password) {
