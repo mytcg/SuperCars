@@ -84,6 +84,7 @@ function updateLastRequestDate($user_id) {
 }
 
 function getDecks($user_id) {
+	global $DECK_MAXIMUMCARDS;
 	$deckXml = '<decks>';
 	
 	$sql = 'SELECT d.deck_id, d.description, ifnull(dc.cards_in_deck, 0) cards_in_deck
@@ -96,7 +97,9 @@ function getDecks($user_id) {
 	
 	$decks = myqu($sql);
 	foreach ($decks as $deck) {
-		$deckXml .= '<deck deck_id="'.$deck['deck_id'].'" description="'.$deck['description'].'" cards_in_deck="'.$deck['cards_in_deck'].'">';
+		$cardsInDeck =  $deck['cards_in_deck'];
+		
+		$deckXml .= '<deck deck_id="'.$deck['deck_id'].'" description="'.$deck['description'].'" cards_in_deck="'.$cardsInDeck.'" playable="'.($cardsInDeck == $DECK_MAXIMUMCARDS ? 'true' : 'false').'">';
 		$deckXml .= '</deck>';
 	}
 	

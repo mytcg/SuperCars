@@ -29,6 +29,10 @@ $MAXIMUM_PROBABILITY = 100;
 $MINIMUM_PROBABILITY = 0;
 
 // Deck constants
-$DECK_MAXIMUMCARDS = 10;
+$DECK_MAXIMUMCARDS = 4;
+
+// Stat type constants
+$STATTYPE_TOPSPEED = "Top Speed";
+$STATTYPE_ACCELERATION = "Acceleration";
 
 ?>
