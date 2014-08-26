@@ -35,4 +35,9 @@ $DECK_MAXIMUMCARDS = 4;
 $STATTYPE_TOPSPEED = "Top Speed";
 $STATTYPE_ACCELERATION = "Acceleration";
 
+// Game status constants
+$GAMESTATUS_LFM = "lfm";
+$GAMESTATUS_INPROGRESS = "inprogress";
+$GAMESTATUS_COMPLETE = "complete";
+
 ?>
