@@ -14,6 +14,9 @@ $REQUEST_GETUSERCARDSNOTINDECK = "getusercardsnotindeck";
 $REQUEST_ADDCARDTODECK = "addcardtodeck";
 $REQUEST_REMOVECARDFROMDECK = "removecardfromdeck";
 
+// Game requests
+$GAMEREQUEST_NEWGAME = "newgame";
+
 // Card statuses
 $CARDSTATUS_ALBUM = "album";
 $CARDSTATUS_SCRAP = "scrap";
