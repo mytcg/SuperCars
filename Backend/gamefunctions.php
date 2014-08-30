@@ -169,6 +169,24 @@ function addGamePlayerCards($game_id, $game_player_id, $deck_id) {
 	}
 }
 
+function selectStat($game_id, $user_id, $stat_id) {
+	// Check that the right user is making the move
+	
+	// If the incorrect user made the move, send response saying so
+	
+	// Select to cards and their values for the stat
+	
+	// If we get results, process them, otherwise return invalid stat selection
+	
+		// Check which stat is the winner and update game cards accordingly
+		
+		// Add an entry to game moves
+		
+		// Return current game state xml
+	
+	// Return invalid stat selection
+}
+
 function getGameXML($user_id, $game_id) {
 	return '<result>false</result><content>GAME XML.</content>';
 }
