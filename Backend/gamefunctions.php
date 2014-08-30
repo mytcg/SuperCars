@@ -155,7 +155,7 @@ function addGamePlayerCards($game_id, $game_player_id, $deck_id) {
 		$randomCardIndex = rand(0, (count($cards) - 1));
 		$randomCard = $cards[$randomCardIndex];
 		
-		$sql = 'insert into game_cards (game_player_id, card_id, game_id, index) 
+		$sql = 'insert into game_cards (game_player_id, card_id, game_id, `index`) 
 			values ('.$game_player_id.', '.$randomCard['card_id'].', '.$game_id.', '.$index.')';
 		
 		myqu($sql);
