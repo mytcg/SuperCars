@@ -23,8 +23,8 @@ if ($request==$REQUEST_REGISTER) {
 }
 
 // Check that the user is valid
-$sUsername = 'james';//$_SERVER['HTTP_AUTH_USER'];
-$sPassword = 'password';//$_SERVER['HTTP_AUTH_PW'];
+$sUsername = $_GET['PHP_AUTH_USER'];
+$sPassword = $_GET['PHP_AUTH_PW'];
 $user_id = '';
 
 $userDetails = myqu('SELECT * FROM users WHERE username = "'.$sUsername.'"');
@@ -39,7 +39,7 @@ if ($user=$userDetails[0]) {
 	}
 }
 else {
-	$retXml .= '<result>false</result><content>User not found.</content>';
+	$retXml .= ('<result>false</result><content>User not found.</content><random>'.$sUsername.' '.$sPassword.'</random>');
 	$validUser = false;
 }
 
@@ -59,28 +59,28 @@ switch($request) {
 		$retXml .= '<result>true</result><content>Log in success.</content>';
 		break;
 	case $REQUEST_CATEGORIES:
-		$retXml .= getCategories($_GET['category_id']);
+		$retXml .= padReturnString(getCategories($_GET['category_id']));
 		break;
 	case $REQUEST_ALBUMCARDS:
-		$retXml .= getUserAlbumCards($_GET['category_id'], $user_id);
+		$retXml .= padReturnString(getUserAlbumCards($_GET['category_id'], $user_id));
 		break;
 	case $REQUEST_SCRAPCARD:
 		$retXml .= scrapUserCards($_GET['card_id'], $user_id);
 		break;
 	case $REQUEST_PRODUCTS:
-		$retXml .= getProducts();
+		$retXml .= padReturnString(getProducts());
 		break;
 	case $REQUEST_PURCHASEPRODUCT:
 		$retXml .= buyProduct($user_id, $_GET['product_id']);
 		break;
 	case $REQUEST_GETDECKS:
-		$retXml .= getDecks($user_id);
+		$retXml .= padReturnString(getDecks($user_id));
 		break;
 	case $REQUEST_GETDECKCARDS:
-		$retXml .= getDeckCards($_GET['deck_id']);
+		$retXml .= padReturnString(getDeckCards($_GET['deck_id']));
 		break;
 	case $REQUEST_GETUSERCARDSNOTINDECK:
-		$retXml .= getUserCardsNotInDeck($user_id, $_GET['deck_id']);
+		$retXml .= padReturnString(getUserCardsNotInDeck($user_id, $_GET['deck_id']));
 		break;
 	case $REQUEST_ADDCARDTODECK:
 		$retXml .= addCardToDeck($user_id, $_GET['deck_id'], $_GET['card_id']);

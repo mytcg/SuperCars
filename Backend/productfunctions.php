@@ -1,5 +1,69 @@
 <?php
 
+function getProducts() {
+	$productXml = '<products>';
+	
+	$sql = 'SELECT p.product_id, p.price, p.description
+			  FROM products p
+			  ORDER BY p.description';
+	
+	$products = myqu($sql);
+	foreach ($products as $product) {
+		$productXml .= '<product product_id="'.$product['product_id'].'" price="'.$product['price'].'" description="'.$product['description'].'">';
+		$productXml .= '</product>';
+	}
+	
+	$productXml .= '</products>';
+	
+	return $productXml;
+}
+
+function buyProduct($user_id, $product_id) {
+	// Check that we got a legitimate product id.
+	$sql = 'SELECT p.description,
+		   pt.description product_type,
+		   p.price,
+		   p.pack_size
+	  FROM products p
+		   INNER JOIN product_types pt ON pt.product_type_id = p.product_type_id
+	 WHERE product_id = '.$product_id;
+	$result = myqu($sql);
+	if ($product_data=$result[0]) {
+		// select the user data, to make sure that they have enough credits
+		$sql = 'SELECT credits
+		  FROM users
+		 WHERE user_id = '.$user_id;
+		$result = myqu($sql);
+		if ($user_credits=$result[0]) {
+			if ($user_credits['credits'] >= $product_data['price']) {
+				// Declare the product type constants
+				global $PRODUCTTYPES_BOOSTER;
+			
+				// If the user has enough credits, and the product is valid, deduct their credits and give the the product.
+				$sql = 'UPDATE users
+				   SET credits = credits - '.$product_data['price'].'
+				 WHERE user_id = 1';
+				myqu($sql);
+				// Then go through the product types, to make sure that the user gets their cards correctly.
+				switch ($product_data['product_type']) {
+					case $PRODUCTTYPES_BOOSTER:
+						return buyBooster($user_id, $product_id);
+						break;
+				}
+			}
+			else {
+				return '<result>false</result><content>You do not have enough credits to buy that.</content>';
+			}
+		}
+		else {
+			return '<result>false</result><content>Invalid user details.</content>';
+		}
+	}
+	else {
+		return '<result>false</result><content>Invalid product.</content>';
+	}
+}
+
 function buyBooster($user_id, $product_id) {
 	global $MAXIMUM_PROBABILITY;
 	global $MINIMUM_PROBABILITY;
