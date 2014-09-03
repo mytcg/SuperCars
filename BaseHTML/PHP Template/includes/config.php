@@ -12,7 +12,7 @@ $db_name = 'tables';
 
 /*=========== Website Configuration ==========*/
 
-$defaultTitle = 'Mobile Computer Store';
+$defaultTitle = 'Super Cars';
 $defaultFooter = date('Y').' &copy; Computer Store';
 
 ?>

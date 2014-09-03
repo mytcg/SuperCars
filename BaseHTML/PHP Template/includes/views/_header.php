@@ -15,8 +15,12 @@
 <div data-role="page">
 
 	<div data-role="header" data-theme="b">
-	    <a href="./" data-icon="home" data-iconpos="notext" data-transition="fade">Home</a>
+	    <!-- <a href="./" data-icon="home" data-iconpos="notext" data-transition="fade">Home</a> -->
 		<h1><?php echo $title?></h1>
+		<a href="#mypanel" data-icon="bars" data-iconpos="notext">Menu</a>
 	</div>
-
+	
+	<div data-role="panel" id="mypanel">
+    <!-- panel content goes here -->
+	</div><!-- /panel -->
 	<div data-role="content">
