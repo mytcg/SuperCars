@@ -43,4 +43,7 @@ $GAMESTATUS_LFM = "lfm";
 $GAMESTATUS_INPROGRESS = "inprogress";
 $GAMESTATUS_COMPLETE = "complete";
 
+// Voucher constants
+$VOUCHER_PERPLAYER = "per player";
+$VOUCHER_ONCEOFF = "once off";
 ?>
