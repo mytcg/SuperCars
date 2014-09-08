@@ -7,11 +7,23 @@ input:focus {background:#bcbec0 !important;}
 button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#fff; text-transform:uppercase; padding:10px 12px;}
 .glyphicon {color:#bcbec0;}
 
+.caps {text-transform:uppercase;}
+.font-orange {color:#f26b28;}
+.font-green {color:#20e58b;}
+.font-purple {color:#8069ad;}
+.font-red {color:#e8463b;}
+
 button.highlighted {background:#f26b28;}
 .logo-wrapper {margin:10% auto; width:70%;}
 
 .login-form {}
 
 .login-form .login-forgot {text-align:right;}
-.login-form .login-forgot span a{font-style:italic; text-decoration:none; color:#f26b28;}
+.login-form .login-forgot span a{font-style:italic; text-decoration:none;}
 .login-form .login-buttons {text-align:center;}
+
+.dashboard-progress {text-align:center; padding:10% 0 0;}
+input.knob {background:transparent !important; color:#797d80 !important; margin-top:7% !important;}
+.dashboard-user-dets {color:#fff; text-align:center; margin-top:5%;}
+.dashboard-user-dets span{font-weight:bold;}
+.dashboard-user-creds {color:#fff; text-align:center; margin-top:5%;}
