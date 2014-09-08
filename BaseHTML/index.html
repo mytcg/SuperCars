@@ -9,7 +9,7 @@
 <body>
   <div data-role="page">
 
-    <div data-role="panel" id="panel" data-swipe-close="true" data-position="right" data-display="overlay">
+	<div data-role="panel" id="panel" data-swipe-close="true" data-position="right" data-display="overlay">
 		<ul data-role="listview">
 			<li><img src="elements/supercars_logo.jpg" alt="supercars logo" /></li>
 			<li><a href="#" data-icon="dash">Dashboard</a></li>
@@ -19,11 +19,11 @@
 		    <li><a href="#" data-icon="leader">Leaderboard</a></li>
 		    <li><a href="#" data-icon="credits">Credits</a></li>
 		    <li><a href="#" data-icon="profile">Profile</a></li>
-	  </ul>
+		</ul>
     </div>
 
     <div data-role="header">
-      <img src="elements/topcar_logo.jpg" alt="supercars logo" />
+	  <img src="elements/topcar_logo.jpg" alt="supercars logo" />
       <h1>A</h1>
       <a data-iconpos="notext" class="ui-btn-right" href="#panel" data-role="button" data-icon="bars"></a>
     </div>
@@ -50,5 +50,15 @@
     	</div>
 	</div>
   <div id="highlight"> </div>
+	<div data-role="footer" data-position="fixed" data-fullscreen="true">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#" data-icon="search" class="ui-btn-active ui-state-persist">Search</a></li>
+				<li><a href="#" data-icon="search" class="ui-btn-active ui-state-persist">Search</a></li>
+				<li><a href="#" data-icon="search" class="ui-btn-active ui-state-persist">Search</a></li>
+				<li><a href="#" id="favorites"  data-icon="custom">Favorites</a></li>
+			</ul>
+		</div><!-- /navbar -->
+	</div>
 </body>
 </html>
