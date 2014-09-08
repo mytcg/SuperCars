@@ -1,64 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<link rel="stylesheet" type="text/css" href="css/jquery.mobile.flatui.css" />
-	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+        <link rel="stylesheet" type="text/css" href="css/normalize.css" media="screen" />
+        <link type="text/css" rel="stylesheet" href="css/style.css" media="screen" />
+
+        <script src="js/jquery-latest.min.js"></script>
+        <script src="jqueryui/1.10.4/jquery-ui.min.js"></script>
+        <script src="js/bootstrap/3.2.0/bootstrap.min.js"></script>
+        <script src="js/functions.js"></script>
 </head>
 <body>
-  <div data-role="page">
-
-	<div data-role="panel" id="panel" data-swipe-close="true" data-position="right" data-display="overlay">
-		<ul data-role="listview">
-			<li><img src="elements/supercars_logo.jpg" alt="supercars logo" /></li>
-			<li><a href="#" data-icon="dash">Dashboard</a></li>
-		    <li><a href="#" data-icon="album">Album</a></li>
-		    <li><a href="#" data-icon="shop">Shop</a></li>
-		    <li><a href="#" data-icon="game">Game</a></li>
-		    <li><a href="#" data-icon="leader">Leaderboard</a></li>
-		    <li><a href="#" data-icon="credits">Credits</a></li>
-		    <li><a href="#" data-icon="profile">Profile</a></li>
-		</ul>
+    <section id="body_template">
+        <div class="container">
+            Tester
+        </div>
+    </section>
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="modal-content">
+                ...
+            </div>
+        </div>
     </div>
-
-    <div data-role="header">
-	  <img src="elements/topcar_logo.jpg" alt="supercars logo" />
-      <h1>A</h1>
-      <a data-iconpos="notext" class="ui-btn-right" href="#panel" data-role="button" data-icon="bars"></a>
-    </div>
-
-    <div data-role="content" role="main">
-    	<div>
-    		<ul data-role="listview">
-	    		<li></li>
-	    		<li></li>
-	    		<li></li>
-	    		<li></li>
-	    		<li></li>
-	    		<li></li>
-	    		<li></li>
-	    		<li></li>
-	    		<li></li>
-	    		<li></li>
-	    		<li></li>
-	    		<li></li>
-	    		<li></li>
-	    		<li></li>
-	    		<li></li>
-	    	</ul>
-    	</div>
-	</div>
-  <div id="highlight"> </div>
-	<div data-role="footer" data-position="fixed" data-fullscreen="true">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#" data-icon="search" class="ui-btn-active ui-state-persist">Search</a></li>
-				<li><a href="#" data-icon="search" class="ui-btn-active ui-state-persist">Search</a></li>
-				<li><a href="#" data-icon="search" class="ui-btn-active ui-state-persist">Search</a></li>
-				<li><a href="#" id="favorites"  data-icon="custom">Favorites</a></li>
-			</ul>
-		</div><!-- /navbar -->
-	</div>
 </body>
 </html>
