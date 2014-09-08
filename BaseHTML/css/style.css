@@ -1,5 +1,17 @@
-body {background:#383e44;}
+body {background:#3A3F45;}
 img {width:100%;}
 
-.login-forgot {align:right; font-style:italic;}
-.login-forgot a{text-decoration:none; color:#f26b28;}
+input {box-shadow:none !important; color:#4c5156 !important; background:#8f9295 !important; border:0 !important; border-radius:0 !important; }
+input:focus {background:#bcbec0 !important;}
+.input-group-addon {background:#3d4751; border:0; border-radius:0;}
+button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#fff; text-transform:uppercase; padding:10px 12px;}
+.glyphicon {color:#bcbec0;}
+
+button.highlighted {background:#f26b28;}
+.logo-wrapper {margin:10% auto; width:70%;}
+
+.login-form {}
+
+.login-form .login-forgot {text-align:right;}
+.login-form .login-forgot span a{font-style:italic; text-decoration:none; color:#f26b28;}
+.login-form .login-buttons {text-align:center;}
