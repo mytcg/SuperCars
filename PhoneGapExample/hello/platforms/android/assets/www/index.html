@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta name="viewport" content="width=320; user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Auth Demo</title>
+</head>
+
+<body onload="init()">
+    
+<div id="loginPage" data-role="page">
+
+    <div data-role="header">
+        <h1>Auth Demo</h1>
+    </div>
+
+    <div data-role="content">
+
+        <form id="loginForm">
+			<div data-role="fieldcontain" class="ui-hide-label">
+				<label for="username">Username:</label>
+				<input type="text" name="username" id="username" value="" placeholder="Username" />
+			</div>
+
+			<div data-role="fieldcontain" class="ui-hide-label">
+				<label for="password">Password:</label>
+				<input type="password" name="password" id="password" value="" placeholder="Password" />
+			</div>
+
+			<input type="button" value="Login" id="submitButton" onclick="login()">
+			
+			<input type="button" value="Weather" id="locButton" onclick="getWeatherReady()">
+        </form>
+        
+    </div>
+
+</div>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/XMLParser.js"></script>
+<script type="text/javascript">
+	app.initialize();
+	
+	document.addEventListener("deviceready", onDeviceReady, false);
+	
+	var xmlDoc;
+	
+	function getWeatherReady() {
+		document.addEventListener("deviceready", callTopcar, false);
+	}
+	
+    function onDeviceReady() {
+		document.addEventListener("backbutton", function (e) {
+			e.preventDefault();
+		}, false );
+	}
+	
+	function login() {
+		window.localStorage.setItem("username", document.getElementById('username').value);
+		window.localStorage.setItem("password", document.getElementById('password').value);
+	}
+	
+	function callTopcar() {
+		var request = new XMLHttpRequest();
+		var authString = "&PHP_AUTH_USER="+document.getElementById('username').value+"&PHP_AUTH_PW="+document.getElementById('password').value;
+		
+		request.open("GET", "http://topcarcards.co.za/?request=login"+authString, true);
+		//request.setRequestHeader("PHP_AUTH_USER", document.getElementById('username').value);
+		//request.setRequestHeader("PHP_AUTH_PW", document.getElementById('password').value);
+		request.onreadystatechange = function() {//Call a function when the state changes.
+			if (request.readyState == 4) {
+				if (request.status == 200 || request.status == 0) {
+					alert(request.responseText);
+					
+					xmlDoc = loadXMLString(request.responseText);
+					
+					//alert("length: "+xmlDoc.documentElement.childNodes.length);
+					var users = xmlDoc.documentElement.childNodes;
+					
+					for (var i = 0; i < users.length; i++) {
+						//alert(users[i].childNodes.length/*.attributes.getNamedItem("username").nodeValue*/);
+						var nodeString = "";;
+						for (var j = 0; j < users[i].childNodes.length; j++) {
+							nodeString += users[i].childNodes[j].nodeName + " " + users[i].childNodes[j].childNodes[0].nodeValue + "\n";
+						}
+						alert(nodeString);
+					}
+					
+					alert("XML Root Tag Name: " + xmlDoc.documentElement.childNodes[0].firstChild.tagName);
+				}
+			}
+		}
+		request.send();
+	}
+</script>
+</body>
+</html>

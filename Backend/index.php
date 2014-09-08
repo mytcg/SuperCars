@@ -5,6 +5,7 @@ include('functions.php');
 include('constants.php');
 include('productfunctions.php');
 include('gamefunctions.php');
+include('voucherfunctions.php');
 
 date_default_timezone_set('Africa/Johannesburg');
 
