@@ -18,7 +18,7 @@
         <script src="js/functions.js"></script>
 </head>
 <body>
-    <div class="row-fluid">
+<!--    <div class="row-fluid">
         <div class="well well-lg">
             <ul class="nav nav-pills nav-justified">
               <li class="active">
@@ -49,22 +49,30 @@
               </li>
             </ul>
         </div>
-    </div>
+    </div>-->
+
     <section id="body_template">
         <div class="container">
 
-            <div class="row-fluid">
+            <div class="row-fluid logo-wrapper">
+                <img src="elements/login_logo.jpg" />
+            </div>
 
+            <br /><br /><br />
+
+            <div class="row-fluid">
                 <form action="/" method="POST" id="login-form" class="login-form">
 
                     <div class="input-group">
-                      <span class="glyphicon glyphicon-user"></span>
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                       <input type="text" class="form-control" placeholder="Type Username">
                     </div>
+                    <br />
                     <div class="input-group">
-                      <span class="glyphicon glyphicon-lock"></span>
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                       <input type="text" class="form-control" placeholder="Password">
                     </div>
+                    <span class="login-forgot">Forgot Password?</span>
                 </form>
             </div>
 
