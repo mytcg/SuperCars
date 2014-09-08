@@ -14,6 +14,38 @@
         <script src="js/functions.js"></script>
 </head>
 <body>
+    <div class="row-fluid">
+        <div class="well well-lg">
+            <ul class="nav nav-pills nav-justified">
+              <li class="active">
+                  <a href="<?=SITE_URL?>/">
+                      <span class="glyphicon glyphicon-home"></span>
+                      &nbsp;Home
+                  </a>
+              </li>
+              <li class="active">
+                  <a href="/trips">
+                      Trips Dashboard
+                  </a>
+              </li>
+              <li class="disabled">
+                  <a href="/users">
+                      System Users
+                      &nbsp;<span class="badge">55</span>
+                  </a>
+              </li>
+              <?php
+              }
+              ?>
+              <li class="">
+                  <a href="<?=SITE_URL?>/login?action=logout">
+                      <span class="glyphicon glyphicon-off"></span>
+                      &nbsp;Logout
+                  </a>
+              </li>
+            </ul>
+        </div>
+    </div>
     <section id="body_template">
         <div class="container">
             Tester
