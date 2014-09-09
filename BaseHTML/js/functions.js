@@ -93,18 +93,54 @@ function getuserAlbums (userid, cat) {
         data : '',
         success: function(data) {
 
+                eval('var cars='+data);
+                
+                for(var i=0; i<cars.length; i++) {
 
-                var result = xmlToArray(data);
-                if (result['RESULT']=='true') {
+                    $('#body_template').append('<div class="row-fluid grid"><span class="glyphicon glyphicon-thumbs-up"></span>'+cars[i]['name']+'</div>');
 
-                    var arr = result['CONTENT']['CARDS'];
-//                    alert(arr['CARD']['CARD_ID']);
-//                    alert(arr.length);
-//                    alert(result['CONTENT']['CARDS']['CARD']['CARD_ID']);
-                    $.each(arr, function( index, value ) {
-                                alert(value['CARD_ID']);
-                                alert( index + ": " + value );
-                                });
+                }
+        }
+    });
+}
+
+function getproducts () {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=products',
+        data : '',
+        success: function(data) {
+
+                eval('var cars='+data);
+
+                for(var i=0; i<cars.length; i++) {
+
+                    $('#body_template').append('<div class="row-fluid grid"><span class="glyphicon glyphicon-thumbs-up"></span>'+cars[i]['name']+'</div>');
+
+                }
+        }
+    });
+}
+
+function getdecks (user_id) {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=getdecks&user_id=1',
+        data : '',
+        success: function(data) {
+
+                eval('var decks='+data);
+
+                for(var i=0; i<decks.length; i++) {
+
+                    $('#body_template').append('<div class="row-fluid grid"><span class="glyphicon glyphicon-thumbs-up">'+
+                            '<img src="" /></span>'+decks[i]['description']+'</div>'
+                        );
+
                 }
         }
     });
