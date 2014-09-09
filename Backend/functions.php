@@ -187,6 +187,25 @@ function registerUser($username, $password) {
 	}
 }
 
+function getUser($user_id) {
+	if (strlen($user_id) < 1) {
+		return '<result>false</result><content>Invalid User.</content>';
+	}
+
+	// Check that the username isnt taken.
+	$sql = 'SELECT *
+		FROM users
+		WHERE user_id = "'.$user_id.'"';
+	$user = myqu($sql);
+	if (!$user[0]) {
+		return '<result>false</result><content>Invalid User.</content>';
+	} else {
+
+            $userXml .= '<user><user_id>'.$user[0]['user_id'].'</user_id><username>'.$user[0]['username'].'</username><credits>'.$user[0]['credits'].'</credits><parts>'.$user[0]['parts'].'</parts></user>';
+        }
+        return $userXml;
+}
+
 function scrapUserCards($card_id, $user_id) {
 	$sql = 'SELECT uc.user_card_id, c.scrap_value, c.name
 		FROM user_cards uc

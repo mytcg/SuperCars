@@ -7,12 +7,25 @@ input:focus {background:#bcbec0 !important;}
 button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#fff; text-transform:uppercase; padding:10px 12px;}
 .glyphicon {color:#bcbec0;}
 
+.caps {text-transform:uppercase;}
+.font-orange {color:#f26b28;}
+.font-green {color:#20e58b;}
+.font-purple {color:#8069ad;}
+.font-red {color:#e8463b;}
+.font-blue {color:#2c95f4;}
+
+.grid {padding:3% 4%; color:#fff; font-size:2em; border-bottom:1px solid #1a1f23;}
+.grid:hover {background:#1f262c;}
+.grid span{padding-right:2%;}
+.grid:hover span{color:#2c95f4;}
+
 button.highlighted {background:#f26b28;}
 .logo-wrapper {margin:10% auto; width:70%;}
 
 .login-form {}
 
 .login-form .login-forgot {text-align:right;}
+<<<<<<< HEAD
 .login-form .login-forgot span a{font-style:italic; text-decoration:none; color:#f26b28;}
 .login-form .login-buttons {text-align:center;}
 
@@ -23,3 +36,14 @@ button.highlighted {background:#f26b28;}
     padding-right: 15px;
   }
 }
+=======
+.login-form .login-forgot span a{font-style:italic; text-decoration:none;}
+.login-form .login-buttons {text-align:center;}
+
+.dashboard-progress {text-align:center; padding:10% 0 0;}
+input.knob {color:#797d80 !important; margin-top:7% !important;
+        background: url('../elements/dashboard_cards.png') transparent no-repeat 0% 125% / 100% !important;}
+.dashboard-user-dets {color:#fff; text-align:center; margin-top:5%;}
+.dashboard-user-dets span{font-weight:bold;}
+.dashboard-user-creds {color:#fff; text-align:center; margin-top:5%;}
+>>>>>>> origin/master
