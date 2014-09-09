@@ -1,21 +1,23 @@
 <?php
 
 function getProducts() {
-	$productXml = '<products>';
 	
 	$sql = 'SELECT p.product_id, p.price, p.description
 			  FROM products p
 			  ORDER BY p.description';
 	
 	$products = myqu($sql);
+	
+	$productArr = array();
 	foreach ($products as $product) {
-		$productXml .= '<product product_id="'.$product['product_id'].'" price="'.$product['price'].'" description="'.$product['description'].'">';
-		$productXml .= '</product>';
+		$productArr[] = array(
+			'product_id'    =>  $product['product_id']
+			,'price'        =>  $product['price']
+			,'description'  =>  $product['description']
+		);
 	}
 	
-	$productXml .= '</products>';
-	
-	return $productXml;
+	return $productArr;
 }
 
 function buyProduct($user_id, $product_id) {

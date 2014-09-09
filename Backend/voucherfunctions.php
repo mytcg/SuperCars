@@ -1,6 +1,9 @@
 <?php
 
 function redeemVoucher($user_id, $redeem_code) {
+	global $VOUCHER_PERPLAYER;
+	global $VOUCHER_ONCEOFF;
+
 	// select the user data, to make sure that they have enough credits
 	$sql = 'SELECT user_id
 	  FROM users

@@ -36,7 +36,7 @@ if ($user=$userDetails[0] OR $_GET['user_id']) {
 		$validUser = false;
 	}
 	else {
-		$user_id = $user['user_id'] = $_GET['user_id'];
+		$user_id = $user['user_id'];
 	}
 }
 else {
@@ -60,25 +60,31 @@ switch($request) {
 		$retXml .= '<result>true</result><content>Log in success.</content>';
 		break;
 	case $REQUEST_USER:
-                $retXml .= padReturnString(getUser($_GET['user_id']));
+		$retXml .= padReturnString(getUser($_GET['user_id']));
 		break;
 	case $REQUEST_CATEGORIES:
 		$retXml .= padReturnString(getCategories($_GET['category_id']));
 		break;
 	case $REQUEST_ALBUMCARDS:
-		$retXml .= padReturnString(getUserAlbumCards($_GET['category_id'], $user_id));
+		$cards  = getUserAlbumCards($_GET['category_id'], $user_id);
+		print json_encode($cards);
+		exit;
 		break;
 	case $REQUEST_SCRAPCARD:
 		$retXml .= scrapUserCards($_GET['card_id'], $user_id);
 		break;
 	case $REQUEST_PRODUCTS:
-		$retXml .= padReturnString(getProducts());
+		$products = getProducts();
+		print json_encode($products);
+		exit;
 		break;
 	case $REQUEST_PURCHASEPRODUCT:
 		$retXml .= buyProduct($user_id, $_GET['product_id']);
 		break;
 	case $REQUEST_GETDECKS:
-		$retXml .= padReturnString(getDecks($user_id));
+		$decks = getDecks($user_id);
+		print json_encode($decks);
+		exit;
 		break;
 	case $REQUEST_GETDECKCARDS:
 		$retXml .= padReturnString(getDeckCards($_GET['deck_id']));

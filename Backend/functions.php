@@ -39,8 +39,7 @@ function updateLastRequestDate($user_id) {
 
 function getDecks($user_id) {
 	global $DECK_MAXIMUMCARDS;
-	$deckXml = '<decks>';
-	
+
 	$sql = 'SELECT d.deck_id, d.description, ifnull(dc.cards_in_deck, 0) cards_in_deck
 		  FROM decks d
 			   LEFT OUTER JOIN (SELECT count(card_id) cards_in_deck, deck_id
@@ -50,16 +49,20 @@ function getDecks($user_id) {
 		 WHERE d.user_id = '.$user_id;
 	
 	$decks = myqu($sql);
+	
+	$deckArr = array();
 	foreach ($decks as $deck) {
 		$cardsInDeck =  $deck['cards_in_deck'];
 		
-		$deckXml .= '<deck deck_id="'.$deck['deck_id'].'" description="'.$deck['description'].'" cards_in_deck="'.$cardsInDeck.'" playable="'.($cardsInDeck == $DECK_MAXIMUMCARDS ? 'true' : 'false').'">';
-		$deckXml .= '</deck>';
+		$deckArr[]    =   array(
+			'deck_id'       =>  $deck['deck_id']
+			,'description'  =>  $deck['description']
+			,'cards_in_deck'=>  $cardsInDeck
+			,'playable'     =>  ($cardsInDeck == $DECK_MAXIMUMCARDS ? 'true' : 'false')
+		);
 	}
 	
-	$deckXml .= '</decks>';
-	
-	return $deckXml;
+	return $deckArr;
 }
 
 function getCategories($parent = '') {
@@ -122,9 +125,8 @@ function getUserCardsNotInDeck($user_id, $deck_id) {
 }
 
 function getUserAlbumCards($category, $user_id) {
-	$cardXml = '<cards>';
 	
-	$sql = 'SELECT c.card_id,
+    $sql = 'SELECT c.card_id,
 				   c.name,
 				   c.description,
 				   ifnull(uc.owned, 0) owned
@@ -140,15 +142,19 @@ function getUserAlbumCards($category, $user_id) {
 			 WHERE c.category_id = '.$category.'
 			GROUP BY c.card_id;';
 	
-	$cards = myqu($sql);
-	foreach ($cards as $card) {
-		$cardXml .= '<card card_id="'.$card['card_id'].'" name="'.$card['name'].'" description="'.$card['description'].'" owned="'.$card['owned'].'">';
-		$cardXml .= '</card>';
-	}
+    $cardArr = myqu($sql);
 	
-	$cardXml .= '</cards>';
-	
-	return $cardXml;
+	$cards = array();
+    foreach ($cardArr as $cardElement) {
+		$cards[] = array(
+			'card_id'        =>  $cardElement['card_id']
+			,'name'          =>  $cardElement['name']
+			,'description'   =>  $cardElement['description']
+			,'owned'         =>  $cardElement['owned']
+		);
+    }
+
+    return $cards;
 }
 
 function registerUser($username, $password) {
