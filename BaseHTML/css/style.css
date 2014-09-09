@@ -15,3 +15,11 @@ button.highlighted {background:#f26b28;}
 .login-form .login-forgot {text-align:right;}
 .login-form .login-forgot span a{font-style:italic; text-decoration:none; color:#f26b28;}
 .login-form .login-buttons {text-align:center;}
+
+
+
+@media (min-width: 992px) {
+  .navbar {
+    padding-right: 15px;
+  }
+}
