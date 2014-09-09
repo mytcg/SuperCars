@@ -12,6 +12,12 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .font-green {color:#20e58b;}
 .font-purple {color:#8069ad;}
 .font-red {color:#e8463b;}
+.font-blue {color:#2c95f4;}
+
+.grid {padding:3% 4%; color:#fff; font-size:2em; border-bottom:1px solid #1a1f23;}
+.grid:hover {background:#1f262c;}
+.grid span{padding-right:2%;}
+.grid:hover span{color:#2c95f4;}
 
 button.highlighted {background:#f26b28;}
 .logo-wrapper {margin:10% auto; width:70%;}

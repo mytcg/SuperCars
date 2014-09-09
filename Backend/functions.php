@@ -195,13 +195,13 @@ function getUser($user_id) {
 	// Check that the username isnt taken.
 	$sql = 'SELECT *
 		FROM users
-		WHERE id = "'.$user_id.'"';
+		WHERE user_id = "'.$user_id.'"';
 	$user = myqu($sql);
 	if (!$user[0]) {
 		return '<result>false</result><content>Invalid User.</content>';
 	} else {
 
-            $userXml .= '<user user_id="'.$user['user_id'].'" username="'.$user['username'].'" credits="'.$user['credits'].'" parts="'.$user['parts'].'"></user>';
+            $userXml .= '<user><user_id>'.$user[0]['user_id'].'</user_id><username>'.$user[0]['username'].'</username><credits>'.$user[0]['credits'].'</credits><parts>'.$user[0]['parts'].'</parts></user>';
         }
         return $userXml;
 }

@@ -28,23 +28,6 @@ function genericAjax(script, resultDiv, formID, js, waitForResult){
     });
 }
 
-function doLogin () {
-
-    var ajax = jQuery.ajax({
-        type: "POST",
-        crossDomain: true,
-        url: 'http://topcarcards.co.za/?request=login&PHP_AUTH_PW='+$('#password').val()+'&PHP_AUTH_USER='+$('#username').val(),
-        data : '',
-        success: function(data) {
-
-                var result = xmlToArray(data);
-                if (result['RESULT']=='true') {
-                    window.location = 'dashboard.html';
-                }
-        }
-    });
-}
-
 function xmlToArray (xml) {
 
     var thisArray = new Array();
@@ -63,4 +46,66 @@ function xmlToArray (xml) {
         });
     }
     return thisArray;
+}
+
+function doLogin () {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=login&PHP_AUTH_PW='+$('#password').val()+'&PHP_AUTH_USER='+$('#username').val(),
+        data : '',
+        success: function(data) {
+
+                var result = xmlToArray(data);
+                if (result['RESULT']=='true') {
+                    window.location = 'dashboard.html';
+                }
+        }
+    });
+}
+
+function getuserDets (userid) {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=user&user_id=1&PHP_AUTH_USER=james',
+        data : '',
+        success: function(data) {
+
+                var result = xmlToArray(data);
+                if (result['RESULT']=='true') {
+                    $('#user-username').html(result['CONTENT']['USER']['USERNAME']);
+                    $('#user-creds').html(result['CONTENT']['USER']['CREDITS']);
+                    $('#user-scrap').html(result['CONTENT']['USER']['PARTS']);
+                }
+        }
+    });
+}
+
+function getuserAlbums (userid, cat) {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=albumcards&user_id=1&category_id=3',
+        data : '',
+        success: function(data) {
+
+
+                var result = xmlToArray(data);
+                if (result['RESULT']=='true') {
+
+                    var arr = result['CONTENT']['CARDS'];
+//                    alert(arr['CARD']['CARD_ID']);
+//                    alert(arr.length);
+//                    alert(result['CONTENT']['CARDS']['CARD']['CARD_ID']);
+                    $.each(arr, function( index, value ) {
+                                alert(value['CARD_ID']);
+                                alert( index + ": " + value );
+                                });
+                }
+        }
+    });
 }
