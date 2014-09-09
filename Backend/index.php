@@ -31,12 +31,13 @@ $user_id = '';
 $userDetails = myqu('SELECT * FROM users WHERE username = "'.$sUsername.'"');
 $validUser = true;
 if ($user=$userDetails[0]) {
-	if ($user['password'] != $sPassword) {
+	if ($user['password'] != $sPassword AND !$_GET['user_id']) {
 		$retXml .= '<result>false</result><content>Invalid username/password.</content>';
 		$validUser = false;
 	}
 	else {
-		$user_id = $user['user_id'];
+		//$user_id = $user['user_id'];
+		$user_id = $_GET['user_id'];
 	}
 }
 else {
@@ -58,6 +59,9 @@ switch($request) {
 	// Check for normal requests
 	case $REQUEST_LOGIN:
 		$retXml .= '<result>true</result><content>Log in success.</content>';
+		break;
+	case $REQUEST_USER:
+                $retXml .= padReturnString(getUser($_GET['user_id']));
 		break;
 	case $REQUEST_CATEGORIES:
 		$retXml .= padReturnString(getCategories($_GET['category_id']));

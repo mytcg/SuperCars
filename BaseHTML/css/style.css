@@ -23,7 +23,8 @@ button.highlighted {background:#f26b28;}
 .login-form .login-buttons {text-align:center;}
 
 .dashboard-progress {text-align:center; padding:10% 0 0;}
-input.knob {background:transparent !important; color:#797d80 !important; margin-top:7% !important;}
+input.knob {color:#797d80 !important; margin-top:7% !important;
+        background: url('../elements/dashboard_cards.png') transparent no-repeat 0% 125% / 100% !important;}
 .dashboard-user-dets {color:#fff; text-align:center; margin-top:5%;}
 .dashboard-user-dets span{font-weight:bold;}
 .dashboard-user-creds {color:#fff; text-align:center; margin-top:5%;}

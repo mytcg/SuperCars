@@ -3,6 +3,7 @@
 // Request keywords
 $REQUEST_REGISTER = "register";
 $REQUEST_LOGIN = "login";
+$REQUEST_USER = "user";
 $REQUEST_CATEGORIES = "categories";
 $REQUEST_ALBUMCARDS = "albumcards";
 $REQUEST_SCRAPCARD = "scrapcard";
