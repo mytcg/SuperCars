@@ -25,8 +25,10 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .grid.shop:hover span.secondary{color:#e9b31f;}
 .grid img {float:left; width:20%; margin:-3% 3% 0 0;}
 
-.div-button {font-size:1.4em; color:#fff; font-weight:bold; padding:3% 2%; background:#363c42;}
+.div-button {font-size:1.4em; color:#fff; font-weight:bold; padding:3% 2%; background:#363c42; cursor:pointer;}
+.div-button:hover {color:#fff; background:#f26b28;}
 .div-button span{color:#9b9d9f; font-weight:normal;}
+.div-button:hover span{color:#fff; font-weight:bold;}
 .div-button .arrow{font-size:2em;}
 
 .credits-div {font-size:2em; color:#ccc; background:#1f262c;}

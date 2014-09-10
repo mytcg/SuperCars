@@ -1,5 +1,7 @@
 <?php
 
+header('Access-Control-Allow-Origin: *');
+
 include('dbconnection.php');
 include('functions.php');
 include('constants.php');

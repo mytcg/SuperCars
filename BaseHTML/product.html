@@ -18,7 +18,7 @@
         <script src="js/functions.js"></script>
         <script>
             jQuery(document).ready(function() {
-                $('#card-img').attr('src','img/products/'+urlParams.card_id+'.jpg');
+                $('#card-img').attr('src','img/products/'+urlParams.product_id+'.jpg');
                 $('#card-name').html(decodeURIComponent(urlParams.description));
                 $('#card-subtitle').html(decodeURIComponent(urlParams.description));
                 $('#card-subtitle-right').html(urlParams.pack_size+' cards in pack');
@@ -44,8 +44,7 @@
 
             <br />
 
-
-            <div class="row div-button">
+            <div class="row div-button" onclick="buyproduct(urlParams.product_id);">
                     <div class="col-xs-11">
                         <span>SHOP</span><br />
                         BUY THIS BOOSTER PACK

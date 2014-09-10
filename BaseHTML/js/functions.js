@@ -203,6 +203,21 @@ function getproducts () {
     });
 }
 
+function buyproduct (product_id) {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=purchaseproduct&product_id='+product_id+appendToken,
+        data : '',
+        success: function(data) {
+
+                eval('var result='+data);
+                alert(result['content']);
+        }
+    });
+}
+
 function getdecks (user_id) {
 
     var ajax = jQuery.ajax({
