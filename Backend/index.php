@@ -100,7 +100,7 @@ switch($request) {
 		$result = getCategoriesNotInDeck($_GET['deck_id'], $_GET['category_id']);
 		break;
 	case $REQUEST_GETUSERCARDSNOTINDECK:
-		$result = getUserCardsNotInDeck($user_id, $_GET['deck_id']);
+		$result = getUserCardsNotInDeck($user_id, $_GET['deck_id'], $_GET['category_id']);
 		break;
 	case $REQUEST_ADDCARDTODECK:
 		$result = addCardToDeck($user_id, $_GET['deck_id'], $_GET['card_id']);

@@ -125,25 +125,25 @@ function getDeckCards($deck_id) {
 	return $result;
 }
 
-function getUserCardsNotInDeck($user_id, $deck_id) {
-	$cardXml = '<cards>';
+function getUserCardsNotInDeck($user_id, $deck_id, $category_id) {
 	
 	$sql = 'SELECT DISTINCT c.card_id, c.name
 		  FROM cards c INNER JOIN user_cards uc ON c.card_id = uc.card_id
 		 WHERE uc.user_id = '.$user_id.'
+		 AND c.category_id = '.$category_id.'
 			   AND c.card_id NOT IN (SELECT card_id
 									   FROM deck_cards
 									  WHERE deck_id = '.$deck_id.')';
 	
 	$cards = myqu($sql);
 	foreach ($cards as $card) {
-		$cardXml .= '<card card_id="'.$card['card_id'].'" name="'.$card['name'].'">';
-		$cardXml .= '</card>';
+		$result[] = array(
+			'card_id'   =>  $card['card_id']
+            ,'name'  	=>  $card['name']
+		);
 	}
 	
-	$cardXml .= '</cards>';
-	
-	return $cardXml;
+	return $result;
 }
 
 function getUserAlbumCards($category, $user_id) {
