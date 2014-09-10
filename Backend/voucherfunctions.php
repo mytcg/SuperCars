@@ -50,7 +50,7 @@ function redeemVoucher($user_id, $redeem_code) {
 			}
 			
 			if ($canRedeem) {
-				redeemVoucher($user_id, $voucher['voucher_id']);
+				addVoucherContents($user_id, $voucher['voucher_id']);
 				$result = true;
 				$content = 'Voucher redeemed.';
 			}
@@ -75,7 +75,7 @@ function redeemVoucher($user_id, $redeem_code) {
                 );
 }
 
-function redeemVoucher($user_id, $voucher_id) {
+function addVoucherContents($user_id, $voucher_id) {
 	global $CARDSTATUS_ALBUM;
 
 	// Select all the entries in voucher credits for the voucher and give them to the user
