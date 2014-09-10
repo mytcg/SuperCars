@@ -107,6 +107,9 @@ switch($request) {
 	case $REQUEST_REMOVECARDFROMDECK:
 		$retXml .= removeCardFromDeck($_GET['deck_id'], $_GET['card_id']);
 		break;
+	case $REQUEST_REDEEMVOUCHER:
+		$result  = redeemVoucher($user_id, $_GET['redeem_code']);
+		break;
 	
 	// Check for game requests
 	case $GAMEREQUEST_NEWGAME:

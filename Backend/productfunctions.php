@@ -2,7 +2,7 @@
 
 function getProducts() {
 	
-	$sql = 'SELECT p.product_id, p.price, p.description
+	$sql = 'SELECT p.product_id, p.price, p.description, p.pack_size
 			  FROM products p
 			  ORDER BY p.description';
 	
@@ -14,6 +14,7 @@ function getProducts() {
 			'product_id'    =>  $product['product_id']
 			,'price'        =>  $product['price']
 			,'description'  =>  $product['description']
+			,'pack_size'	=>  $$product['pack_size']
 		);
 	}
 	
