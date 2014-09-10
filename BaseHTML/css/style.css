@@ -25,7 +25,20 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .grid.shop:hover span.secondary{color:#e9b31f;}
 .grid img {float:left; width:20%; margin:-3% 3% 0 0;}
 
+.div-button {font-size:1.4em; color:#fff; font-weight:bold; padding:3% 2%; background:#363c42;}
+.div-button span{color:#9b9d9f; font-weight:normal;}
+.div-button .arrow{font-size:2em;}
+
+.credits-div {font-size:2em; color:#ccc; background:#1f262c;}
+.credits-div .credit-stat{padding:4% 3%;}
+.credits-div span{color:#f26b28;}
+.credits-div .credit-more{background:#f26b28; font-weight:bold; cursor:pointer; padding:4% 2%; text-align:center; color:#fff;}
+
 .scrap-menu {display:none;}
+
+.card-subtitle {font-size:2em; color:#9b9d9f;}
+.card-subtitle-right {font-size:1.5em; color:#9b9d9f; text-align:right;}
+.card-price {font-size:1.5em; color:#e9b31f; font-weight:bold;}
 
 button.highlighted {background:#f26b28;}
 .logo-wrapper {margin:10% auto; width:70%;}

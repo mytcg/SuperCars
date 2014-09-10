@@ -185,7 +185,12 @@ function getproducts () {
                 for(var i=0; i<products.length; i++) {
 
                     $('#body_template').append(
-                        '<div class="row-fluid grid shop" onclick="window.location=\'product.html?product_id='+products[i]['product_id']+'\'">'+
+                        '<div class="row-fluid grid shop" onclick="window.location=\'product.html?'+
+                                                        'product_id='+products[i]['product_id']+
+                                                        '&description='+products[i]['description']+
+                                                        '&price='+products[i]['price']+
+                                                        '&pack_size='+products[i]['pack_size']+
+                                                        '\'">'+
                             '<img src="img/products/'+products[i]['product_id']+'.jpg" />'+
                             '<div class="clear"></div>'+
                             products[i]['description']+'<br />'
