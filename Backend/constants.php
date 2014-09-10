@@ -6,6 +6,7 @@ $REQUEST_LOGIN = "login";
 $REQUEST_USER = "user";
 $REQUEST_CATEGORIES = "categories";
 $REQUEST_ALBUMCARDS = "albumcards";
+$REQUEST_CARD = "card";
 $REQUEST_SCRAPCARD = "scrapcard";
 $REQUEST_PRODUCTS = "products";
 $REQUEST_PURCHASEPRODUCT = "purchaseproduct";

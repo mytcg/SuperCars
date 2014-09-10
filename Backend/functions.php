@@ -160,6 +160,35 @@ function getUserAlbumCards($category, $user_id) {
     return $cards;
 }
 
+function getCard($card_id, $user_id) {
+
+    $sql = 'SELECT c.card_id,
+                   c.name,
+                   c.description,
+                   c.scrap_value,
+                   c.parts,
+                   c.rarity,
+			  FROM cards c
+				   WHERE c.card_id = '.$card_id.';';
+
+    $cardArr = myqu($sql);
+
+    $cards = array();
+    foreach ($cardArr as $cardElement) {
+		$cards = array(
+			'card_id'       =>  $cardElement['card_id']
+			,'name'         =>  $cardElement['name']
+			,'description'  =>  $cardElement['description']
+			,'category_id'  =>  $cardElement['category_id']
+			,'scrap_value'  =>  $cardElement['scrap_value']
+			,'parts'        =>  $cardElement['parts']
+			,'rarity'       =>  $cardElement['rarity']
+		);
+    }
+
+    return $cards;
+}
+
 function registerUser($username, $password) {
 	// Check that the username and password are at least the minimum length.
 	if (strlen($username) < 5) {

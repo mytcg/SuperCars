@@ -121,8 +121,8 @@ function getCards (cat) {
                     var owned = (cards[i]['owned']=='0') ? ' notowned' : '';
 
                     $('#body_template').append(
-                        '<div class="row-fluid grid'+owned+' cars" onclick="window.location=\'grid-template.html?cat_id='+cards[i]['category_id']+'&section=cards\'">'+
-                            '<img src="img/cards/'+cards[i]['id']+'.jpg" />'+
+                        '<div class="row-fluid grid'+owned+' cars" onclick="window.location=\'card.html?card_id='+cards[i]['card_id']+'\'">'+
+                            '<img src="img/cards/'+cards[i]['card_id']+'.jpg" />'+
                             '<div class="clear"></div>'+
                             cards[i]['name']+'<br />'
                             +'<span class="secondary">'+cards[i]['scrap_value']+'</span>'+
@@ -130,6 +130,26 @@ function getCards (cat) {
                     );
 
                 }
+            }
+        }
+    });
+}
+
+function getCard (card_id) {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=card&card_id='+card_id+appendToken,
+        data : '',
+        success: function(data) {
+
+            eval('var car='+data);
+            if (car) {
+                
+                $('#card-name').html(car['card_name']);
+                $('#card-img').attr('src', 'img/cards/'+car['card_id']+'.jpg');
+
             }
         }
     });

@@ -22,7 +22,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .grid.notowned {opacity:0.5; MozOpacity:0.5; KhtmlOpacity:0.5; filter: alpha(opacity = 50);}
 .grid span.secondary {color:#8f9295;}
 .grid:hover span.secondary {color:#e8463b;}
-.grid:hover img {float:left;}
+.grid img {float:left; width:20%; margin:-3% 3% 0 0;}
 
 button.highlighted {background:#f26b28;}
 .logo-wrapper {margin:10% auto; width:70%;}

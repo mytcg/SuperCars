@@ -80,6 +80,9 @@ switch($request) {
 	case $REQUEST_ALBUMCARDS:
 		$result  = getUserAlbumCards($_GET['category_id'], $user_id);
 		break;
+	case $REQUEST_CARD:
+		$result  = getCard($_GET['card_id'], $user_id);
+		break;
 	case $REQUEST_SCRAPCARD:
 		$retXml .= scrapUserCards($_GET['card_id'], $user_id);
 		break;
