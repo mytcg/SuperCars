@@ -243,6 +243,17 @@ function getdecks (user_id) {
                     );
 
                 }
+
+                $('#body_template').append(
+                    '<div class="row grid deck" onclick="window.location=\'create.html?section=decks\'">'+
+                        '<div class="col-xs-3" style="text-align:center;">'+
+                            '<span class="glyphicon glyphicon-plus" style="text-align:center; color:#2c95f4;"></span>'+
+                        '</div>'+
+                        '<div class="col-xs-9">'+
+                            'Create New Deck'+
+                        '</div>'+
+                    '</div>'
+                );
         }
     });
 }
