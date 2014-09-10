@@ -166,8 +166,8 @@ function getCard($card_id, $user_id) {
                    c.name,
                    c.description,
                    c.scrap_value,
-                   c.parts,
-                   c.rarity,
+                   c.parts_cost,
+                   c.rarity
 			  FROM cards c
 				   WHERE c.card_id = '.$card_id.';';
 
@@ -175,18 +175,18 @@ function getCard($card_id, $user_id) {
 
     $cards = array();
     foreach ($cardArr as $cardElement) {
-		$cards = array(
+		$card = array(
 			'card_id'       =>  $cardElement['card_id']
 			,'name'         =>  $cardElement['name']
 			,'description'  =>  $cardElement['description']
 			,'category_id'  =>  $cardElement['category_id']
 			,'scrap_value'  =>  $cardElement['scrap_value']
-			,'parts'        =>  $cardElement['parts']
+			,'parts_cost'   =>  $cardElement['parts_cost']
 			,'rarity'       =>  $cardElement['rarity']
 		);
     }
 
-    return $cards;
+    return $card;
 }
 
 function registerUser($username, $password) {
@@ -282,10 +282,10 @@ function scrapUserCards($card_id, $user_id) {
 		   SET parts = parts + '.$scrapValue.'
 		 WHERE user_id = '.$user_id);
 		
-		return '<result>true</result><content>'.$cardName.' scrapped! You gained '.$scrapValue.' parts!</content>';
+		return array('result' => true, 'content' => $cardName.' scrapped! You gained '.$scrapValue.' parts!');
 	}
 	else {
-		return '<result>false</result><content>Failed to scrap car. Card not found.</content>';
+		return array('result' => false, 'content' => 'Failed to scrap car. Card not found.');
 	}
 }
 

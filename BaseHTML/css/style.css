@@ -24,6 +24,8 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .grid:hover span.secondary {color:#e8463b;}
 .grid img {float:left; width:20%; margin:-3% 3% 0 0;}
 
+.scrap-menu {display:none;}
+
 button.highlighted {background:#f26b28;}
 .logo-wrapper {margin:10% auto; width:70%;}
 

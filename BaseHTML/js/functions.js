@@ -147,10 +147,26 @@ function getCard (card_id) {
             eval('var car='+data);
             if (car) {
                 
-                $('#card-name').html(car['card_name']);
+                $('#card-name').html(car['name']);
+                $('#card-parts').html(car['scrap_value']);
                 $('#card-img').attr('src', 'img/cards/'+car['card_id']+'.jpg');
 
             }
+        }
+    });
+}
+
+function scrapCard (card_id) {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=scrapcard&card_id='+card_id+appendToken,
+        data : '',
+        success: function(data) {
+
+            eval('var res='+data);
+            alert(res['content']);
         }
     });
 }
