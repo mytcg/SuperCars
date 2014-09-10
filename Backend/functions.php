@@ -213,10 +213,16 @@ function getCard($card_id, $user_id) {
 function registerUser($username, $password) {
 	// Check that the username and password are at least the minimum length.
 	if (strlen($username) < 5) {
-		return '<result>false</result><content>Username less than 5 characters.</content>';
+		return array(
+            'result'    =>  false
+			,'content'  =>  'Username less than 5 characters.'
+        );
 	}
 	else if (strlen($password) < 5) {
-		return '<result>false</result><content>Password less than 5 characters.</content>';
+		return array(
+            'result'    =>  false
+			,'content'  =>  'Password less than 5 characters.'
+        );
 	}
 	
 	// Check that the username isnt taken.
@@ -225,7 +231,10 @@ function registerUser($username, $password) {
 		WHERE username = "'.$username.'"';
 	$result = myqu($sql);
 	if ($user=$result[0]) {
-		return '<result>false</result><content>User already exists.</content>';
+		return array(
+            'result'    =>  false
+			,'content'  =>  'User already exists.'
+        );
 	}
 	
 	// If we get this far, things are looking good. Create the user.
@@ -239,10 +248,16 @@ function registerUser($username, $password) {
 		WHERE username = "'.$username.'"';
 	$result = myqu($sql);
 	if ($user=$result[0]) {
-		return '<result>true</result><content>User created.</content>';
+		return array(
+            'result'    =>  true
+			,'content'  =>  'User created.'
+        );
 	}
 	else {
-		return '<result>false</result><content>Registration failed. Please contact an administrator.</content>';
+		return array(
+            'result'    =>  false
+			,'content'  =>  'Registration failed. Please contact an administrator.'
+        );
 	}
 }
 
@@ -352,18 +367,30 @@ function addCardToDeck($user_id, $deck_id, $card_id) {
 				
 				myqu($sql);
 				
-				return '<result>true</result><content>Card added!</content>';
+				return array(
+					'result'    =>  true
+					,'content'  =>  'Card added!'
+				);
 			}
 			else {
-				return '<result>false</result><content>You don\'t have that card!</content>';
+				return array(
+					'result'    =>  false
+					,'content'  =>  'You don\'t have that card!'
+				);
 			}
 		}
 		else {
-			return '<result>false</result><content>That card is already in the deck!</content>';
+			return array(
+					'result'    =>  false
+					,'content'  =>  'That card is already in the deck!'
+				);
 		}
 	}
 	else {
-		return '<result>false</result><content>The deck is full!</content>';
+		return array(
+				'result'    =>  false
+				,'content'  =>  'The deck is full!'
+			);
 	}
 }
 

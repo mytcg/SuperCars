@@ -11,8 +11,11 @@ function newGame($user_id, $deck_id) {
 	if ($result=$results[0]) {
 		// Check if the cards in the deck are at the required size for a game deck
 		if ($result['cardsindeck'] != $DECK_MAXIMUMCARDS) {
-			// If the deck doesnt have enough cards, return unhappy xml.
-			return '<result>false</result><content>Invalid deck.</content>';
+			// If the deck doesnt have enough cards, return unhappy result.
+			return array(
+				'result'    =>  false
+				,'content'  =>  'Invalid deck.'
+			);
 		}
 	}
 	
@@ -77,7 +80,10 @@ function newGame($user_id, $deck_id) {
 			$game_id = $result["game_id"];
 		}
 		else {
-			return '<result>false</result><content>Error creating game.</content>';
+			return array(
+				'result'    =>  false
+				,'content'  =>  'Error creating game.'
+			);
 		}
 	}
 	
@@ -188,7 +194,10 @@ function selectStat($game_id, $user_id, $stat_id) {
 }
 
 function getGameData($user_id, $game_id) {
-	return '<result>false</result><content>GAME XML.</content>';
+	return array(
+				'result'    =>  false
+				,'content'  =>  'GAME DATA(place holder)'
+			);
 }
 
 ?>
