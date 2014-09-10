@@ -14,7 +14,7 @@ function getProducts() {
 			'product_id'    =>  $product['product_id']
 			,'price'        =>  $product['price']
 			,'description'  =>  $product['description']
-			,'pack_size'	=>  $$product['pack_size']
+			,'pack_size'    =>  $product['pack_size']
 		);
 	}
 	
@@ -55,15 +55,24 @@ function buyProduct($user_id, $product_id) {
 				}
 			}
 			else {
-				return '<result>false</result><content>You do not have enough credits to buy that.</content>';
+				return array(
+                                    'result'    =>  false
+                                    ,'content'  =>  'You do not have enough credits to buy that.'
+                                );
 			}
 		}
 		else {
-			return '<result>false</result><content>Invalid user details.</content>';
+			return array(
+                            'result'    =>  false
+                            ,'content'  =>  'Invalid user details.'
+                        );
 		}
 	}
 	else {
-		return '<result>false</result><content>Invalid product.</content>';
+                return array(
+                            'result'    =>  false
+                            ,'content'  =>  'Invalid product.'
+                        );
 	}
 }
 
@@ -150,7 +159,10 @@ function buyBooster($user_id, $product_id) {
 	}
 	
 	// Return success xml.
-	return '<result>true</result><content>Purchase success!</content>';
+        return array(
+            'result'    =>  true
+            ,'content'  =>  'Purchase success!'
+        );
 }
 
 ?>
