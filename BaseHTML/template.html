@@ -11,7 +11,11 @@
         <link rel="stylesheet" href="css/jquery-ui.css" media="screen" type="text/css" />
         <link rel="stylesheet" href="css/normalize.css" media="screen" type="text/css" />
         <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
-
+		<!-- /**  includes for the slide nav **/ -->
+		<link rel="stylesheet" type="text/css" href="css/default.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<script src="js/modernizr.custom.js"></script>
+		
         <script src="js/jquery-latest.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -91,5 +95,22 @@
             </div>
         </div>
     </div>
+    <script src="js/classie.js"></script>
+		<script>
+			var showRight = document.getElementById( 'showRight' ),
+				body = document.body;
+
+			showRight.onclick = function() {
+				classie.toggle( this, 'active' );
+				classie.toggle( menuRight, 'cbp-spmenu-open' );
+				disableOther( 'showRight' );
+			};
+
+			function disableOther( button ) {
+				if( button !== 'showRight' ) {
+					classie.toggle( showRight, 'disabled' );
+				}
+			}
+		</script>
 </body>
 </html>
