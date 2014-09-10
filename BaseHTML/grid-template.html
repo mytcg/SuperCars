@@ -25,6 +25,14 @@
 
                 getdecks();
 
+            } else if (urlParams.section=='shop') {
+
+                getproducts();
+
+            } else if (urlParams.section=='decks') {
+
+                getdecks();
+
             } else { /* Default to categories page */
 
                 var cat = (urlParams.cat_id) ? urlParams.cat_id : '';

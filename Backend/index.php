@@ -84,37 +84,40 @@ switch($request) {
 		$result  = getCard($_GET['card_id'], $user_id);
 		break;
 	case $REQUEST_SCRAPCARD:
-		$retXml .= scrapUserCards($_GET['card_id'], $user_id);
+		$result = scrapUserCards($_GET['card_id'], $user_id);
 		break;
 	case $REQUEST_PRODUCTS:
 		$result = getProducts();
 		break;
 	case $REQUEST_PURCHASEPRODUCT:
-		$retXml .= buyProduct($user_id, $_GET['product_id']);
+		$result = buyProduct($user_id, $_GET['product_id']);
 		break;
 	case $REQUEST_GETDECKS:
 		$result = getDecks($user_id);
 		break;
 	case $REQUEST_GETDECKCARDS:
-		$retXml .= padReturnString(getDeckCards($_GET['deck_id']));
+		$result = getDeckCards($_GET['deck_id']);
 		break;
 	case $REQUEST_GETUSERCARDSNOTINDECK:
-		$retXml .= padReturnString(getUserCardsNotInDeck($user_id, $_GET['deck_id']));
+		$result = getUserCardsNotInDeck($user_id, $_GET['deck_id']);
 		break;
 	case $REQUEST_ADDCARDTODECK:
-		$retXml .= addCardToDeck($user_id, $_GET['deck_id'], $_GET['card_id']);
+		$result = addCardToDeck($user_id, $_GET['deck_id'], $_GET['card_id']);
 		break;
 	case $REQUEST_REMOVECARDFROMDECK:
-		$retXml .= removeCardFromDeck($_GET['deck_id'], $_GET['card_id']);
+		$result = removeCardFromDeck($_GET['deck_id'], $_GET['card_id']);
 		break;
 	
 	// Check for game requests
 	case $GAMEREQUEST_NEWGAME:
-		$retXml .= newGame($user_id, $_GET['deck_id']);
+		$result = newGame($user_id, $_GET['deck_id']);
 		break;
 	
 	default:
-		$retXml .= '<result>true</result><content>No request sent.</content>';
+		$result = array(
+                    'result'    =>  true
+                    ,'content'  =>  'No request sent.'
+                );
 }
 
 print json_encode($result);

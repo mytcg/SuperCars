@@ -176,15 +176,22 @@ function getproducts () {
     var ajax = jQuery.ajax({
         type: "POST",
         crossDomain: true,
-        url: 'http://topcarcards.co.za/?request=products',
+        url: 'http://topcarcards.co.za/?request=products'+appendToken,
         data : '',
         success: function(data) {
 
-                eval('var cars='+data);
+                eval('var products='+data);
 
-                for(var i=0; i<cars.length; i++) {
+                for(var i=0; i<products.length; i++) {
 
-                    $('#body_template').append('<div class="row-fluid grid"><span class="glyphicon glyphicon-thumbs-up"></span>'+cars[i]['name']+'</div>');
+                    $('#body_template').append(
+                        '<div class="row-fluid grid shop" onclick="window.location=\'product.html?product_id='+products[i]['product_id']+'\'">'+
+                            '<img src="img/products/'+products[i]['product_id']+'.jpg" />'+
+                            '<div class="clear"></div>'+
+                            products[i]['description']+'<br />'
+                            +'<span class="secondary">'+products[i]['pack_size']+' cards in pack</span>'+
+                        '</div>'
+                    );
 
                 }
         }
@@ -196,7 +203,7 @@ function getdecks (user_id) {
     var ajax = jQuery.ajax({
         type: "POST",
         crossDomain: true,
-        url: 'http://topcarcards.co.za/?request=getdecks&user_id=1',
+        url: 'http://topcarcards.co.za/?request=getdecks'+appendToken,
         data : '',
         success: function(data) {
 
@@ -204,9 +211,16 @@ function getdecks (user_id) {
 
                 for(var i=0; i<decks.length; i++) {
 
-                    $('#body_template').append('<div class="row-fluid grid"><span class="glyphicon glyphicon-thumbs-up">'+
-                            '<img src="" /></span>'+decks[i]['description']+'</div>'
-                        );
+                    var owned = (decks[i]['playable']=='0') ? ' notowned' : '';
+
+                    $('#body_template').append(
+                        '<div class="row-fluid grid'+owned+' cars" onclick="window.location=\'card.html?card_id='+decks[i]['deck_id']+'\'">'+
+                            '<img src="img/decks/'+decks[i]['deck_id']+'.jpg" />'+
+                            '<div class="clear"></div>'+
+                            decks[i]['description']+'<br />'
+                            +'<span class="secondary">'+decks[i]['cards_in_deck']+' cards in deck</span>'+
+                        '</div>'
+                    );
 
                 }
         }
