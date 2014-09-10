@@ -15,6 +15,12 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .font-red {color:#e8463b;}
 .font-blue {color:#2c95f4;}
 
+.deck-edit-holder {background:#1f262c; font-size:1.4em;}
+.deck-edit-div {padding:4% 2%; color:#1f262c; text-align:center;}
+.deck-edit-div .inactive{color:#3a4046;}
+.deck-edit-count {color:#f26b28;}
+#deck-card-add, #deck-card-edit {cursor:pointer;}
+
 .active-button {background:#f26b28; font-weight:bold; cursor:pointer; padding:4% 2%; text-align:center; color:#fff;}
 
 .grid {color:#ccc; font-size:2em; border-bottom:1px solid #1a1f23; cursor:pointer;}
@@ -27,6 +33,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .grid:hover span.secondary {color:#e8463b;}
 .grid.shop:hover span.secondary{color:#e9b31f;}
 .grid img {float:left; margin:0 3% 0 0;}
+.grid.selectedCard {background:#1f262c;}
 
 .div-button {font-size:1.4em; color:#fff; font-weight:bold; padding:3% 2%; background:#363c42; cursor:pointer;}
 .div-button:hover {color:#fff; background:#f26b28;}

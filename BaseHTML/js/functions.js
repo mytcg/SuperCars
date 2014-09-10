@@ -274,35 +274,6 @@ function getdecks (user_id) {
     });
 }
 
-function getdeckCards (deck_id) {
-
-    var ajax = jQuery.ajax({
-        type: "POST",
-        crossDomain: true,
-        url: 'http://topcarcards.co.za/?request=getdeckcards&deck_id='+deck_id+appendToken,
-        data : '',
-        success: function(data) {
-
-                eval('var cards='+data);
-
-                for(var i=0; i<cards.length; i++) {
-
-                    $('#body_template').append(
-                        '<div class="row grid cards" onclick="window.location=\'create.html?section=decks\'">'+
-                            '<div class="col-xs-2">'+
-                                '<img src="img/cards/'+cards[i]['card_id']+'.jpg" />'+
-                            '</div>'+
-                            '<div class="col-xs-10 padded">'+
-                                cards[i]['name']+
-                            '</div>'+
-                        '</div>'
-                    );
-
-                }
-        }
-    });
-}
-
 function newDeck (name) {
 
     var ajax = jQuery.ajax({
@@ -318,17 +289,71 @@ function newDeck (name) {
     });
 }
 
+function getdeckCards (deck_id) {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=getdeckcards&deck_id='+deck_id+appendToken,
+        data : '',
+        success: function(data) {
+
+                eval('var cards='+data);
+
+                for(var i=0; i<cards.length; i++) {
+
+                    $('#body_template').append(
+                        '<div class="row grid cards" id="'+cards[i]['card_id']+'" onclick="window.location=\'card.html?card_id='+cards[i]['card_id']+'\'">'+
+                            '<div class="col-xs-2">'+
+                                '<img src="img/cards/'+cards[i]['card_id']+'.jpg" />'+
+                            '</div>'+
+                            '<div class="col-xs-10 padded">'+
+                                cards[i]['name']+
+                            '</div>'+
+                        '</div>'
+                    );
+
+                }
+                $('#deck-card-count').html(cards.length);
+                if (cards.length==10) {
+                    $('#deck-card-add').addClass('inactive');
+                }
+        }
+    });
+}
+
+function editDecks () {
+
+    $('#deck-card-edit').removeClass('glyphicon-edit');
+    $('#deck-card-edit').addClass('glyphicon-trash');
+    $('.cards').each(
+        function() {
+            var newonclick = '$(this).toggleClass(\'selectedCard\');checkTrashButton();';
+            $(this).attr('onclick', newonclick);
+        }
+    );
+}
+
+function checkTrashButton () {
+
+    if ($('.selectedCard').attr('id')) { // Make clickable
+        $('#deck-card-edit').removeClass('inactive');
+    } else {
+        $('#deck-card-edit').addClass('inactive');
+    }
+}
+
 function footerDeckEdits() {
     $('#footer').html(
         '<div class="row deck-edit-holder">'+
-                '<div class="col-xs-3 deck-edit-div">'+
-                    '<span id="deck-card-count">'+credit+'</span>/10'+
+                '<div class="col-xs-3 deck-edit-div deck-edit-count">'+
+                    '<span id="deck-card-count">***</span>/10'+
                 '</div>'+
                 '<div class="col-xs-3 deck-edit-div">'+
-                    '<span class="glyphicon glyphicon-plus deck-card-edit active"></span>'+
+                    '<span class="glyphicon glyphicon-plus" id="deck-card-add"></span>'+
                 '</div>'+
                 '<div class="col-xs-3 deck-edit-div">'+
-                    '<span class="glyphicon glyphicon-minus deck-card-edit active"></span>'+
+                    '<span class="glyphicon glyphicon-edit inactive" id="deck-card-edit" onclick="editDecks();"></span>'+
                 '</div>'+
                 '<div class="col-xs-3 active-button">'+
                     'SAVE'+
