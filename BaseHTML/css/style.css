@@ -33,17 +33,12 @@ button.highlighted {background:#f26b28;}
 .login-form .login-forgot span a{font-style:italic; text-decoration:none; color:#f26b28;}
 .login-form .login-buttons {text-align:center;}
 
-@media (min-width: 992px) {
-  .navbar {
-    padding-right: 15px;
-  }
-}
 .login-form .login-forgot span a{font-style:italic; text-decoration:none;}
 .login-form .login-buttons {text-align:center;}
 
 .dashboard-progress {text-align:center; padding:10% 0 0;}
 input.knob {color:#797d80 !important; margin-top:7% !important;
-        background: url('../elements/dashboard_cards.png') transparent no-repeat 0% 125% / 100% !important;}
+        background: url('../elements/dashboard_cards.png') transparent no-repeat 0% 90% / 100% !important;}
 .dashboard-user-dets {color:#fff; text-align:center; margin-top:5%;}
 .dashboard-user-dets span{font-weight:bold;}
 .dashboard-user-creds {color:#fff; text-align:center; margin-top:5%;}
