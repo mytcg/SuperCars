@@ -315,7 +315,8 @@ function removeCardFromDeck($deck_id, $card_id) {
 		WHERE deck_id = '.$deck_id.' AND card_id = '.$card_id;
 	
 	myqu($sql);
-	return '<result>true</result><content>Card removed!</content>';
+	
+	return array('result' => true, 'content' => 'Card removed!');
 }
 
 function addCardToDeck($user_id, $deck_id, $card_id) {
@@ -364,6 +365,28 @@ function addCardToDeck($user_id, $deck_id, $card_id) {
 	else {
 		return '<result>false</result><content>The deck is full!</content>';
 	}
+}
+
+function createDeck($user_id, $deck_name) {
+	if (strlen($deck_name) > 0) {
+		$sql = 'insert into decks (description, user_id) values ("'.$deck_name.'", '.$user_id.')';
+		
+		myqu($sql);
+		
+		return array('result' => true, 'content' => 'Deck created!');
+	}
+	else {
+		return array('result' => false, 'content' => 'Please provide a name for your deck.');
+	}
+}
+
+function deleteDeck($deck_id) {
+	$sql = 'DELETE FROM decks
+		WHERE deck_id = '.$deck_id;
+	
+	myqu($sql);
+	
+	return array('result' => true, 'content' => 'Deck deleted!');
 }
 
 function padReturnString($retString) {

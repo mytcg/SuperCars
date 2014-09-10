@@ -111,6 +111,12 @@ switch($request) {
 	case $REQUEST_REDEEMVOUCHER:
 		$result  = redeemVoucher($user_id, $_GET['redeem_code']);
 		break;
+	case $REQUEST_CREATEDECK:
+		$result  = createDeck($user_id, $_GET['deck_name']);
+		break;
+	case $REQUEST_DELETEDECK:
+		$result  = deleteDeck($_GET['deck_id']);
+		break;
 	
 	// Check for game requests
 	case $GAMEREQUEST_NEWGAME:
