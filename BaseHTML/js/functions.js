@@ -324,10 +324,10 @@ function footerDeckEdits() {
                 '<div class="col-xs-3 deck-edit-div">'+
                     '<span id="deck-card-count">'+credit+'</span>/10'+
                 '</div>'+
-                '<div class="col-xs-3">'+
+                '<div class="col-xs-3 deck-edit-div">'+
                     '<span class="glyphicon glyphicon-plus deck-card-edit active"></span>'+
                 '</div>'+
-                '<div class="col-xs-3">'+
+                '<div class="col-xs-3 deck-edit-div">'+
                     '<span class="glyphicon glyphicon-minus deck-card-edit active"></span>'+
                 '</div>'+
                 '<div class="col-xs-3 active-button">'+
