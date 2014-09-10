@@ -320,8 +320,8 @@ function newDeck (name) {
 
 function footerDeckEdits() {
     $('#footer').html(
-        '<div class="row deck-edit-div">'+
-                '<div class="col-xs-3">'+
+        '<div class="row deck-edit-holder">'+
+                '<div class="col-xs-3 deck-edit-div">'+
                     '<span id="deck-card-count">'+credit+'</span>/10'+
                 '</div>'+
                 '<div class="col-xs-3">'+
