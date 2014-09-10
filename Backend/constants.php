@@ -12,6 +12,7 @@ $REQUEST_PRODUCTS = "products";
 $REQUEST_PURCHASEPRODUCT = "purchaseproduct";
 $REQUEST_GETDECKS = "getdecks";
 $REQUEST_GETDECKCARDS = "getdeckcards";
+$REQUEST_GETUSERCATEGORIESNOTINDECK = "getusercategoriesnotindeck";
 $REQUEST_GETUSERCARDSNOTINDECK = "getusercardsnotindeck";
 $REQUEST_ADDCARDTODECK = "addcardtodeck";
 $REQUEST_REMOVECARDFROMDECK = "removecardfromdeck";

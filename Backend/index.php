@@ -96,6 +96,9 @@ switch($request) {
 	case $REQUEST_GETDECKCARDS:
 		$result = getDeckCards($_GET['deck_id']);
 		break;
+	case $REQUEST_GETUSERCATEGORIESNOTINDECK:
+		$result = getCategoriesNotInDeck($_GET['deck_id'], $_GET['category_id']);
+		break;
 	case $REQUEST_GETUSERCARDSNOTINDECK:
 		$result = getUserCardsNotInDeck($user_id, $_GET['deck_id']);
 		break;

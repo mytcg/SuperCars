@@ -86,8 +86,29 @@ function getCategories($parent = '') {
     return $result;
 }
 
+function getCategoriesNotInDeck($deck_id, $parent = '') {
+    
+	$sql = 'SELECT c.category_id, c.description, (case when count(uc.card_id) = 0 then "false" else "true" end) as hascards
+		FROM categories c
+		LEFT JOIN cards cd ON cd.category_id = c.category_id
+		LEFT JOIN user_cards uc ON uc.card_id = cd.card_id
+		WHERE '.(($parent == '' || $parent == null) ? ('c.category_parent is null') : ('c.category_parent = '.$parent.'
+		AND cd.card_id NOT IN (SELECT dc.card_id FROM deck_cards dc WHERE dc.deck_id = '.$deck_id.')')).' 
+		GROUP BY c.category_id';
+
+    $categories = myqu($sql);
+    foreach ($categories as $category) {
+
+        $result[] = array(
+            'category_id'   =>  $category['category_id']
+            ,'description'  =>  $category['description']
+        );
+    }
+
+    return $result;
+}
+
 function getDeckCards($deck_id) {
-	$categoryXml = '<cards>';
 	
 	$sql = 'SELECT c.card_id, c.name
 		  FROM deck_cards dc INNER JOIN cards c ON c.card_id = dc.card_id
@@ -95,13 +116,13 @@ function getDeckCards($deck_id) {
 	
 	$cards = myqu($sql);
 	foreach ($cards as $card) {
-		$categoryXml .= '<card card_id="'.$card['card_id'].'" name="'.$card['name'].'">';
-		$categoryXml .= '</card>';
+		$result[] = array(
+			'card_id'   =>  $card['card_id']
+            ,'name'  	=>  $card['name']
+		);
 	}
 	
-	$categoryXml .= '</cards>';
-	
-	return $categoryXml;
+	return $result;
 }
 
 function getUserCardsNotInDeck($user_id, $deck_id) {

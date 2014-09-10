@@ -117,8 +117,8 @@ function newGame($user_id, $deck_id) {
 		myqu($sql);
 	}
 	
-	// Return game XML
-	return getGameXML($user_id, $game_id);
+	// Return game data
+	return getGameData($user_id, $game_id);
 }
 
 /**
@@ -187,7 +187,7 @@ function selectStat($game_id, $user_id, $stat_id) {
 	// Return invalid stat selection
 }
 
-function getGameXML($user_id, $game_id) {
+function getGameData($user_id, $game_id) {
 	return '<result>false</result><content>GAME XML.</content>';
 }
 
