@@ -25,13 +25,28 @@
 
                 getdecks();
 
+            } else if (urlParams.section=='viewDeck') {
+
+                getdeckCards(urlParams.deck_id);
+                jQuery(document).ready(function() {
+                    footerDeckEdits();
+                });
+
+//            } else if (urlParams.section=='addToDeck') {
+//
+//                var cat = (urlParams.cat_id) ? urlParams.cat_id : '';
+//                getCardCategories(cat);
+//
+//            } else if (urlParams.section=='decks') {
+//
+//                getdecks();
+
             } else if (urlParams.section=='shop') {
 
                 getproducts();
-
-            } else if (urlParams.section=='decks') {
-
-                getdecks();
+                jQuery(document).ready(function() {
+                    footerMoreCredits();
+                });
 
             } else { /* Default to categories page */
 
@@ -73,14 +88,6 @@
     <section id="body_template">
 		
     </section>
-    <footer>
-    	<div onclick="getMoreCredits()" class="row credits-div">
-                <div class="col-xs-8 credit-stat">
-                    You have <span>***</span> credits
-                </div>
-                <div class="col-xs-4 credit-more">
-                    GET MORE
-                </div>
-        </div>
+    <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
     </footer>
 </body>
