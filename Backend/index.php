@@ -9,8 +9,6 @@ include('voucherfunctions.php');
 
 date_default_timezone_set('Africa/Johannesburg');
 
-$retXml = '<output>';
-
 $request = $_GET['request'];
 
 // If this is a registration request, attempt to register the user.
@@ -18,9 +16,7 @@ if ($request==$REQUEST_REGISTER) {
 	$username = $_GET['username'];
 	$password = $_GET['password'];
 	
-	$retXml .= registerUser($username, $password);
-	
-	close($retXml);
+	$result = registerUser($username, $password);
 }
 
 // Check that the user is valid
