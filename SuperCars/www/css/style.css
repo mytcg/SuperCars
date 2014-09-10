@@ -1,0 +1,46 @@
+body {background:#3A3F45;}
+img {width:100%;}
+clear {clear:both; width:0; height:0; line-height:0; overflow:hidden;}
+
+input {box-shadow:none !important; color:#4c5156 !important; background:#8f9295 !important; border:0 !important; border-radius:0 !important; }
+input:focus {background:#bcbec0 !important;}
+.input-group-addon {background:#3d4751; border:0; border-radius:0;}
+button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#fff; text-transform:uppercase; padding:10px 12px;}
+.glyphicon {color:#bcbec0;}
+
+.caps {text-transform:uppercase;}
+.font-orange {color:#f26b28;}
+.font-green {color:#20e58b;}
+.font-purple {color:#8069ad;}
+.font-red {color:#e8463b;}
+.font-blue {color:#2c95f4;}
+
+.grid {padding:3% 4%; color:#ccc; font-size:2em; border-bottom:1px solid #1a1f23; cursor:pointer;}
+.grid:hover {background:#1f262c; color:#fff;}
+.grid span{padding-right:2%;}
+.grid:hover span{color:#2c95f4;}
+.grid.notowned {opacity:0.5; MozOpacity:0.5; KhtmlOpacity:0.5; filter: alpha(opacity = 50);}
+.grid span.secondary {color:#8f9295;}
+.grid:hover span.secondary {color:#e8463b;}
+.grid img {float:left; width:20%; margin:-3% 3% 0 0;}
+
+.scrap-menu {display:none;}
+
+button.highlighted {background:#f26b28;}
+.logo-wrapper {margin:10% auto; width:70%;}
+
+.login-form {}
+
+.login-form .login-forgot {text-align:right;}
+.login-form .login-forgot span a{font-style:italic; text-decoration:none; color:#f26b28;}
+.login-form .login-buttons {text-align:center;}
+
+.login-form .login-forgot span a{font-style:italic; text-decoration:none;}
+.login-form .login-buttons {text-align:center;}
+
+.dashboard-progress {text-align:center; padding:10% 0 0;}
+input.knob {color:#797d80 !important; margin-top:7% !important;
+        background: url('../elements/dashboard_cards.png') transparent no-repeat 0% 90% / 100% !important;}
+.dashboard-user-dets {color:#fff; text-align:center; margin-top:5%;}
+.dashboard-user-dets span{font-weight:bold;}
+.dashboard-user-creds {color:#fff; text-align:center; margin-top:5%;}

@@ -1,44 +1,74 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+<html lang="en">
+<head>
+	<title>Supercars | Application</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    http://www.apache.org/licenses/LICENSE-2.0
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" href="css/bootstrap-glyphicons.css" />
+        <link rel="stylesheet" href="css/jquery-ui.css" media="screen" type="text/css" />
+        <link rel="stylesheet" href="css/normalize.css" media="screen" type="text/css" />
+        <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+        <script src="js/jquery-latest.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/functions.js"></script>
+</head>
+<body>
+    <section id="body_template">
+        <div class="container">
+
+            <div class="row-fluid logo-wrapper">
+                <img src="elements/login_logo.jpg" />
+            </div>
+
+            <div class="row-fluid">
+                <form action="/" method="POST" id="login-form" class="login-form">
+
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                      <input type="text" class="form-control" id="username" name="username" placeholder="Type Username">
+                    </div>
+
+                    <br />
+
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                      <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    </div>
+
+                    <br />
+
+                    <div class="login-forgot">
+                        <span class="">
+                            <a class="font-orange" href="">Forgot Password?</a>
+                        </span>
+                    </div>
+
+                    <br /><br />
+
+                    <div class="login-buttons">
+                        <button type="button" class="btn highlighted" onclick="doLogin();">LOGIN</button>
+                        <br /><br />
+                        <button type="button" class="btn">CREATE AN ACCOUNT</button>
+                    </div>
+
+                    <br /><br /><br />
+
+                </form>
+            </div>
+
+        </div>
+    </section>
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="modal-content">
+                ...
             </div>
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
+    </div>
+</body>
 </html>
