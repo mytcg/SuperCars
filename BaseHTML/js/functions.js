@@ -1,6 +1,14 @@
+var username = window.localStorage.getItem("username");
+var password = window.localStorage.getItem("password");
+var user_id = window.localStorage.getItem("user_id");
+var urlParams = queryParameters();
+
+var appendToken = '&user_id='+user_id+'&PHP_AUTH_PW='+password+'&PHP_AUTH_USER='+username;
+
 jQuery(document).ready(function() {
 
-    
+    $('#username').val(username);
+    $('#password').val(password);
 
 });
 
@@ -28,27 +36,10 @@ function genericAjax(script, resultDiv, formID, js, waitForResult){
     });
 }
 
-function xmlToArray (xml) {
-
-    var thisArray = new Array();
-    if($(xml).children().length > 0){
-        $(xml).children().each(function(){
-            if($(xml).find(this.nodeName).children().length > 0){
-
-                //If it has children recursively get the inner array
-                var NextNode = $(xml).find(this.nodeName);
-                thisArray[this.nodeName] = xmlToArray(NextNode);
-
-            } else {
-                //If not then store the next value to the current array
-                thisArray[this.nodeName] = $(xml).find(this.nodeName).text();
-            }
-        });
-    }
-    return thisArray;
-}
-
 function doLogin () {
+
+    window.localStorage.setItem("username", $('#username').val());
+    window.localStorage.setItem("password", $('#password').val());
 
     var ajax = jQuery.ajax({
         type: "POST",
@@ -57,9 +48,12 @@ function doLogin () {
         data : '',
         success: function(data) {
 
-                var result = xmlToArray(data);
-                if (result['RESULT']=='true') {
+                eval('var res='+data);
+                if (res['result']) {
+                    window.localStorage.setItem("user_id", res['user_id']);
                     window.location = 'dashboard.html';
+                } else {
+                    alert(res['content']);
                 }
         }
     });
@@ -70,36 +64,73 @@ function getuserDets (userid) {
     var ajax = jQuery.ajax({
         type: "POST",
         crossDomain: true,
-        url: 'http://topcarcards.co.za/?request=user&user_id=1&PHP_AUTH_USER=james',
+        url: 'http://topcarcards.co.za/?request=user'+appendToken,
         data : '',
         success: function(data) {
 
-                var result = xmlToArray(data);
-                if (result['RESULT']=='true') {
-                    $('#user-username').html(result['CONTENT']['USER']['USERNAME']);
-                    $('#user-creds').html(result['CONTENT']['USER']['CREDITS']);
-                    $('#user-scrap').html(result['CONTENT']['USER']['PARTS']);
+                eval('var res='+data);
+                if (res['result']) {
+                    $('#user-username').html(res['content']['username']);
+                    $('#user-creds').html(result['content']['credits']);
+                    $('#user-scrap').html(result['content']['parts']);
                 }
         }
     });
 }
 
-function getuserAlbums (userid, cat) {
+function getCardCategories (cat) {
 
     var ajax = jQuery.ajax({
         type: "POST",
         crossDomain: true,
-        url: 'http://topcarcards.co.za/?request=albumcards&user_id=1&category_id=3',
+        url: 'http://topcarcards.co.za/?request=categories&category_id='+cat+appendToken,
         data : '',
         success: function(data) {
 
-                eval('var cars='+data);
-                
-                for(var i=0; i<cars.length; i++) {
+            eval('var categories='+data);
+            if (categories) {
+                for(var i=0; i<categories.length; i++) {
 
-                    $('#body_template').append('<div class="row-fluid grid"><span class="glyphicon glyphicon-thumbs-up"></span>'+cars[i]['name']+'</div>');
+                    var url = (cat=='') ? 'categories' : 'cards';
+
+                    $('#body_template').append(
+                        '<div class="row-fluid grid" onclick="window.location=\'grid-template.html?cat_id='+categories[i]['category_id']+'&section='+url+'\'">'+
+                            categories[i]['description']+
+                        '</div>'
+                    );
 
                 }
+            }
+        }
+    });
+}
+
+function getCards (cat) {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=albumcards&category_id='+cat+appendToken,
+        data : '',
+        success: function(data) {
+
+            eval('var cards='+data);
+            if (cards) {
+                for(var i=0; i<cards.length; i++) {
+
+                    var owned = (cards[i]['owned']=='0') ? ' notowned' : '';
+
+                    $('#body_template').append(
+                        '<div class="row-fluid grid'+owned+' cars" onclick="window.location=\'grid-template.html?cat_id='+cards[i]['category_id']+'&section=cards\'">'+
+                            '<img src="img/cards/'+cards[i]['id']+'.jpg" />'+
+                            '<div class="clear"></div>'+
+                            cards[i]['name']+'<br />'
+                            +'<span class="secondary">'+cards[i]['scrap_value']+'</span>'+
+                        '</div>'
+                    );
+
+                }
+            }
         }
     });
 }
@@ -144,4 +175,19 @@ function getdecks (user_id) {
                 }
         }
     });
+}
+
+function queryParameters () {
+    var result = {};
+
+    var params = window.location.search.split(/\?|\&/);
+
+    params.forEach( function(it) {
+        if (it) {
+            var param = it.split("=");
+            result[param[0]] = param[1];
+        }
+    });
+
+    return result;
 }

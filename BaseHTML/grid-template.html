@@ -17,7 +17,19 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/functions.js"></script>
         <script>
-            getuserAlbums('1', '3');
+            if (urlParams.section=='cards') {
+
+                getCards(urlParams.cat_id);
+
+            } else if (urlParams.section=='decks') {
+
+                getdecks();
+
+            } else { /* Default to categories page */
+
+                var cat = (urlParams.cat_id) ? urlParams.cat_id : '';
+                getCardCategories(cat);
+            }
         </script>
 </head>
 <body>

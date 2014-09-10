@@ -30,9 +30,12 @@ $user_id = '';
 
 $userDetails = myqu('SELECT * FROM users WHERE username = "'.$sUsername.'"');
 $validUser = true;
-if ($user=$userDetails[0] OR $_GET['user_id']) {
-	if ($user['password'] != $sPassword AND !$_GET['user_id']) {
-		$retXml .= '<result>false</result><content>Invalid username/password.</content>';
+if ($user=$userDetails[0]) {
+	if ($user['password'] != $sPassword) {
+		$result = array(
+                    'result'    =>  false
+                    ,'content'  =>  'Invalid username/password.'
+                );
 		$validUser = false;
 	}
 	else {
@@ -40,12 +43,17 @@ if ($user=$userDetails[0] OR $_GET['user_id']) {
 	}
 }
 else {
-	$retXml .= ('<result>false</result><content>User not found.</content><random>'.$sUsername.' '.$sPassword.'</random>');
+        $result = array(
+            'result'    =>  false
+            ,'content'  =>  'User not found.'
+            ,'random'   =>  $sUsername.' '.$sPassword
+        );
 	$validUser = false;
 }
 
 if (!$validUser) {
-	close($retXml);
+	print json_encode($result);
+        exit;
 }
 
 // Check if it is the first time the user is logging in for the day, and if so, give them stuff!
@@ -57,34 +65,32 @@ updateLastRequestDate($user_id);
 switch($request) {
 	// Check for normal requests
 	case $REQUEST_LOGIN:
-		$retXml .= '<result>true</result><content>Log in success.</content>';
+		$result = array(
+                    'result'    =>  true
+                    ,'content'  =>  'Log in success.'
+                    ,'user_id'  =>  $user_id
+                );
 		break;
 	case $REQUEST_USER:
-		$retXml .= padReturnString(getUser($_GET['user_id']));
+		$result = getUser($_GET['user_id']);
 		break;
 	case $REQUEST_CATEGORIES:
-		$retXml .= padReturnString(getCategories($_GET['category_id']));
+		$result = getCategories($_GET['category_id']);
 		break;
 	case $REQUEST_ALBUMCARDS:
-		$cards  = getUserAlbumCards($_GET['category_id'], $user_id);
-		print json_encode($cards);
-		exit;
+		$result  = getUserAlbumCards($_GET['category_id'], $user_id);
 		break;
 	case $REQUEST_SCRAPCARD:
 		$retXml .= scrapUserCards($_GET['card_id'], $user_id);
 		break;
 	case $REQUEST_PRODUCTS:
-		$products = getProducts();
-		print json_encode($products);
-		exit;
+		$result = getProducts();
 		break;
 	case $REQUEST_PURCHASEPRODUCT:
 		$retXml .= buyProduct($user_id, $_GET['product_id']);
 		break;
 	case $REQUEST_GETDECKS:
-		$decks = getDecks($user_id);
-		print json_encode($decks);
-		exit;
+		$result = getDecks($user_id);
 		break;
 	case $REQUEST_GETDECKCARDS:
 		$retXml .= padReturnString(getDeckCards($_GET['deck_id']));
@@ -108,6 +114,4 @@ switch($request) {
 		$retXml .= '<result>true</result><content>No request sent.</content>';
 }
 
-close($retXml);
-
-?>
+print json_encode($result);

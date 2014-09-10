@@ -1,5 +1,6 @@
 body {background:#3A3F45;}
 img {width:100%;}
+clear {clear:both; width:0; height:0; line-height:0; overflow:hidden;}
 
 input {box-shadow:none !important; color:#4c5156 !important; background:#8f9295 !important; border:0 !important; border-radius:0 !important; }
 input:focus {background:#bcbec0 !important;}
@@ -14,10 +15,14 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .font-red {color:#e8463b;}
 .font-blue {color:#2c95f4;}
 
-.grid {padding:3% 4%; color:#fff; font-size:2em; border-bottom:1px solid #1a1f23;}
-.grid:hover {background:#1f262c;}
+.grid {padding:3% 4%; color:#ccc; font-size:2em; border-bottom:1px solid #1a1f23; cursor:pointer;}
+.grid:hover {background:#1f262c; color:#fff;}
 .grid span{padding-right:2%;}
 .grid:hover span{color:#2c95f4;}
+.grid.notowned {opacity:0.5; MozOpacity:0.5; KhtmlOpacity:0.5; filter: alpha(opacity = 50);}
+.grid span.secondary {color:#8f9295;}
+.grid:hover span.secondary {color:#e8463b;}
+.grid:hover img {float:left;}
 
 button.highlighted {background:#f26b28;}
 .logo-wrapper {margin:10% auto; width:70%;}

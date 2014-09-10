@@ -66,23 +66,24 @@ function getDecks($user_id) {
 }
 
 function getCategories($parent = '') {
-	$categoryXml = '<categories>';
-	
-	$sql = 'SELECT c.category_id, c.description, (case when count(cd.card_id) = 0 then "false" else "true" end) as hascards
-			  FROM categories c
-				   left OUTER JOIN cards cd ON cd.category_id = c.category_id
-			 WHERE '.(($parent == '' || $parent == null) ? 'c.category_parent is null' : 'c.category_parent = '.$parent).
-			' GROUP BY c.category_id';
-	
-	$categories = myqu($sql);
-	foreach ($categories as $category) {
-		$categoryXml .= '<category category_id="'.$category['category_id'].'" description="'.$category['description'].'" hascards="'.$category['hascards'].'">';
-		$categoryXml .= '</category>';
-	}
-	
-	$categoryXml .= '</categories>';
-	
-	return $categoryXml;
+    
+    $sql = 'SELECT c.category_id, c.description, (case when count(cd.card_id) = 0 then "false" else "true" end) as hascards
+                      FROM categories c
+                               left OUTER JOIN cards cd ON cd.category_id = c.category_id
+                     WHERE '.(($parent == '' || $parent == null) ? 'c.category_parent is null' : 'c.category_parent = '.$parent).
+                    ' GROUP BY c.category_id';
+
+    $categories = myqu($sql);
+    foreach ($categories as $category) {
+
+        $result[] = array(
+            'category_id'   =>  $category['category_id']
+            ,'description'  =>  $category['description']
+            ,'hascards'     =>  $category['hascards']
+        );
+    }
+
+    return $result;
 }
 
 function getDeckCards($deck_id) {
@@ -127,9 +128,10 @@ function getUserCardsNotInDeck($user_id, $deck_id) {
 function getUserAlbumCards($category, $user_id) {
 	
     $sql = 'SELECT c.card_id,
-				   c.name,
-				   c.description,
-				   ifnull(uc.owned, 0) owned
+                   c.name,
+                   c.description,
+                   c.scrap_value,
+                   ifnull(uc.owned, 0) owned
 			  FROM cards c
 				   LEFT JOIN
 				   (SELECT uc.card_id, count(uc.user_card_id) owned
@@ -143,13 +145,14 @@ function getUserAlbumCards($category, $user_id) {
 			GROUP BY c.card_id;';
 	
     $cardArr = myqu($sql);
-	
-	$cards = array();
+
+    $cards = array();
     foreach ($cardArr as $cardElement) {
 		$cards[] = array(
 			'card_id'        =>  $cardElement['card_id']
 			,'name'          =>  $cardElement['name']
 			,'description'   =>  $cardElement['description']
+			,'scrap_value'   =>  $cardElement['scrap_value']
 			,'owned'         =>  $cardElement['owned']
 		);
     }
@@ -195,7 +198,10 @@ function registerUser($username, $password) {
 
 function getUser($user_id) {
 	if (strlen($user_id) < 1) {
-		return '<result>false</result><content>Invalid User.</content>';
+		return $result = array(
+                    'result'    =>  false
+                    ,'content'  =>  'Invalid User.'
+                );
 	}
 
 	// Check that the username isnt taken.
@@ -204,12 +210,20 @@ function getUser($user_id) {
 		WHERE user_id = "'.$user_id.'"';
 	$user = myqu($sql);
 	if (!$user[0]) {
-		return '<result>false</result><content>Invalid User.</content>';
+		return $result = array(
+                    'result'    =>  false
+                    ,'content'  =>  'Invalid User.'
+                );
 	} else {
 
-            $userXml .= '<user><user_id>'.$user[0]['user_id'].'</user_id><username>'.$user[0]['username'].'</username><credits>'.$user[0]['credits'].'</credits><parts>'.$user[0]['parts'].'</parts></user>';
+            $user = array(
+                'user_id'       =>  $user[0]['user_id']
+                ,'username'     =>  $user[0]['username']
+                ,'credits'      =>  $user[0]['credits']
+                ,'parts'        =>  $user[0]['parts']
+            );
         }
-        return $userXml;
+        return $user;
 }
 
 function scrapUserCards($card_id, $user_id) {
