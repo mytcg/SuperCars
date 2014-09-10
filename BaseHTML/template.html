@@ -11,73 +11,76 @@
         <link rel="stylesheet" href="css/jquery-ui.css" media="screen" type="text/css" />
         <link rel="stylesheet" href="css/normalize.css" media="screen" type="text/css" />
         <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
-		<!-- /**  includes for the slide nav **/ -->
-		<link rel="stylesheet" type="text/css" href="css/default.css" />
-		<link rel="stylesheet" type="text/css" href="css/component.css" />
-		<script src="js/modernizr.custom.js"></script>
-		
+
         <script src="js/jquery-latest.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/functions.js"></script>
+        <script>
+            if (urlParams.section=='cards') {
+
+                getCards(urlParams.cat_id);
+
+            } else if (urlParams.section=='decks') {
+
+                getdecks();
+
+            } else if (urlParams.section=='shop') {
+
+                getproducts();
+
+            } else if (urlParams.section=='decks') {
+
+                getdecks();
+
+            } else { /* Default to categories page */
+
+                var cat = (urlParams.cat_id) ? urlParams.cat_id : '';
+                getCardCategories(cat);
+            }
+        </script>
 </head>
 <body>
+	<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	    	<!-- This is the toggle button section - hamburger -->
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">Super Cars</a>
+	    </div>
 	
-	<div class="cbp-spmenu-push">
-		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
-			<h3>Menu</h3>
-			<a href="dashboard.html"><span class="nav_span"><img src="elements/icon_dash.jpg" /></span>DASHBOARD</a>
-			<a href="grid-template.html"><span class="nav_span"><img src="elements/icon_album.jpg" /></span>ALBUM</a>
-			<a href="shop.html"><span class="nav_span"><img src="elements/icon_shop.jpg" /></span>SHOP</a>
-			<a href="game.html"><span class="nav_span"><img src="elements/icon_game.jpg" /></span>GAME</a>
-			<a href="leaderboard.html"><span class="nav_span"><img src="elements/icon_leader.jpg" /></span>LEADERBOARD</a>
-			<a href="credits.html"><span class="nav_span"><img src="elements/icon_credits.jpg" /></span>CREDITS</a>
-			<a href="profile.html"><span class="nav_span"><img src="elements/icon_profile.jpg" /></span>PROFILE</a>
-		</nav>
-		<nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-bottom" id="cbp-spmenu-s4">
-			<button>btn1</button>
-			<button>btn2</button>
-			<button>btn3</button>
-		</nav>
-		<div class="container">
-			<header class="clearfix">
-			</header>
-			<div class="main">
-				<section>
-					<button id="showRight">Show/Hide Right Slide Menu</button>
-					<button id="showBottom">Show/Hide Bottom Slide Menu</button>
-				</section>
-			</div>
-		</div>
-		<!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
-		<script src="js/classie.js"></script>
-		<script>
-			var	menuRight = document.getElementById( 'cbp-spmenu-s2' ),
-				menuBottom = document.getElementById( 'cbp-spmenu-s4' ),
-				showRight = document.getElementById( 'showRight' ),
-				showBottom = document.getElementById( 'showBottom' ),
-				body = document.body;
-
-			showRight.onclick = function() {
-				classie.toggle( this, 'active' );
-				classie.toggle( menuRight, 'cbp-spmenu-open' );
-				disableOther( 'showRight' );
-			};
-			showBottom.onclick = function() {
-				classie.toggle( this, 'active' );
-				classie.toggle( menuBottom, 'cbp-spmenu-open' );
-				disableOther( 'showBottom' );
-			};
-
-			function disableOther( button ) {
-				if( button !== 'showRight' ) {
-					classie.toggle( showRight, 'disabled' );
-				}
-				if( button !== 'showBottom' ) {
-					classie.toggle( showBottom, 'disabled' );
-				}
-			}
-		</script>
-		</div>
-	</body>
-</html>
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	        <!-- <li class="active"><a href="#">Link</a></li> -->
+	        <li><a href="dashboard.html"><span class="icon-bar"></span>DASHBOARD</a></li>
+	        <li><a href="grid-template.html"><span></span>ALBUM</a></li>
+	        <li><a href="grid-template.html?section=shop"><span></span>SHOP</a></li>
+	        <li><a href="game.html"><span></span>GAME</a></li>
+	        <li><a href="leaderboard.html"><span></span>LEADERBOARD</a></li>
+	        <li><a href="credits.html"><span></span>CREDITS</a></li>
+	        <li><a href="profile.html"><span></span>PROFILE</a></li>
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	</header>
+    <section id="body_template">
+		
+    </section>
+    <footer>
+    	<div onclick="getMoreCredits()" class="row credits-div">
+                <div class="col-xs-8 credit-stat">
+                    You have <span>***</span> credits
+                </div>
+                <div class="col-xs-4 credit-more">
+                    GET MORE
+                </div>
+        </div>
+    </footer>
+</body>
