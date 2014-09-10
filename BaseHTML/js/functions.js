@@ -83,12 +83,15 @@ function getuserDets (userid) {
     });
 }
 
-function getCardCategories (cat) {
+function getCardCategories (cat, deck_id) {
+
+    var notInDecks = (deck_id==undefined) ? false : true;
+    var action = (notInDecks) ? 'categories' : 'getCategoriesNotInDeck';
 
     var ajax = jQuery.ajax({
         type: "POST",
         crossDomain: true,
-        url: 'http://topcarcards.co.za/?request=categories&category_id='+cat+appendToken,
+        url: 'http://topcarcards.co.za/?request='+action+'&category_id='+cat+'&deck_id='+deck_id+appendToken,
         data : '',
         success: function(data) {
 
@@ -96,10 +99,15 @@ function getCardCategories (cat) {
             if (categories) {
                 for(var i=0; i<categories.length; i++) {
 
-                    var url = (cat=='') ? 'categories' : 'cards';
+                    if (notInDecks) {
+                        var url = (cat=='') ? 'categories' : 'cards';
+                    } else {
+                        var url = (cat=='') ? 'addToDeck' : 'deckCards';
+                    }
 
                     $('#body_template').append(
-                        '<div class="row-fluid grid" onclick="window.location=\'grid-template.html?cat_id='+categories[i]['category_id']+'&section='+url+'\'">'+
+                        '<div class="row-fluid grid" onclick="window.location=\'grid-template.html?cat_id='+categories[i]['category_id']+
+                                                    '&deck_id='+deck_id+'&section='+url+'\'">'+
                             '<div class="padded">'+
                             categories[i]['description']+
                             '</div>'+
@@ -112,12 +120,15 @@ function getCardCategories (cat) {
     });
 }
 
-function getCards (cat) {
+function getCards (cat, deck_id) {
+
+    var notInDecks = (deck_id==undefined) ? false : true;
+    var action = (notInDecks) ? 'albumcards' : 'getusercardsnotindeck';
 
     var ajax = jQuery.ajax({
         type: "POST",
         crossDomain: true,
-        url: 'http://topcarcards.co.za/?request=albumcards&category_id='+cat+appendToken,
+        url: 'http://topcarcards.co.za/?request='+action+'&category_id='+cat+'&deck_id='+deck_id+appendToken,
         data : '',
         success: function(data) {
 
@@ -125,10 +136,20 @@ function getCards (cat) {
             if (cards) {
                 for(var i=0; i<cards.length; i++) {
 
-                    var owned = (cards[i]['owned']=='0') ? ' notowned' : '';
+                    var owned = '';
+                    var clickPrepend = '';
+                    if (notInDecks) {
+
+                        var url = 'card';
+                        owned = (cards[i]['owned']=='0') ? ' notowned' : '';
+
+                    } else {
+                        var url = 'viewDeck';
+                        clickPrepend = "adddeckCards (\'"+deck_id+"\', \'"+cards[i]['card_id']+"\');";
+                    }
 
                     $('#body_template').append(
-                        '<div class="row grid'+owned+' cards" onclick="window.location=\'card.html?card_id='+cards[i]['card_id']+'\'">'+
+                        '<div class="row grid'+owned+' cards" onclick="'+clickPrepend+'window.location=\'card.html?card_id='+cards[i]['card_id']+'&deck_id='+deck_id+'\'">'+
                             '<div class="col-xs-2">'+
                                 '<img src="img/cards/'+cards[i]['card_id']+'.jpg" />'+
                             '</div>'+
@@ -321,15 +342,75 @@ function getdeckCards (deck_id) {
         }
     });
 }
+function removedeckCards (deck_id, card_id) {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=removecardfromdeck&deck_id='+deck_id+'&card_id='+card_id+appendToken,
+        data : '',
+        success: function(data) {
+
+                eval('var cards='+data);
+
+        }
+    });
+}
+
+function adddeckCards (deck_id, card_id) {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=addcardtodeck&deck_id='+deck_id+'&card_id='+card_id+appendToken,
+        data : '',
+        success: function(data) {
+
+                eval('var cards='+data);
+
+        }
+    });
+}
 
 function editDecks () {
 
     $('#deck-card-edit').removeClass('glyphicon-edit');
     $('#deck-card-edit').addClass('glyphicon-trash');
+    $('#deck-card-edit').addClass('inactive');
+    $('#cancel-button').show();
     $('.cards').each(
         function() {
             var newonclick = '$(this).toggleClass(\'selectedCard\');checkTrashButton();';
             $(this).attr('onclick', newonclick);
+        }
+    );
+    $('#deck-card-edit').attr('onclick','deleteDecks();');
+}
+
+function uneditDecks () {
+
+    $('#deck-card-edit').removeClass('glyphicon-trash');
+    $('#deck-card-edit').addClass('glyphicon-edit');
+    $('#deck-card-edit').removeClass('inactive');
+    $('#deck-card-edit').attr('onclick','editDecks();');
+    $('#cancel-button').hide();
+    $('.cards').each(
+        function() {
+            $(this).removeClass('selectedCard');
+            var newonclick = 'window.location=\'card.html?card_id='+$(this).attr('id')+'\'';
+            $(this).attr('onclick', newonclick);
+        }
+    );
+
+}
+
+function deleteDecks () {
+
+    $('.selectedCard').each(
+        function() {
+            $(this).removeClass('selectedCard');
+            removedeckCards (urlParams.deck_id, $(this).attr('id'));
+            $(this).remove();
         }
     );
 }
@@ -350,13 +431,13 @@ function footerDeckEdits() {
                     '<span id="deck-card-count">***</span>/10'+
                 '</div>'+
                 '<div class="col-xs-3 deck-edit-div">'+
-                    '<span class="glyphicon glyphicon-plus" id="deck-card-add"></span>'+
+                    '<span class="glyphicon glyphicon-plus" id="deck-card-add" onclick="window.location=\'grid-template.html?section=addToDeck&deck_id='+urlParams.deck_id+'\'"></span>'+
                 '</div>'+
                 '<div class="col-xs-3 deck-edit-div">'+
-                    '<span class="glyphicon glyphicon-edit inactive" id="deck-card-edit" onclick="editDecks();"></span>'+
+                    '<span class="glyphicon glyphicon-edit" id="deck-card-edit" onclick="editDecks();"></span>'+
                 '</div>'+
-                '<div class="col-xs-3 active-button">'+
-                    'SAVE'+
+                '<div class="col-xs-3 active-button" id="cancel-button" style="display:none;" onclick="uneditDecks();">'+
+                    'CANCEL'+
                 '</div>'+
         '</div>'
     );

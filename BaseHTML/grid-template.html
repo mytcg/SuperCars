@@ -21,6 +21,10 @@
 
                 getCards(urlParams.cat_id);
 
+            } else if (urlParams.section=='deckCards') {
+
+                getCards(urlParams.cat_id, urlParams.deck_id);
+
             } else if (urlParams.section=='decks') {
 
                 getdecks();
@@ -32,11 +36,11 @@
                     footerDeckEdits();
                 });
 
-//            } else if (urlParams.section=='addToDeck') {
-//
-//                var cat = (urlParams.cat_id) ? urlParams.cat_id : '';
-//                getCardCategories(cat);
-//
+            } else if (urlParams.section=='addToDeck') {
+
+                var cat = (urlParams.cat_id) ? urlParams.cat_id : '';
+                getCardCategories(cat, urlParams.deck_id);
+
 //            } else if (urlParams.section=='decks') {
 //
 //                getdecks();
