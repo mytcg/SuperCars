@@ -292,6 +292,9 @@ function getUser($user_id) {
 }
 
 function scrapUserCards($card_id, $user_id) {
+	global $CARDSTATUS_ALBUM;
+	global $CARDSTATUS_SCRAP;
+	
 	$sql = 'SELECT uc.user_card_id, c.scrap_value, c.name
 		FROM user_cards uc
 		INNER JOIN card_statuses cs 
@@ -317,6 +320,22 @@ function scrapUserCards($card_id, $user_id) {
 		myqu('UPDATE users
 		   SET parts = parts + '.$scrapValue.'
 		 WHERE user_id = '.$user_id);
+		 
+		$cardsResult = myqu('select count(uc.user_card_id) cards
+			from user_cards uc
+			inner join card_statuses cs
+			on uc.user_card_status = cs.card_status_id
+			where uc.card_id = '.$card_id.'
+			and uc.user_id = '.$user_id.'
+			and cs.description = "'.$CARDSTATUS_ALBUM.'"');
+		
+		// If they scrapped their last copy of the card, remove them from any deck they might be in.
+		if ($usercard=$cardsResult[0]) {
+			if ($usercard['cards'] == 0) {
+				myqu($sql = 'DELETE FROM deck_cards
+					WHERE card_id = '.$card_id);
+			}
+		}
 		
 		return array('result' => true, 'content' => $cardName.' scrapped! You gained '.$scrapValue.' parts!');
 	}
@@ -408,6 +427,13 @@ function createDeck($user_id, $deck_name) {
 }
 
 function deleteDeck($deck_id) {
+	// remove any cards from the deck
+	$sql = 'DELETE FROM deck_cards
+		WHERE deck_id = '.$deck_id;
+	
+	myqu($sql);
+	
+	// delete the deck
 	$sql = 'DELETE FROM decks
 		WHERE deck_id = '.$deck_id;
 	
