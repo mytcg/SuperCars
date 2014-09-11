@@ -20,6 +20,9 @@
             if (urlParams.section=='cards') {
 
                 getCards(urlParams.cat_id);
+                jQuery(document).ready(function() {
+                    footerCardEdits();
+                });
 
             } else if (urlParams.section=='deckCards') {
 

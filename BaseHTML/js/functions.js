@@ -447,6 +447,22 @@ function footerDeckEdits() {
     );
 }
 
+function footerCardEdits() {
+    $('#footer').html(
+        '<div class="row deck-edit-holder">'+
+                '<div class="col-xs-3 deck-edit-div deck-edit-count">'+
+                    '<span id="deck-card-count">***</span>/10'+
+                '</div>'+
+                '<div class="col-xs-3 deck-edit-div">'+
+                    '<span class="glyphicon glyphicon-refresh"></span>'+
+                '</div>'+
+                '<div class="col-xs-3 scrap-edit-div">'+
+                    '<span class="glyphicon glyphicon-wrench"></span>'+
+                '</div>'+
+        '</div>'
+    );
+}
+
 function footerMoreCredits() {
     $('#footer').html(
         '<div onclick="getMoreCredits()" class="row credits-div">'+
