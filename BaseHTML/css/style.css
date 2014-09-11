@@ -96,3 +96,7 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 .navbar-inverse .navbar-toggle .icon-bar {background-color: #8f9295;height: 3px;width: 25px;}
 .navbar-default{background:none;box-shadow:none;border-color:#000}
 .row-fluid > img{margin: 0 4%;width: 90%;}
+
+
+
+.fade {transition:opacity 1s linear 0s;}
