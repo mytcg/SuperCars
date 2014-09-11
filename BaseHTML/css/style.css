@@ -1,5 +1,5 @@
 body {background:#3A3F45;}
-#body_template{margin-top:55px}
+#body_template{margin-top:55px;margin-bottom: 55px;}
 img {width:100%;}
 clear {clear:both; width:0; height:0; line-height:0; overflow:hidden;}
 
