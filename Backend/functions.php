@@ -419,7 +419,19 @@ function createDeck($user_id, $deck_name) {
 		
 		myqu($sql);
 		
-		return array('result' => true, 'content' => 'Deck created!');
+		// After creating the deck, we want to return the deck_id
+		$deck_id = '';
+		
+		$deckIdResult = myqu('select max(d.deck_id) deck_id
+			from decks d
+			where d.user_id = '.$user_id.'
+			and d.description = "'.$deck_name.'"');
+			
+		if ($deckId = $deckIdResult[0]) {
+			$deck_id = $deckId['deck_id'];
+		}
+		
+		return array('result' => true, 'content' => 'Deck created!', 'deck_id' => $deck_id);
 	}
 	else {
 		return array('result' => false, 'content' => 'Please provide a name for your deck.');
