@@ -1,5 +1,7 @@
 body {background:#3A3F45;}
 #body_template{margin-top:55px;margin-bottom: 55px;}
+
+.row-fluid > img{margin: 0 4%;width: 90%;}
 img {width:100%;}
 clear {clear:both; width:0; height:0; line-height:0; overflow:hidden;}
 
@@ -22,7 +24,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .deck-edit-count {color:#f26b28;}
 #deck-card-add, #deck-card-edit {cursor:pointer;}
 
-.active-button {background:#f26b28; font-weight:bold; cursor:pointer; padding:4% 2%; text-align:center; color:#fff;}
+.active-button {background:#f26b28; font-weight:bold; cursor:pointer; padding:2% 2%; text-align:center; color:#fff;}
 
 .grid {color:#ccc; font-size:2em; border-bottom:1px solid #1a1f23; cursor:pointer;}
 .grid .padded {padding:3% 4%; line-height:110%;}
@@ -74,6 +76,7 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 .dashboard-user-dets span{font-weight:bold;}
 .dashboard-user-creds {color:#fff; text-align:center; margin-top:5%;}
 
+/*****  Navigation Section Starts *******/
 .navbar-header {
     background: none repeat scroll 0 0 #1f262c;
 }
@@ -95,4 +98,5 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 }
 .navbar-inverse .navbar-toggle .icon-bar {background-color: #8f9295;height: 3px;width: 25px;}
 .navbar-default{background:none;box-shadow:none;border-color:#000}
-.row-fluid > img{margin: 0 4%;width: 90%;}
+/*****  Navigation Section Ends *******/
+
