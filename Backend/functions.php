@@ -416,6 +416,19 @@ function deleteDeck($deck_id) {
 	return array('result' => true, 'content' => 'Deck deleted!');
 }
 
+function renameDeck($deck_id, $deck_name) {
+	if (strlen($deck_name) > 0) {
+		$sql = 'update decks set description = "'.$deck_name.'" where deck_id = '.$deck_id;
+		
+		myqu($sql);
+		
+		return array('result' => true, 'content' => 'Deck updated!');
+	}
+	else {
+		return array('result' => false, 'content' => 'Please provide the new name.');
+	}
+}
+
 function padReturnString($retString) {
 	$retXml = padXMLContent((strlen($retString) > 0 ? 'true' : 'false'), $retString);
 	return $retXml;

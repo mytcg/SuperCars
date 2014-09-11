@@ -19,6 +19,7 @@ $REQUEST_REMOVECARDFROMDECK = "removecardfromdeck";
 $REQUEST_REDEEMVOUCHER = "redeemvoucher";
 $REQUEST_CREATEDECK = "createdeck";
 $REQUEST_DELETEDECK = "deletedeck";
+$REQUEST_RENAMEDECK = "renamedeck";
 
 // Game requests
 $GAMEREQUEST_NEWGAME = "newgame";
