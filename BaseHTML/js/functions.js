@@ -85,8 +85,8 @@ function getuserDets (userid) {
 
 function getCardCategories (cat, deck_id) {
 
-    var notInDecks = (deck_id==undefined) ? false : true;
-    var action = (notInDecks) ? 'categories' : 'getCategoriesNotInDeck';
+    var InDecks = (deck_id==undefined) ? false : true;
+    var action = (InDecks) ? 'getusercategoriesnotindeck' : 'categories';
 
     var ajax = jQuery.ajax({
         type: "POST",
@@ -99,10 +99,10 @@ function getCardCategories (cat, deck_id) {
             if (categories) {
                 for(var i=0; i<categories.length; i++) {
 
-                    if (notInDecks) {
-                        var url = (cat=='') ? 'categories' : 'cards';
+                    if (InDecks) {
+                        var url = (cat=='') ? 'addToDeck&deck_id='+deck_id : 'deckCards';
                     } else {
-                        var url = (cat=='') ? 'addToDeck' : 'deckCards';
+                        var url = (cat=='') ? 'categories' : 'cards';
                     }
 
                     $('#body_template').append(
@@ -122,8 +122,8 @@ function getCardCategories (cat, deck_id) {
 
 function getCards (cat, deck_id) {
 
-    var notInDecks = (deck_id==undefined) ? false : true;
-    var action = (notInDecks) ? 'albumcards' : 'getusercardsnotindeck';
+    var InDecks = (deck_id==undefined) ? false : true;
+    var action = (InDecks) ? 'getusercardsnotindeck' : 'albumcards';
 
     var ajax = jQuery.ajax({
         type: "POST",
@@ -138,24 +138,24 @@ function getCards (cat, deck_id) {
 
                     var owned = '';
                     var clickPrepend = '';
-                    if (notInDecks) {
+                    if (InDecks) {
 
-                        var url = 'card';
-                        owned = (cards[i]['owned']=='0') ? ' notowned' : '';
+                        var url = 'grid-template.html?section=viewDeck&addCard='+cards[i]['card_id']+'&';
 
                     } else {
-                        var url = 'viewDeck';
-                        clickPrepend = "adddeckCards (\'"+deck_id+"\', \'"+cards[i]['card_id']+"\');";
+
+                        var url = 'card.html?';
+                        owned = (cards[i]['owned']=='0') ? ' notowned' : '';
                     }
 
                     $('#body_template').append(
-                        '<div class="row grid'+owned+' cards" onclick="'+clickPrepend+'window.location=\'card.html?card_id='+cards[i]['card_id']+'&deck_id='+deck_id+'\'">'+
+                        '<div class="row grid'+owned+' cards" onclick="window.location=\''+url+'card_id='+cards[i]['card_id']+'&deck_id='+deck_id+'\'">'+
                             '<div class="col-xs-2">'+
                                 '<img src="img/cards/'+cards[i]['card_id']+'.jpg" />'+
                             '</div>'+
                             '<div class="col-xs-10 padded">'+
                                 cards[i]['name']+'<br />'+
-                                '<span class="secondary">'+cards[i]['scrap_value']+'</span>'+
+                                ((cards[i]['scrap_value'])?'<span class="secondary">'+cards[i]['scrap_value']+' credits</span>':'')+
                             '</div>'+
                         '</div>'
                     );

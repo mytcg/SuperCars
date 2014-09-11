@@ -31,6 +31,9 @@
 
             } else if (urlParams.section=='viewDeck') {
 
+                if (urlParams.addCard) {
+                    adddeckCards (urlParams.deck_id, urlParams.addCard);
+                }
                 getdeckCards(urlParams.deck_id);
                 jQuery(document).ready(function() {
                     footerDeckEdits();
