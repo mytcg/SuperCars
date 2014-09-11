@@ -306,7 +306,7 @@ function getdecks (user_id) {
                     var owned = (decks[i]['playable']=='0') ? ' notowned' : '';
 
                     $('#body_template').append(
-                        '<div class="row grid'+owned+' cars" id="'+decks[i]['deck_id']+'" onclick="window.location=\'grid-template.html?deck_id='+decks[i]['deck_id']+'&section=viewDeck\'">'+
+                        '<div class="row grid'+owned+' decks" id="'+decks[i]['deck_id']+'" onclick="window.location=\'grid-template.html?deck_id='+decks[i]['deck_id']+'&section=viewDeck\'">'+
                             '<div class="col-xs-3">'+
                                 '<img src="img/decks/'+decks[i]['deck_id']+'.jpg" />'+
                             '</div>'+
@@ -353,21 +353,34 @@ function editDeck (action) {
 
     $('#deck-card-edit').addClass('inactive');
     $('#cancel-button').show();
-    var action = '';
-
+    
     if (action=='trash') {
+
         $('#deck-card-edit').addClass('inactive');
-        deleteDeck();
-        $('#myModal').modal();
-        //modal-content
+        //onclick = 'deleteDeck();';
+        $('#modal-content').html(
+            'Are you sure you want to delete this deck?<button>Yes</button><button>Cancel</button>'
+        );
+        
     } else {
+
         $('#deck-card-trash').addClass('inactive');
-        renameDeck();
+        //onclick = 'renameDeck();';
+        $('#model-heading').html('Are you sure you want to delete this Deck?');
+        $('#modal-body').html(
+            '<div class="row-fluid">'+
+                '<div class="btn-group">'+
+                    '<button type="button" class="btn btn-default">Yes</button>'+
+                    '<button type="button" class="btn btn-default">Cancel</button>'+
+                '</div>'+
+            '</div>'
+        );
     }
-    $('.cards').each(
+
+    $('.decks').each(
         function() {
-            var newonclick = '$(this).toggleClass(\'selectedCard\');';
-            $(this).attr('onclick', newonclick);
+            var newonclick = onclick;
+            $(this).attr('onclick', "$('#myModal').modal();");
         }
     );
 }
@@ -377,7 +390,7 @@ function uneditDeck () {
     $('#deck-card-edit').removeClass('inactive');
     $('#deck-card-trash').removeClass('inactive');
     $('#cancel-button').hide();
-    $('.cards').each(
+    $('.decks').each(
         function() {
             var newonclick = 'window.location=\'grid-template.html?deck_id='+$(this).attr('id')+'&section=viewDeck\'';
             $(this).attr('onclick', newonclick);
