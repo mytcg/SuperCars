@@ -1,4 +1,5 @@
 body {background:#3A3F45;}
+#body_template{margin-top:50px}
 img {width:100%;}
 clear {clear:both; width:0; height:0; line-height:0; overflow:hidden;}
 
@@ -15,16 +16,44 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .font-red {color:#e8463b;}
 .font-blue {color:#2c95f4;}
 
-.grid {padding:3% 4%; color:#ccc; font-size:2em; border-bottom:1px solid #1a1f23; cursor:pointer;}
+.deck-edit-holder {background:#1f262c; font-size:1.4em;}
+.deck-edit-div {padding:4% 2%; color:#1f262c; text-align:center;}
+.deck-edit-div .inactive{color:#3a4046;}
+.deck-edit-count {color:#f26b28;}
+#deck-card-add, #deck-card-edit {cursor:pointer;}
+
+.active-button {background:#f26b28; font-weight:bold; cursor:pointer; padding:4% 2%; text-align:center; color:#fff;}
+
+.grid {color:#ccc; font-size:2em; border-bottom:1px solid #1a1f23; cursor:pointer;}
+.grid .padded {padding:3% 4%; line-height:110%;}
 .grid:hover {background:#1f262c; color:#fff;}
 .grid span{padding-right:2%;}
 .grid:hover span{color:#2c95f4;}
 .grid.notowned {opacity:0.5; MozOpacity:0.5; KhtmlOpacity:0.5; filter: alpha(opacity = 50);}
 .grid span.secondary {color:#8f9295;}
 .grid:hover span.secondary {color:#e8463b;}
-.grid img {float:left; width:20%; margin:-3% 3% 0 0;}
+.grid.shop:hover span.secondary{color:#e9b31f;}
+.grid img {float:left; margin:0 3% 0 0;}
+.grid.selectedCard {background:#1f262c;}
+
+.div-button {font-size:1.4em; color:#fff; font-weight:bold; padding:3% 2%; background:#363c42; cursor:pointer;}
+.div-button:hover {color:#fff; background:#f26b28;}
+.div-button span{color:#9b9d9f; font-weight:normal;}
+.div-button:hover span{color:#fff; font-weight:bold;}
+.div-button .arrow{font-size:2em;}
+
+.credits-div {font-size:2em; color:#ccc; background:#1f262c;}
+.credits-div .credit-stat{padding:4% 3%;}
+.credits-div span{color:#f26b28;}
+.credits-div .credit-more{}
+
+.new-instruction {font-size:1.4em; color:#ccc; text-align:center;}
 
 .scrap-menu {display:none;}
+
+.card-subtitle {font-size:2em; color:#9b9d9f;}
+.card-subtitle-right {font-size:1.5em; color:#9b9d9f; text-align:right;}
+.card-price {font-size:1.5em; color:#e9b31f; font-weight:bold;}
 
 button.highlighted {background:#f26b28;}
 .logo-wrapper {margin:10% auto; width:70%;}
@@ -39,8 +68,22 @@ button.highlighted {background:#f26b28;}
 .login-form .login-buttons {text-align:center;}
 
 .dashboard-progress {text-align:center; padding:10% 0 0;}
-input.knob {color:#797d80 !important; margin-top:7% !important;
-        background: url('../elements/dashboard_cards.png') transparent no-repeat 0% 90% / 100% !important;}
+input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !important;
+        background: url('../elements/dashboard_cards.png') transparent no-repeat 0% 85% / 100% !important;}
 .dashboard-user-dets {color:#fff; text-align:center; margin-top:5%;}
 .dashboard-user-dets span{font-weight:bold;}
 .dashboard-user-creds {color:#fff; text-align:center; margin-top:5%;}
+
+.navbar-header {
+    background: none repeat scroll 0 0 #1f262c;
+}
+.navbar-header .navbar-brand{
+	padding:0;
+	margin:0;
+	float:none;	
+}
+.navbar-header img{
+	width:110px;
+	margin:0;
+	padding:0;
+}

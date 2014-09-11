@@ -11,106 +11,66 @@
         <link rel="stylesheet" href="css/jquery-ui.css" media="screen" type="text/css" />
         <link rel="stylesheet" href="css/normalize.css" media="screen" type="text/css" />
         <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
-		<!-- /**  includes for the slide nav **/ -->
-		<link rel="stylesheet" type="text/css" href="css/default.css" />
-		<link rel="stylesheet" type="text/css" href="css/component.css" />
-		<script src="js/modernizr.custom.js"></script>
-		
+
         <script src="js/jquery-latest.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/functions.js"></script>
+        <script>
+            if (urlParams.section=='cards') {
+
+                getCards(urlParams.cat_id);
+
+            } else if (urlParams.section=='decks') {
+
+                getdecks();
+
+            } else if (urlParams.section=='shop') {
+
+                getproducts();
+
+            } else if (urlParams.section=='decks') {
+
+                getdecks();
+
+            } else { /* Default to categories page */
+
+                var cat = (urlParams.cat_id) ? urlParams.cat_id : '';
+                getCardCategories(cat);
+            }
+        </script>
 </head>
 <body>
-	<div class="row-fluid">
-		<div class="container">
-		<nav class="navbar navbar-fixed-top navbar-inverse navbar-right" role="navigation">
-		  <div class="container-fluid">
-		    <!-- Brand and toggle get grouped for better mobile display -->
-		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-		        <span class="sr-only">Toggle navigation</span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		      </button>
-		      <a class="navbar-brand" href="#">Brand</a>
-		    </div>
-		
-		    <!-- Collect the nav links, forms, and other content for toggling -->
-		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		      <ul class="nav navbar-nav">
-		        <li class="active"><a href="#">Link</a></li>
-		        <li><a href="#">Link</a></li>
-		        <li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-		          <ul class="dropdown-menu" role="menu">
-		            <li><a href="#">Action</a></li>
-		            <li><a href="#">Another action</a></li>
-		            <li><a href="#">Something else here</a></li>
-		            <li class="divider"></li>
-		            <li><a href="#">Separated link</a></li>
-		            <li class="divider"></li>
-		            <li><a href="#">One more separated link</a></li>
-		          </ul>
-		        </li>
-		      </ul>
-		      <ul class="nav navbar-nav navbar-right">
-		        <li><a href="#">Link</a></li>
-		        <li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-		          <ul class="dropdown-menu" role="menu">
-		            <li><a href="#">Action</a></li>
-		            <li><a href="#">Another action</a></li>
-		            <li><a href="#">Something else here</a></li>
-		            <li class="divider"></li>
-		            <li><a href="#">Separated link</a></li>
-		          </ul>
-		        </li>
-		      </ul>
-		    </div><!-- /.navbar-collapse -->
-		  </div><!-- /.container-fluid -->
-		</nav>
-		</div>
-    </div>
-    <section id="body_template">
-        <div class="container">
-
-        </div>
-    </section>
-    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-	  <div class="container">
-	    <div class="btn-group btn-group-lg">
-			<button class="btn btn-default" type="button">Left</button>
-			<button class="btn btn-default" type="button">Middle</button>
-			<button class="btn btn-default" type="button">Right</button>
-		</div>
-	  </div>
+	<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	    	<!-- This is the toggle button section - hamburger -->
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">Super Cars</a>
+	    </div>
+	
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	        <!-- <li class="active"><a href="#">Link</a></li> -->
+	        <li><a href="dashboard.html"><span class="icon-bar"></span>DASHBOARD</a></li>
+	        <li><a href="grid-template.html"><span></span>ALBUM</a></li>
+	        <li><a href="grid-template.html?section=shop"><span></span>SHOP</a></li>
+	        <li><a href="game.html"><span></span>GAME</a></li>
+	        <li><a href="leaderboard.html"><span></span>LEADERBOARD</a></li>
+	        <li><a href="credits.html"><span></span>CREDITS</a></li>
+	        <li><a href="profile.html"><span></span>PROFILE</a></li>
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
 	</nav>
-   
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content" id="modal-content">
-                ...
-            </div>
-        </div>
-    </div>
-    <script src="js/classie.js"></script>
-		<script>
-			var showRight = document.getElementById( 'showRight' ),
-				body = document.body;
-
-			showRight.onclick = function() {
-				classie.toggle( this, 'active' );
-				classie.toggle( menuRight, 'cbp-spmenu-open' );
-				disableOther( 'showRight' );
-			};
-
-			function disableOther( button ) {
-				if( button !== 'showRight' ) {
-					classie.toggle( showRight, 'disabled' );
-				}
-			}
-		</script>
+	</header>
+    <section id="body_template">
+		
+    </section>
 </body>
-</html>

@@ -17,63 +17,8 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/functions.js"></script>
         <script>
-            if (urlParams.section=='cards') {
+            if (urlParams.section=='decks') {
 
-                getCards(urlParams.cat_id);
-                jQuery(document).ready(function() {
-                    footerCardEdits();
-                });
-
-            } else if (urlParams.section=='deckCards') {
-
-                getCards(urlParams.cat_id, urlParams.deck_id);
-                jQuery(document).ready(function() {
-                    $('#footer').hide();
-                });
-
-            } else if (urlParams.section=='decks') {
-
-                getdecks();
-                jQuery(document).ready(function() {
-                    footerDeckEdits();
-                });
-
-            } else if (urlParams.section=='viewDeck') {
-
-                if (urlParams.addCard) {
-                    adddeckCards (urlParams.deck_id, urlParams.addCard);
-                }
-                getdeckCards(urlParams.deck_id);
-                jQuery(document).ready(function() {
-                    footerDeckCardEdits();
-                });
-
-            } else if (urlParams.section=='addToDeck') {
-
-                var cat = (urlParams.cat_id) ? urlParams.cat_id : '';
-                getCardCategories(cat, urlParams.deck_id);
-                jQuery(document).ready(function() {
-                    $('#footer').hide();
-                });
-
-//            } else if (urlParams.section=='decks') {
-//
-//                getdecks();
-
-            } else if (urlParams.section=='shop') {
-
-                getproducts();
-                jQuery(document).ready(function() {
-                    footerMoreCredits();
-                });
-
-            } else { /* Default to categories page */
-
-                var cat = (urlParams.cat_id) ? urlParams.cat_id : '';
-                getCardCategories(cat);
-                jQuery(document).ready(function() {
-                    $('#footer').hide();
-                });
             }
         </script>
 </head>
@@ -108,15 +53,28 @@
 	</nav>
 	</header>
     <section id="body_template">
-		
-    </section>
-    <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
-    </footer>
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content" id="modal-content">
-                ...
+        <div class="container-fluid">
+            <br /><br /><br /><br />
+            <div class="row-fluid new-instruction">
+                Name your new Deck.
+            </div>
+            <br /><br /><br /><br />
+            <div class="row-fluid new-input">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-align-justify"></span></span>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Type Name">
+                </div>
             </div>
         </div>
-    </div>
+    </section>
+    <footer>
+    	<div onclick="newDeck($('#name').val());" class="row credits-div">
+                <!-- <div class="col-xs-8 credit-stat">
+                    You have <span>***</span> credits
+                </div> -->
+                <div class=" pull-right col-xs-4 credit-more">
+                    CREATE
+                </div>
+        </div>
+    </footer>
 </body>
