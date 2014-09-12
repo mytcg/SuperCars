@@ -1,5 +1,5 @@
 body {background:#3A3F45;}
-#body_template{margin-top:55px;margin-bottom: 55px;}
+#body_template{margin-top:55px;margin-bottom: 100px;}
 
 .row-fluid > img{margin: 0 4%;width: 90%;}
 img {width:100%;}
@@ -124,7 +124,7 @@ a.nav-expander {
     position: absolute;
     right: 0;
     top: 0;
-    width: 14%;
+    width: 70px;
     z-index: 12;
 
   transition: right 0.3s ease-in-out 0s;

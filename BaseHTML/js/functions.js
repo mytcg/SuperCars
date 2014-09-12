@@ -27,22 +27,22 @@ jQuery(document).ready(function() {
   	
   	
   	// Initialize navgoco with default options
-    $(".main-menu").navgoco({
-        caret: '<span class="caret"></span>',
-        accordion: false,
-        openClass: 'open',
-        save: true,
-        cookie: {
-            name: 'navgoco',
-            expires: false,
-            path: '/'
-        },
-        slide: {
-            duration: 300,
-            easing: 'swing'
-            }
-        });
-        	
+    // $(".main-menu").navgoco({
+        // caret: '<span class="caret"></span>',
+        // accordion: false,
+        // openClass: 'open',
+        // save: true,
+        // cookie: {
+            // name: 'navgoco',
+            // expires: false,
+            // path: '/'
+        // },
+        // slide: {
+            // duration: 300,
+            // easing: 'swing'
+            // }
+        // });
+//         	
 
 });
 
