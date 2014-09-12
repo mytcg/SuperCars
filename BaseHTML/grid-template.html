@@ -20,15 +20,15 @@
             if (urlParams.section=='cards') {
 
                 getCards(urlParams.cat_id);
-                jQuery(document).ready(function() {
-                    footerCardEdits();
-                });
 
             } else if (urlParams.section=='deckCards') {
 
                 getCards(urlParams.cat_id, urlParams.deck_id);
                 jQuery(document).ready(function() {
-                    $('#footer').hide();
+                    if (urlParams.deck_id!='undefined') {
+                        var deckCardCount = urlParams.deck_count;
+                        footerCardEdits();
+                    }
                 });
 
             } else if (urlParams.section=='decks') {
@@ -48,12 +48,12 @@
                     footerDeckCardEdits();
                 });
 
-            } else if (urlParams.section=='addToDeck') {
+            } else if (urlParams.section=='addToDeck') { 
 
                 var cat = (urlParams.cat_id) ? urlParams.cat_id : '';
                 getCardCategories(cat, urlParams.deck_id);
                 jQuery(document).ready(function() {
-                    $('#footer').hide();
+                    footerCardEdits();
                 });
 
 //            } else if (urlParams.section=='decks') {
@@ -108,22 +108,25 @@
 	</nav>
 	</header>
     <section id="body_template">
-<!--		<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content" id="modal-content">
-                            <div class="row-fluid">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <strong id="model-heading"></strong>
-                                    </div>
-                                    <div class="panel-body" id="modal-body">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
+            <div class="modal-content" id="modal-content">
+                
+            </div>
+        </div>
+        <div id="delete-confirmation" class="modal-popup-content-holder">
+            <div class="modal-popup-content row-fluid">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <div class="">
+                        Are you sure you want to delete this deck?<br />
+                        This can not be un done!
                     </div>
-                </div>-->
+                    <div class="btn-group" style="margin-top:10%;">
+                        <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">No</button><br /><br />
+                        <button type="button" class="btn btn-default" id="delete-confirmation-confirm">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
     </footer>

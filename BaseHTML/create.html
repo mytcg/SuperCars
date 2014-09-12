@@ -17,9 +17,19 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/functions.js"></script>
         <script>
-            if (urlParams.section=='decks') {
+            jQuery(document).ready(function() {
+                
+                if (urlParams.deck_id) {
 
-            }
+                    $('.new-instruction').html('Rename your Deck: "'+decodeURIComponent(urlParams.deck_name)+'"');
+                    $('#name').attr('placeholder', decodeURIComponent(urlParams.deck_name));
+
+                } else {
+
+                    $('.new-instruction').html('Name your new Deck.');
+                    $('#name').attr('placeholder', 'Type Name');
+                }
+            });
         </script>
 </head>
 <body>
@@ -68,7 +78,7 @@
         </div>
     </section>
     <footer>
-    	<div onclick="newDeck($('#name').val());" class="row credits-div">
+    	<div onclick="newDeck($('#name').val(), urlParams.deck_id);" class="row credits-div">
                 <!-- <div class="col-xs-8 credit-stat">
                     You have <span>***</span> credits
                 </div> -->
