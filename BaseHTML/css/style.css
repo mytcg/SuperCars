@@ -26,9 +26,10 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .font-red {color:#e8463b;}
 .font-blue {color:#2c95f4;}
 
-.deck-edit-holder {background:#1f262c; font-size:1.4em;}
-.deck-edit-div {padding:4% 2%; color:#1f262c; text-align:center;}
-.deck-edit-div .inactive{color:#3a4046;}
+.footer-options-holder {background:#1f262c; font-size:1.4em;}
+.footer-options-div {padding:4% 2%; color:#1f262c; text-align:center;}
+.footer-options-div .inactive {color:#3a4046;}
+
 .deck-edit-count {color:#f26b28;}
 #deck-card-add, #deck-card-edit {cursor:pointer;}
 

@@ -276,6 +276,20 @@ function scrapCard (card_id) {
     });
 }
 
+function footerCardOptions() {
+    $('#footer').html(
+        '<div onclick="getMoreCredits()" class="row footer-options-holder">'+
+                '<div class="col-xs-6 footer-options-div">'+
+                    '<span class="glyphicon glyphicon-wrench" id="card-flip" onclick="$(\'#scrap-menu\').toggle();"></span>'+
+                '</div>'+
+                '<div class="col-xs-6 footer-options-div">'+
+                    '<span class="glyphicon glyphicon-resize-full" id="card-flip" onclick="flipCard();"></span>'+
+                '</div>'+
+        '</div>'
+    );
+    $('#footer').show();
+}
+
 /******************************************* END Card details ******************************************************************/
 
 /******************************************* Products start here ******************************************************************/
@@ -407,11 +421,11 @@ function getdecks (user_id) {
 
 function footerDeckEdits() {
     $('#footer').html(
-        '<div class="row deck-edit-holder">'+
-                '<div class="col-xs-4 deck-edit-div">'+
+        '<div class="row footer-options-holder">'+
+                '<div class="col-xs-4 footer-options-div">'+
                     '<span class="glyphicon glyphicon-trash" id="deck-card-trash" onclick="editDeck(\'trash\');"></span>'+
                 '</div>'+
-                '<div class="col-xs-4 deck-edit-div">'+
+                '<div class="col-xs-4 footer-options-div">'+
                     '<span class="glyphicon glyphicon-edit" id="deck-card-edit" onclick="editDeck(\'edit\');"></span>'+
                 '</div>'+
                 '<div class="col-xs-4 active-button" id="cancel-button" style="display:none;" onclick="uneditDeck();">'+
@@ -561,14 +575,14 @@ function removedeckCards (deck_id, card_id) {
 
 function footerDeckCardEdits() {
     $('#footer').html(
-        '<div class="row deck-edit-holder">'+
-                '<div class="col-xs-3 deck-edit-div deck-edit-count">'+
+        '<div class="row footer-options-holder">'+
+                '<div class="col-xs-3 footer-options-div deck-edit-count">'+
                     '<span id="deck-card-count">***</span>/10'+
                 '</div>'+
-                '<div class="col-xs-3 deck-edit-div">'+
+                '<div class="col-xs-3 footer-options-div">'+
                     '<span class="glyphicon glyphicon-plus" id="deck-card-add" onclick="window.location=\'grid-template.html?section=addToDeck&deck_id='+urlParams.deck_id+'&deck_count='+urlParams.deck_count+'\'"></span>'+
                 '</div>'+
-                '<div class="col-xs-3 deck-edit-div">'+
+                '<div class="col-xs-3 footer-options-div">'+
                     '<span class="glyphicon glyphicon-edit" id="deck-card-edit" onclick="editDecksCards();"></span>'+
                 '</div>'+
                 '<div class="col-xs-3 active-button" id="cancel-button" style="display:none;" onclick="uneditDecksCards();">'+
@@ -636,8 +650,8 @@ function checkTrashButton () {
 
 function footerCardEdits() {
     $('#footer').html(
-        '<div class="row deck-edit-holder">'+
-                '<div class="col-xs-9 deck-edit-div deck-edit-count">'+
+        '<div class="row footer-options-holder">'+
+                '<div class="col-xs-9 footer-options-div deck-edit-count">'+
                     '<span id="deck-card-count">'+urlParams.deck_count+'</span>/10'+
                 '</div>'+
                 '<div class="col-xs-3 active-button" id="save-button" onclick="window.location=\'grid-template.html?section=decks&deck_id='+urlParams.deck_id+'\'">'+
