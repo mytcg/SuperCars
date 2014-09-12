@@ -1,4 +1,4 @@
-body {background:#3A3F45;}
+body {background:#2a3137;}
 #body_template{margin-top:55px;margin-bottom: 100px;}
 
 .row-fluid > img{margin: 0 4%;width: 90%;}
@@ -8,7 +8,7 @@ clear {clear:both; width:0; height:0; line-height:0; overflow:hidden;}
 input {box-shadow:none !important; color:#4c5156 !important; background:#8f9295 !important; border:0 !important; border-radius:0 !important; }
 input:focus {background:#bcbec0 !important;}
 .input-group-addon {background:#3d4751; border:0; border-radius:0;}
-button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#fff; text-transform:uppercase; padding:10px 12px;}
+button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2a2a1; text-transform:uppercase; padding:10px 12px;}
 .glyphicon {color:#bcbec0;}
 .modal-backdrop {background:#2a3137;}
 .modal-backdrop.in {opacity:0.8; MozOpacity:0.8; KhtmlOpacity:0.8; filter: alpha(opacity = 80);}
@@ -34,10 +34,10 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 #deck-card-add, #deck-card-edit {cursor:pointer;}
 
 .active-button {background:#f26b28; font-weight:bold; cursor:pointer; padding:2% 2%; text-align:center; color:#fff;}
-
+.btn:hover, .btn:focus{ color: #fff;}
 .grid {color:#ccc; font-size:2em; border-bottom:1px solid #1a1f23; cursor:pointer;}
 .grid .padded {padding:3% 4%; line-height:110%;}
-.grid:hover {background:#1f262c; color:#fff;}
+.grid:hover {background:#1f262c; color:#a2a2a1;}
 .grid span{padding-right:2%;}
 .grid:hover span{color:#2c95f4;}
 .grid.notowned {opacity:0.5; MozOpacity:0.5; KhtmlOpacity:0.5; filter: alpha(opacity = 50);}
@@ -66,7 +66,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .card-subtitle-right {font-size:1.5em; color:#9b9d9f; text-align:right;}
 .card-price {font-size:1.5em; color:#e9b31f; font-weight:bold;}
 
-button.highlighted {background:#f26b28;}
+button.highlighted {background:#f26b28;font-weight:bold}
 .logo-wrapper {margin:10% auto; width:70%;}
 
 .login-form {}
@@ -94,9 +94,7 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 	margin:0;
 	float:none;	
 }
-.navbar-brand {
-    padding: 0;
-}
+.navbar-brand { padding: 0; margin-right: 10%; }
 
 .navbar-brand img{
 	width:110px;
@@ -260,3 +258,8 @@ body.nav-expanded {
   opacity: 1;
 }
 
+.supercars_logo{
+	float: left;
+    margin-top: 8px;
+    width: 150px;
+}
