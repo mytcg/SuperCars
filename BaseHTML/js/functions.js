@@ -151,19 +151,19 @@ function getCards (cat, deck_id) {
                 for(var i=0; i<cards.length; i++) {
 
                     var owned = '';
-                    var clickPrepend = '';
+                    var onclick = '';
                     if (InDecks) {
 
-                        var url = 'grid-template.html?section=viewDeck&addCard='+cards[i]['card_id']+'&';
+                        onclick = 'addRemoveCardDecks('+cards[i]['card_id']+');';
 
                     } else {
 
-                        var url = 'card.html?';
+                        onclick = window.location='card.html?card_id='+cards[i]['card_id'];
                         owned = (cards[i]['owned']=='0') ? ' notowned' : '';
                     }
 
                     $('#body_template').append(
-                        '<div class="row grid'+owned+' cards" id="'+cards[i]['card_id']+'" onclick="window.location=\''+url+'card_id='+cards[i]['card_id']+'&deck_id='+deck_id+'\'">'+
+                        '<div class="row grid'+owned+' cards" id="'+cards[i]['card_id']+'" onclick="'+onclick+'">'+
                             '<div class="col-xs-2">'+
                                 '<img src="img/cards/'+cards[i]['card_id']+'.jpg" />'+
                             '</div>'+
@@ -178,6 +178,30 @@ function getCards (cat, deck_id) {
             }
         }
     });
+}
+
+function addRemoveCardDecks (card_id) {
+
+    var adding = ($('#'+card_id).hasClass('selectedCard')) ? false : true;
+    
+    if (adding) {
+        if (parseInt(deckCardCount)<10) {
+
+            $('#'+card_id).addClass('selectedCard');
+            adddeckCards (urlParams.deck_id, card_id);
+            deckCardCount++;
+            $('#deck-card-count').html(deckCardCount);
+
+        } else {
+            $('#modal-content').html($('#warning-confirmation').html());
+            $('#myModal').modal();
+        }
+    } else {
+        $('#'+card_id).removeClass('selectedCard');
+        deckCardCount--;
+        $('#deck-card-count').html(deckCardCount);
+        removedeckCards (urlParams.deck_id, card_id);
+    }
 }
 
 /******************************************* END Cards View ******************************************************************/
@@ -283,7 +307,6 @@ function newDeck (name, deck_id, deck_count) {
     var deck_count = (urlParams.deck_count==undefined) ? '0' : urlParams.deck_count;
     var rename = (deck_id==undefined) ? false : true;
     var action = (rename) ? 'renamedeck' : 'createdeck';
-    var url = (rename) ? 'grid-template.html?section=decks' : 'grid-template.html?section=addToDeck&deck_id='+urlParams.deck_id+'&deck_count='+urlParams.deck_count;
 
     var ajax = jQuery.ajax({
         type: "POST",
@@ -294,6 +317,11 @@ function newDeck (name, deck_id, deck_count) {
 
                 eval('var result='+data);
                 if (result['result']) {
+
+                    var url = (rename) ?
+                        'grid-template.html?section=addToDeck&deck_id='+urlParams.deck_id+'&deck_count='+urlParams.deck_count :
+                        'grid-template.html?section=addToDeck&deck_id='+result['deck_id']+'&deck_count=0';
+
                     window.location=url;
                 } else {
                     alert(result['content']);
@@ -324,7 +352,7 @@ function getdecks (user_id) {
                             '</div>'+
                             '<div class="col-xs-9 padded">'+
                                 '<div id="deck-name-'+decks[i]['deck_id']+'">'+decks[i]['description']+'</div>'
-                                +'<span class="secondary" id="deck-count-'+decks[i]['deck_id']+'">'+decks[i]['cards_in_deck']+' cards in deck</span>'+
+                                +'<span class="secondary"><span id="deck-count-'+decks[i]['deck_id']+'">'+decks[i]['cards_in_deck']+'</span> cards in deck</span>'+
                             '</div>'+
                         '</div>'
                     );
@@ -484,6 +512,21 @@ function adddeckCards (deck_id, card_id) {
     });
 }
 
+function removedeckCards (deck_id, card_id) {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=removecardfromdeck&deck_id='+deck_id+'&card_id='+card_id+appendToken,
+        data : '',
+        success: function(data) {
+
+                eval('var cards='+data);
+
+        }
+    });
+}
+
 function footerDeckCardEdits() {
     $('#footer').html(
         '<div class="row deck-edit-holder">'+
@@ -565,7 +608,7 @@ function footerCardEdits() {
                 '<div class="col-xs-9 deck-edit-div deck-edit-count">'+
                     '<span id="deck-card-count">'+urlParams.deck_count+'</span>/10'+
                 '</div>'+
-                '<div class="col-xs-3 active-button" id="save-button" onclick="sad();">'+
+                '<div class="col-xs-3 active-button" id="save-button" onclick="window.location=\'grid-template.html?section=decks&deck_id='+urlParams.deck_id+'\'">'+
                     'DONE'+
                 '</div>'+
         '</div>'

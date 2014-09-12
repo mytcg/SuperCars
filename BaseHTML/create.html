@@ -23,6 +23,7 @@
 
                     $('.new-instruction').html('Rename your Deck: "'+decodeURIComponent(urlParams.deck_name)+'"');
                     $('#name').attr('placeholder', decodeURIComponent(urlParams.deck_name));
+                    $('.credit-more').html("Rename");
 
                 } else {
 
@@ -77,13 +78,13 @@
             </div>
         </div>
     </section>
-    <footer>
-    	<div onclick="newDeck($('#name').val(), urlParams.deck_id);" class="row credits-div">
-                <!-- <div class="col-xs-8 credit-stat">
-                    You have <span>***</span> credits
-                </div> -->
-                <div class=" pull-right col-xs-4 credit-more">
-                    CREATE
+    <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
+        <div class="row credits-div">
+                <div class="col-xs-8 credit-stat">
+
+                </div>
+                <div onclick="newDeck($('#name').val(), urlParams.deck_id);" class="col-xs-4 credit-more active-button">
+                    SAVE
                 </div>
         </div>
     </footer>

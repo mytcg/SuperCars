@@ -20,13 +20,16 @@
             if (urlParams.section=='cards') {
 
                 getCards(urlParams.cat_id);
+                jQuery(document).ready(function() {
+                    $('#footer').hide();
+                });
 
             } else if (urlParams.section=='deckCards') {
 
+                var deckCardCount = urlParams.deck_count;
                 getCards(urlParams.cat_id, urlParams.deck_id);
                 jQuery(document).ready(function() {
                     if (urlParams.deck_id!='undefined') {
-                        var deckCardCount = urlParams.deck_count;
                         footerCardEdits();
                     }
                 });
@@ -40,9 +43,6 @@
 
             } else if (urlParams.section=='viewDeck') {
 
-                if (urlParams.addCard) {
-                    adddeckCards (urlParams.deck_id, urlParams.addCard);
-                }
                 getdeckCards(urlParams.deck_id);
                 jQuery(document).ready(function() {
                     footerDeckCardEdits();
@@ -123,6 +123,18 @@
                     <div class="btn-group" style="margin-top:10%;">
                         <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">No</button><br /><br />
                         <button type="button" class="btn btn-default" id="delete-confirmation-confirm">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="warning-confirmation" class="modal-popup-content-holder">
+            <div class="modal-popup-content row-fluid">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <div class="">
+                        Sorry there is already 10 cards in your list! (Max 10)
+                    </div>
+                    <div class="btn-group" style="margin-top:10%;">
+                        <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">OK</button><br /><br />
                     </div>
                 </div>
             </div>
