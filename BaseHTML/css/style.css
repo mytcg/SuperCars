@@ -60,9 +60,12 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 
 .new-instruction {font-size:1.4em; color:#ccc; text-align:center;}
 
+.dashboard-CTA .btn {float:left;}
+
 .scrap-menu {display:none;}
-.scrap-menu .btn {background:#8f9295; float:left;}
-.scrap-menu button.highlighted {background:#f26b28;}
+.scrap-menu .btn {background:#8f9295; float:left; color:#1f262c;}
+.scrap-menu button.highlighted {background:#f26b28; color:#fff;}
+#card-wrench.active {background:#8f9295;}
 
 .card-subtitle {font-size:2em; color:#9b9d9f;}
 .card-subtitle-right {font-size:1.5em; color:#9b9d9f; text-align:right;}

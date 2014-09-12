@@ -190,7 +190,7 @@ function getCards (cat, deck_id) {
 
                     } else {
 
-                        onclick = window.location='card.html?card_id='+cards[i]['card_id'];
+                        onclick = "window.location='card.html?card_id="+cards[i]['card_id']+"'";
                         owned = (cards[i]['owned']=='0') ? ' notowned' : '';
                     }
 
@@ -279,10 +279,10 @@ function scrapCard (card_id) {
 function footerCardOptions() {
     $('#footer').html(
         '<div onclick="getMoreCredits()" class="row footer-options-holder">'+
-                '<div class="col-xs-6 footer-options-div">'+
-                    '<span class="glyphicon glyphicon-wrench" id="card-flip" onclick="$(\'#scrap-menu\').toggle();"></span>'+
+                '<div class="col-xs-6 footer-options-div" id="card-wrench">'+
+                    '<span class="glyphicon glyphicon-wrench" onclick="$(\'#scrap-menu\').toggle();$(\'#card-wrench\').toggleClass(\'active\');"></span>'+
                 '</div>'+
-                '<div class="col-xs-6 footer-options-div">'+
+                '<div class="col-xs-6 footer-options-div" id="card-flip">'+
                     '<span class="glyphicon glyphicon-resize-full" id="card-flip" onclick="flipCard();"></span>'+
                 '</div>'+
         '</div>'
@@ -339,7 +339,12 @@ function buyproduct (product_id) {
         success: function(data) {
 
                 eval('var result='+data);
-                alert(result['content']);
+                if (result['result']) {
+                    $('#modal-content').html($('#parchase-confirmation').html());
+                    $('#myModal').modal();
+                } else {
+                    alert(result['content']);
+                }
         }
     });
 }
