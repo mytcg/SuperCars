@@ -91,6 +91,10 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 .navbar-header {
     background: none repeat scroll 0 0 #1f262c;
 }
+.main-menu .text-right {
+    padding: 7px;
+    text-align: right;
+}
 .navbar-header .navbar-brand{
 	padding:0;
 	margin:0;
@@ -117,7 +121,11 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-
+.list-group-item{
+	background:none;
+	border:none;
+	padding:20px;
+}
 a.nav-expander {
 	color: #9b9d9f;
     margin-right: 0;
@@ -188,7 +196,6 @@ body.nav-expanded {
     border-bottom: 1px solid #0f0f0f;
     font-size: 18px;
     margin-left: 5px;
-    padding: 7px;
 }
 
 .main-menu li a {
