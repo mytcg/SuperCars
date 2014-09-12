@@ -10,6 +10,14 @@ input:focus {background:#bcbec0 !important;}
 .input-group-addon {background:#3d4751; border:0; border-radius:0;}
 button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#fff; text-transform:uppercase; padding:10px 12px;}
 .glyphicon {color:#bcbec0;}
+.modal-backdrop {background:#2a3137;}
+.modal-backdrop.in {opacity:0.8; MozOpacity:0.8; KhtmlOpacity:0.8; filter: alpha(opacity = 80);}
+.modal-content {background:transparent;}
+
+.modal-popup-content-holder {display:none;}
+.modal-popup-content {/*display:none;*/ margin-top:30%; color:#ccc; font-size:1.3em;}
+.modal-popup-content button {background:#363c42;}
+.modal-popup-content .btn-group {display:block;}
 
 .caps {text-transform:uppercase;}
 .font-orange {color:#f26b28;}
