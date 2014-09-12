@@ -83,9 +83,9 @@ button.highlighted {background:#f26b28;font-weight:bold}
 .dashboard-progress {text-align:center; padding:10% 0 0;}
 input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !important;
         background: url('../elements/dashboard_cards.png') transparent no-repeat 0% 85% / 100% !important;}
-.dashboard-user-dets {color:#fff; text-align:center; margin-top:5%;}
-.dashboard-user-dets span{font-weight:bold;}
-.dashboard-user-creds {color:#fff; text-align:center; margin-top:5%;}
+.dashboard-user-dets {color:#fff; text-align:center; margin-top:5%;font-size:16px;}
+/*.dashboard-user-dets span{font-size:2em;}*/
+.dashboard-user-creds {color:#fff; text-align:center; margin-top:5%;font-size:16px;}
 
 /*****  Navigation Section Starts *******/
 .navbar-header {
