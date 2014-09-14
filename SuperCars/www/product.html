@@ -21,6 +21,7 @@
                 $('#card-img').attr('src','img/products/'+urlParams.product_id+'.jpg');
                 $('#card-name').html(decodeURIComponent(urlParams.description));
                 $('#card-subtitle').html(decodeURIComponent(urlParams.description));
+                $('#success-name').html(decodeURIComponent(urlParams.description));
                 $('#card-subtitle-right').html(urlParams.pack_size+' cards in pack');
                 $('#card-price').html(urlParams.price+' credits');
             });
@@ -28,34 +29,29 @@
 </head>
 <body>
 	<header>
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container-fluid">
-	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header">
-	    	<!-- This is the toggle button section - hamburger -->
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	      <a class="navbar-brand" href="dashboard.html"><img src="elements/topcar_logo.jpg" /></a>
+	    <div class="navbar navbar-inverse navbar-fixed-top">      
+	        <!--Include your brand here-->
+	        <a class="navbar-brand" href="dashboard.html"><img src="elements/topcar_logo.jpg" /></a>
+	        <div class="navbar-header">
+	          <a id="nav-expander" class="nav-expander fixed">
+	            <img src="elements/icon_menu.jpg" />
+	          </a>
+	        </div>
 	    </div>
-	
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav">
-	        <!-- <li class="active"><a href="#">Link</a></li> -->
-	        <li><a href="dashboard.html"><span class="icon-bar"></span>DASHBOARD</a></li>
+	</header>
+	<nav>
+	    <ul class="list-unstyled main-menu">
+	    	<li class="text-right"><a href="#" id="nav-close"><img src="elements/supercars_logo.jpg" /></a></li>
+	      	<li><a href="dashboard.html"><span class="icon-bar"></span>DASHBOARD</a></li>
 	        <li><a href="grid-template.html"><span></span>ALBUM</a></li>
 	        <li><a href="grid-template.html?section=shop"><span></span>SHOP</a></li>
-	        <li><a href="game.html"><span></span>GAME</a></li>
+                <li><a href="grid-template.html?section=decks"><span></span>DECK</a></li>
+<!--	        <li><a href="game.html"><span></span>GAME</a></li>
 	        <li><a href="leaderboard.html"><span></span>LEADERBOARD</a></li>
 	        <li><a href="credits.html"><span></span>CREDITS</a></li>
-	        <li><a href="profile.html"><span></span>PROFILE</a></li>
-	      </ul>
-	    </div><!-- /.navbar-collapse -->
-	  </div><!-- /.container-fluid -->
+	        <li><a href="profile.html"><span></span>PROFILE</a></li>-->
+	    </ul>
 	</nav>
-	</header>
 
     <section id="body_template">
         <div class="container-fluid">
@@ -74,15 +70,39 @@
             <br />
 
             <div class="row div-button" onclick="buyproduct(urlParams.product_id);">
-                    <div class="col-xs-11">
+                    <div class="col-xs-9">
                         <span>SHOP</span><br />
                         BUY THIS BOOSTER PACK
                     </div>
-                    <div class="col-xs-1 arrow">
+                    <div class="col-xs-3 arrow">
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </div>
             </div>
 
+            <div id="parchase-confirmation" class="modal-popup-content-holder">
+                <div class="modal-popup-content row-fluid">
+                    <div class="col-xs-8 col-xs-offset-2">
+                        <div class="hightlight">
+                            SUCCESS!
+                        </div>
+                        <div class="">
+                            You have successfully bought<br />
+                            <span id="success-name">Booster Pack Name</span>
+                        </div>
+                        <div class="btn-group" style="margin-top:10%;">
+                            <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">OK</button><br /><br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="modal-content">
+                ...
+            </div>
+        </div>
+    </div>
 </body>

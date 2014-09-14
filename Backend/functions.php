@@ -66,11 +66,10 @@ function getDecks($user_id) {
 }
 
 function getCategories($parent = '') {
-    
     $sql = 'SELECT c.category_id, c.description, (case when count(cd.card_id) = 0 then "false" else "true" end) as hascards
                       FROM categories c
                                left OUTER JOIN cards cd ON cd.category_id = c.category_id
-                     WHERE '.(($parent == '' || $parent == null) ? 'c.category_parent is null' : 'c.category_parent = '.$parent).
+                      WHERE '.(($parent == '' || $parent == null) ? 'c.category_parent is null' : 'c.category_parent = '.$parent).
                     ' GROUP BY c.category_id';
 
     $categories = myqu($sql);
@@ -147,6 +146,7 @@ function getUserCardsNotInDeck($user_id, $deck_id, $category_id) {
 }
 
 function getUserAlbumCards($category, $user_id) {
+	global $CARDSTATUS_ALBUM;
 	
     $sql = 'SELECT c.card_id,
                    c.name,
