@@ -195,11 +195,11 @@ function getCards (cat, deck_id) {
                     }
 
                     $('#body_template').append(
-                        '<div class="row grid'+owned+' cards" id="'+cards[i]['card_id']+'" onclick="'+onclick+'">'+
-                            '<div class="col-xs-2">'+
-                                '<img src="img/cards/'+cards[i]['card_id']+'.jpg" />'+
+                        '<div class="row grid'+owned+' cards vertical-align" id="'+cards[i]['card_id']+'" onclick="'+onclick+'">'+
+                            '<div class="col-xs-4 vcenter">'+
+                                '<img src="img/cards/'+cards[i]['card_id']+'-thumb.jpg" />'+
                             '</div>'+
-                            '<div class="col-xs-10 padded">'+
+                            '<div class="col-xs-8 padded vcenter">'+
                                 cards[i]['name']+'<br />'+
                                 ((cards[i]['scrap_value'])?'<span class="secondary">'+cards[i]['scrap_value']+' credits</span>':'')+
                             '</div>'+
@@ -254,7 +254,8 @@ function getCard (card_id) {
                 
                 $('#card-name').html(car['name']);
                 $('#card-parts').html(car['scrap_value']);
-                $('#card-img').attr('src', 'img/cards/'+car['card_id']+'.jpg');
+                $('#card-img').attr('src', 'img/cards/'+car['card_id']+'-front.jpg');
+                $('#card-img-bck').attr('src', 'img/cards/'+car['card_id']+'-back.jpg');
 
             }
         }
@@ -283,7 +284,7 @@ function footerCardOptions() {
                     '<span class="glyphicon glyphicon-wrench" onclick="$(\'#scrap-menu\').toggle();$(\'#card-wrench\').toggleClass(\'active\');"></span>'+
                 '</div>'+
                 '<div class="col-xs-6 footer-options-div" id="card-flip">'+
-                    '<span class="glyphicon glyphicon-resize-full" id="card-flip" onclick="flipCard();"></span>'+
+                    '<span class="glyphicon glyphicon-resize-full" id="card-flip" onclick="$(\'.quickflip-wrapper\').quickFlipper();"></span>'+
                 '</div>'+
         '</div>'
     );
@@ -308,16 +309,16 @@ function getproducts () {
                 for(var i=0; i<products.length; i++) {
 
                     $('#body_template').append(
-                        '<div class="row grid shop" id="'+products[i]['product_id']+'" onclick="window.location=\'product.html?'+
+                        '<div class="row grid shop vertical-align" id="'+products[i]['product_id']+'" onclick="window.location=\'product.html?'+
                                                         'product_id='+products[i]['product_id']+
                                                         '&description='+products[i]['description']+
                                                         '&price='+products[i]['price']+
                                                         '&pack_size='+products[i]['pack_size']+
                                                         '\'">'+
-                            '<div class="col-xs-2">'+
+                            '<div class="col-xs-4 vcenter">'+
                                 '<img src="img/products/'+products[i]['product_id']+'.jpg" />'+
                             '</div>'+
-                            '<div class="col-xs-10 padded">'+
+                            '<div class="col-xs-8 padded vcenter">'+
                                 products[i]['description']+'<br />'
                                 +'<span class="secondary">'+products[i]['pack_size']+' cards in pack</span>'+
                             '</div>'+
@@ -397,11 +398,11 @@ function getdecks (user_id) {
                     var owned = (decks[i]['playable']=='0') ? ' notowned' : '';
 
                     $('#body_template').append(
-                        '<div class="row grid'+owned+' decks" id="'+decks[i]['deck_id']+'" onclick="window.location=\'grid-template.html?deck_id='+decks[i]['deck_id']+'&deck_count='+decks[i]['cards_in_deck']+'&section=viewDeck\'">'+
-                            '<div class="col-xs-3">'+
+                        '<div class="row grid'+owned+' decks vertical-align" id="'+decks[i]['deck_id']+'" onclick="window.location=\'grid-template.html?deck_id='+decks[i]['deck_id']+'&deck_count='+decks[i]['cards_in_deck']+'&section=viewDeck\'">'+
+                            '<div class="col-xs-4 vcenter">'+
                                 '<img src="img/decks/'+decks[i]['deck_id']+'.jpg" />'+
                             '</div>'+
-                            '<div class="col-xs-9 padded">'+
+                            '<div class="col-xs-8 padded vcenter">'+
                                 '<div id="deck-name-'+decks[i]['deck_id']+'">'+decks[i]['description']+'</div>'
                                 +'<span class="secondary"><span id="deck-count-'+decks[i]['deck_id']+'">'+decks[i]['cards_in_deck']+'</span> cards in deck</span>'+
                             '</div>'+
@@ -411,11 +412,11 @@ function getdecks (user_id) {
                 }
 
                 $('#body_template').append(
-                    '<div class="row grid deck" onclick="window.location=\'create.html?section=decks\'">'+
-                        '<div class="col-xs-3 padded" style="text-align:center;">'+
+                    '<div class="row grid deck vertical-align" onclick="window.location=\'create.html?section=decks\'">'+
+                        '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
                             '<span class="glyphicon glyphicon-plus" style="text-align:center; color:#2c95f4;"></span>'+
                         '</div>'+
-                        '<div class="col-xs-9 padded">'+
+                        '<div class="col-xs-8 padded vcenter">'+
                             'Create New Deck'+
                         '</div>'+
                     '</div>'
@@ -514,11 +515,11 @@ function getdeckCards (deck_id) {
                 for(var i=0; i<cards.length; i++) {
 
                     $('#body_template').append(
-                        '<div class="row grid cards" id="'+cards[i]['card_id']+'" onclick="window.location=\'card.html?card_id='+cards[i]['card_id']+'\'">'+
-                            '<div class="col-xs-2">'+
-                                '<img src="img/cards/'+cards[i]['card_id']+'.jpg" />'+
+                        '<div class="row grid cards vertical-align" id="'+cards[i]['card_id']+'" onclick="window.location=\'card.html?card_id='+cards[i]['card_id']+'\'">'+
+                            '<div class="col-xs-4 vcenter">'+
+                                '<img src="img/cards/'+cards[i]['card_id']+'-front.jpg" />'+
                             '</div>'+
-                            '<div class="col-xs-10 padded">'+
+                            '<div class="col-xs-8 padded vcenter">'+
                                 cards[i]['name']+
                             '</div>'+
                         '</div>'

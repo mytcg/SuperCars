@@ -26,6 +26,9 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 .font-red {color:#e8463b;}
 .font-blue {color:#2c95f4;}
 
+.vcenter {display:inline-block; vertical-align:middle; float:none;}
+.vertical-align {display:flex; align-items:center;}
+
 .footer-options-holder {background:#1f262c; font-size:1.4em;}
 .footer-options-div {padding:4% 2%; color:#1f262c; text-align:center;}
 .footer-options-div .inactive {color:#3a4046;}
@@ -35,8 +38,8 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 
 .active-button {background:#f26b28; font-weight:bold; cursor:pointer; padding:2% 2%; text-align:center; color:#fff;}
 .btn:hover, .btn:focus{ color: #fff;}
-.grid {color:#ccc; font-size:2em; border-bottom:1px solid #1a1f23; cursor:pointer;}
-.grid .padded {padding:3% 4%; line-height:110%;}
+.grid {color:#ccc; font-size:1.5em; border-bottom:1px solid #1a1f23; cursor:pointer;}
+.grid .padded {padding:3% 4%; line-height:130%;}
 .grid:hover {background:#1f262c; color:#a2a2a1;}
 .grid span{padding-right:2%;}
 .grid:hover span{color:#2c95f4;}
@@ -62,7 +65,8 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 
 .dashboard-CTA .btn {float:left;}
 
-.scrap-menu {display:none;}
+#card-name {color:#fff;}
+.scrap-menu {display:none; position:fixed; bottom:70px;}
 .scrap-menu .btn {background:#8f9295; float:left; color:#1f262c;}
 .scrap-menu button.highlighted {background:#f26b28; color:#fff;}
 #card-wrench.active {background:#8f9295;}
