@@ -29,6 +29,9 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 .vcenter {display:inline-block; vertical-align:middle; float:none;}
 .vertical-align {display:flex; align-items:center;}
 
+.nav-back {font-size:1.5em; padding:2% 2% 0 2%; display:inline-block;}
+.page-title {font-size:1.5em; color:#fff; display:inline-block;}
+
 .footer-options-holder {background:#1f262c; font-size:1.4em;}
 .footer-options-div {padding:4% 2%; color:#1f262c; text-align:center;}
 .footer-options-div .inactive {color:#3a4046;}

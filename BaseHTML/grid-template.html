@@ -34,7 +34,7 @@
                     }
                 });
 
-            } else if (urlParams.section=='decks') {
+            } else if (urlParams.section=='decks' || urlParams.section=='challenge') {
 
                 getdecks();
                 jQuery(document).ready(function() {
@@ -71,13 +71,19 @@
                     $('#footer').hide();
                 });
             }
+            jQuery(document).ready(function() {
+                $('#page-title').html(decodeURI(urlParams.header));
+            });
         </script>
 </head>
 <body>
 	<header>
-	    <div class="navbar navbar-inverse navbar-fixed-top">      
-	        <!--Include your brand here-->
-	        <a class="navbar-brand" href="dashboard.html"><img src="elements/topcar_logo.jpg" /></a>
+	    <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="nav-back">
+                    <span class="glyphicon glyphicon-chevron-left" onclick="history.go(-1)"></span>
+                </div>
+                <div id="page-title" class="page-title">
+                </div>
 	        <div class="navbar-header">
 	          <a id="nav-expander" class="nav-expander fixed">
 	            <img src="elements/icon_menu.jpg" />
@@ -99,7 +105,7 @@
 	        <li><a href="grid-template.html"><span></span>ALBUM</a></li>
 	        <li><a href="grid-template.html?section=shop"><span></span>SHOP</a></li>
                 <li><a href="grid-template.html?section=decks"><span></span>DECK</a></li>
-<!--	        <li><a href="game.html"><span></span>GAME</a></li>
+	        <li><a href="grid-template.html?section=challenge"><span></span>GAME</a></li><!--
 	        <li><a href="leaderboard.html"><span></span>LEADERBOARD</a></li>
 	        <li><a href="credits.html"><span></span>CREDITS</a></li>
 	        <li><a href="profile.html"><span></span>PROFILE</a></li>-->
@@ -138,6 +144,16 @@
             </div>
         </div>
     </section>
+    <div id="rules-container" class="">
+        <div id="rules-holder" class="">
+            <div class="">
+                RULES
+            </div>
+            <div class="btn-group" style="margin-top:10%;">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet faucibus risus, efficitur molestie neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent aliquet diam metus, aliquet semper mi suscipit vitae. Duis rutrum, dolor ut fermentum pretium, purus est lacinia massa, nec accumsan risus turpis in massa. In tincidunt orci vehicula tincidunt dignissim.
+            </div>
+        </div>
+    </div>
     <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
     </footer>
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">

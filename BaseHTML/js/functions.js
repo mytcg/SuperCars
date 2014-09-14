@@ -149,7 +149,7 @@ function getCardCategories (cat, deck_id) {
 
                     $('#body_template').append(
                         '<div class="row-fluid grid" id="'+categories[i]['category_id']+'" onclick="window.location=\'grid-template.html?cat_id='+categories[i]['category_id']+
-                                                    '&deck_id='+deck_id+'&deck_count='+urlParams.deck_count+'&section='+url+'\'">'+
+                                                    '&deck_id='+deck_id+'&deck_count='+urlParams.deck_count+'&header='+categories[i]['description']+'&section='+url+'\'">'+
                             '<div class="padded">'+
                             categories[i]['description']+
                             '</div>'+
@@ -281,7 +281,7 @@ function footerCardOptions() {
     $('#footer').html(
         '<div onclick="getMoreCredits()" class="row footer-options-holder">'+
                 '<div class="col-xs-6 footer-options-div" id="card-wrench">'+
-                    '<span class="glyphicon glyphicon-wrench" onclick="$(\'#scrap-menu\').toggle();$(\'#card-wrench\').toggleClass(\'active\');"></span>'+
+                    '<span class="glyphicon glyphicon-share-alt" onclick="$(\'#scrap-menu\').toggle();$(\'#card-wrench\').toggleClass(\'active\');"></span>'+
                 '</div>'+
                 '<div class="col-xs-6 footer-options-div" id="card-flip">'+
                     '<span class="glyphicon glyphicon-resize-full" id="card-flip" onclick="$(\'.quickflip-wrapper\').quickFlipper();"></span>'+
@@ -384,6 +384,8 @@ function newDeck (name, deck_id, deck_count) {
 
 function getdecks (user_id) {
 
+    var isGame = (urlParams.section=='challenge') ? true : false;
+
     var ajax = jQuery.ajax({
         type: "POST",
         crossDomain: true,
@@ -396,9 +398,10 @@ function getdecks (user_id) {
                 for(var i=0; i<decks.length; i++) {
 
                     var owned = (decks[i]['playable']=='0') ? ' notowned' : '';
+                    var location = (isGame) ? 'game.html' : 'grid-template.html?deck_id='+decks[i]['deck_id']+'&deck_count='+decks[i]['cards_in_deck']+'&section=viewDeck';
 
                     $('#body_template').append(
-                        '<div class="row grid'+owned+' decks vertical-align" id="'+decks[i]['deck_id']+'" onclick="window.location=\'grid-template.html?deck_id='+decks[i]['deck_id']+'&deck_count='+decks[i]['cards_in_deck']+'&section=viewDeck\'">'+
+                        '<div class="row grid'+owned+' decks vertical-align" id="'+decks[i]['deck_id']+'" onclick="window.location=\''+location+'\'">'+
                             '<div class="col-xs-4 vcenter">'+
                                 '<img src="img/decks/'+decks[i]['deck_id']+'.jpg" />'+
                             '</div>'+
@@ -412,7 +415,7 @@ function getdecks (user_id) {
                 }
 
                 $('#body_template').append(
-                    '<div class="row grid deck vertical-align" onclick="window.location=\'create.html?section=decks\'">'+
+                    '<div class="row grid deck" onclick="window.location=\'create.html?section=decks\'">'+
                         '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
                             '<span class="glyphicon glyphicon-plus" style="text-align:center; color:#2c95f4;"></span>'+
                         '</div>'+
@@ -421,6 +424,9 @@ function getdecks (user_id) {
                         '</div>'+
                     '</div>'
                 );
+                if (urlParams.section=='challenge') {
+                    $('#body_template').append($('#rules-container').html());
+                }
         }
     });
 }
