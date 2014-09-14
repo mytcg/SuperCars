@@ -20,11 +20,13 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 .modal-popup-content .btn-group {display:block;}
 
 .caps {text-transform:uppercase;}
+.font-red {color:#e8463b;}
 .font-orange {color:#f26b28;}
+.font-yellow {color:#e9b31f;}
+.font-blue {color:#2c95f4;}
 .font-green {color:#20e58b;}
 .font-purple {color:#8069ad;}
-.font-red {color:#e8463b;}
-.font-blue {color:#2c95f4;}
+.font-lime {color:#b6d119;}
 
 .vcenter {display:inline-block; vertical-align:middle; float:none;}
 .vertical-align {display:flex; align-items:center;}
