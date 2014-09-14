@@ -25,6 +25,9 @@
                 $('#card-subtitle-right').html(urlParams.pack_size+' cards in pack');
                 $('#card-price').html(urlParams.price+' credits');
             });
+            jQuery(document).ready(function() {
+                footerMoreCredits();
+            });
         </script>
 </head>
 <body>
@@ -90,6 +93,8 @@
 
         </div>
     </section>
+    <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
+    </footer>
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" id="modal-content">

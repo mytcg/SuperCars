@@ -323,7 +323,8 @@ function getproducts () {
                                                         '&header='+products[i]['description']+'&header_color=yellow'+
                                                         '\'">'+
                             '<div class="col-xs-4 vcenter">'+
-                                '<img src="img/products/'+products[i]['product_id']+'.jpg" />'+
+//                                '<img src="img/products/'+products[i]['product_id']+'.jpg" />'+
+                                '<img src="img/products/placeholder.jpg" />'+
                             '</div>'+
                             '<div class="col-xs-8 padded vcenter">'+
                                 products[i]['description']+'<br />'
@@ -410,7 +411,8 @@ function getdecks (user_id) {
                     $('#body_template').append(
                         '<div class="row grid'+owned+' decks vertical-align" id="'+decks[i]['deck_id']+'" onclick="window.location=\''+location+'\'">'+
                             '<div class="col-xs-4 vcenter">'+
-                                '<img src="img/decks/'+decks[i]['deck_id']+'.jpg" />'+
+//                                '<img src="img/decks/'+decks[i]['deck_id']+'.jpg" />'+
+                                '<img src="img/decks/placeholder.jpg" />'+
                             '</div>'+
                             '<div class="col-xs-8 padded vcenter">'+
                                 '<div id="deck-name-'+decks[i]['deck_id']+'">'+decks[i]['description']+'</div>'

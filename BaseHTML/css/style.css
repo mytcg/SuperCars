@@ -59,10 +59,10 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 .div-button:hover span{color:#fff; font-weight:bold;}
 .div-button .arrow{font-size:2em;}
 
-.credits-div {font-size:2em; color:#ccc; background:#1f262c;}
+.credits-div {font-size:1.5em; color:#ccc; background:#1f262c;}
 .credits-div .credit-stat{padding:4% 3%;}
 .credits-div span{color:#f26b28;}
-.credits-div .credit-more{}
+.credits-div .credit-more{padding:4% 3%;}
 
 .new-instruction {font-size:1.4em; color:#ccc; text-align:center;}
 
