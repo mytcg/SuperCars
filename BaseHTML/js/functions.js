@@ -13,6 +13,9 @@ jQuery(document).ready(function() {
     $('#username').val(username);
     $('#password').val(password);
     $('#user-credits').val(credit);
+
+    $('#page-title').html(decodeURI(urlParams.header));
+    $('#page-title').addClass(decodeURI(urlParams.header_color));
     
    
    //Navigation Menu Slider
@@ -192,7 +195,7 @@ function getCards (cat, deck_id) {
 
                     } else {
 
-                        onclick = "window.location='card.html?card_id="+cards[i]['card_id']+"'";
+                        onclick = "window.location='card.html?card_id="+cards[i]['card_id']+"&header="+cards[i]['name']+"&header_color="+urlParams.header_color+"'";
                         owned = (cards[i]['owned']=='0') ? ' notowned' : '';
                     }
 
@@ -254,7 +257,7 @@ function getCard (card_id) {
             eval('var car='+data);
             if (car) {
                 
-                $('#card-name').html(car['name']);
+//                $('#card-name').html(car['name']);
                 $('#card-parts').html(car['scrap_value']);
                 $('#card-img').attr('src', 'img/cards/'+car['card_id']+'-front.jpg');
                 $('#card-img-bck').attr('src', 'img/cards/'+car['card_id']+'-back.jpg');
@@ -283,10 +286,10 @@ function footerCardOptions() {
     $('#footer').html(
         '<div onclick="getMoreCredits()" class="row footer-options-holder">'+
                 '<div class="col-xs-6 footer-options-div" id="card-wrench">'+
-                    '<span class="glyphicon glyphicon-share-alt" onclick="$(\'#scrap-menu\').toggle();$(\'#card-wrench\').toggleClass(\'active\');"></span>'+
+                    '<span class="glyphicon glyphicon-wrench" onclick="$(\'#scrap-menu\').toggle();$(\'#card-wrench\').toggleClass(\'active\');"></span>'+
                 '</div>'+
                 '<div class="col-xs-6 footer-options-div" id="card-flip">'+
-                    '<span class="glyphicon glyphicon-resize-full" id="card-flip" onclick="$(\'.quickflip-wrapper\').quickFlipper();"></span>'+
+                    '<span class="glyphicon glyphicon-share-alt" id="card-flip" onclick="$(\'.quickflip-wrapper\').quickFlipper();"></span>'+
                 '</div>'+
         '</div>'
     );

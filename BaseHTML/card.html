@@ -34,9 +34,12 @@
 </head>
 <body>
 	<header>
-	    <div class="navbar navbar-inverse navbar-fixed-top">      
-	        <!--Include your brand here-->
-	        <a class="navbar-brand" href="dashboard.html"><img src="elements/topcar_logo.jpg" /></a>
+	    <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="nav-back">
+                    <span class="glyphicon glyphicon-chevron-left" onclick="history.go(-1)"></span>
+                </div>
+                <div id="page-title" class="page-title">
+                </div>
 	        <div class="navbar-header">
 	          <a id="nav-expander" class="nav-expander fixed">
 	            <img src="elements/icon_menu.jpg" />
@@ -50,8 +53,8 @@
 	      	<li class="list-group-item"><a href="dashboard.html?header=Dashboard&header_color=none"><span class="icon-dash"></span>DASHBOARD</a></li>
 	        <li class="list-group-item"><a href="grid-template.html?header=Album&header_color=red"><span class="icon-album"></span>ALBUM</a></li>
 	        <li class="list-group-item"><a href="grid-template.html?section=shop&header=Shop&header_color=yellow"><span class="icon-shop"></span>SHOP</a></li>
-	        <li class="list-group-item"><a href="game.html?section=decks&header=Deck&header_color=blue"><span class="icon-dash"></span>Decks</a></li>
-	        <li class="list-group-item"><a href="game.html?section=challenge&header=Shop&header_color=blue"><span class="icon-dash"></span>GAME</a></li>
+	        <li class="list-group-item"><a href="grid-template.html?section=decks&header=Deck&header_color=blue"><span class="icon-dash"></span>DECKS</a></li>
+	        <li class="list-group-item"><a href="grid-template.html?section=challenge&header=Challenge&header_color=blue"><span class="icon-dash"></span>GAME</a></li>
 <!--	        <li class="list-group-item"><a href="leaderboard.html"><span class="icon-leader"></span>LEADERBOARD</a></li>
 	        <li class="list-group-item"><a href="credits.html"><span class="icon-credits"></span>CREDITS</a></li>
 	        <li class="list-group-item"><a href="profile.html"><span class="icon-profile"></span>PROFILE</a></li>-->
@@ -61,7 +64,7 @@
     <section id="body_template">
 
         <div class="row-fluid">
-            <div id="card-name">Car Name</div>
+<!--            <div id="card-name">Car Name</div>-->
         </div>
         <div class="row-fluid">
             <div class="quickflip-wrapper">

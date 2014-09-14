@@ -30,7 +30,10 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 .vertical-align {display:flex; align-items:center;}
 
 .nav-back {font-size:1.5em; padding:2% 2% 0 2%; display:inline-block;}
-.page-title {font-size:1.5em; color:#fff; display:inline-block;}
+.page-title {font-size:1.5em; color:#fff; display:inline-block; padding-bottom:1%; border-bottom-width:5px; border-bottom-style:solid; border-bottom-color:#000;}
+.page-title.red {border-bottom-color:#e8463b;}
+.page-title.yellow {border-bottom-color:#e9b31f;}
+.page-title.blue {border-bottom-color:#2c95f4;}
 
 .footer-options-holder {background:#1f262c; font-size:1.4em;}
 .footer-options-div {padding:4% 2%; color:#1f262c; text-align:center;}
@@ -135,6 +138,7 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 	background:none;
 	border:none;
 	padding:20px;
+        border-right:1px solid #000;
 }
 a.nav-expander {
 	color: #9b9d9f;
