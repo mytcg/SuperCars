@@ -18,7 +18,15 @@ if ($request==$REQUEST_REGISTER) {
 	$username = $_GET['username'];
 	$password = $_GET['password'];
 	
-	$result = registerUser($username, $password);
+	$email = '';
+	if ($email = $_GET['email']) {
+		$email = base64_decode($email);
+	}
+	
+	$result = registerUser($username, $password, $email);
+	
+	print json_encode($result);
+	exit;
 }
 
 // Check that the user is valid
@@ -51,7 +59,7 @@ else {
 
 if (!$validUser) {
 	print json_encode($result);
-        exit;
+	exit;
 }
 
 // Check if it is the first time the user is logging in for the day, and if so, give them stuff!

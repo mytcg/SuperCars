@@ -210,7 +210,7 @@ function getCard($card_id, $user_id) {
     return $card;
 }
 
-function registerUser($username, $password) {
+function registerUser($username, $password, $email = '') {
 	// Check that the username and password are at least the minimum length.
 	if (strlen($username) < 5) {
 		return array(
@@ -238,8 +238,8 @@ function registerUser($username, $password) {
 	}
 	
 	// If we get this far, things are looking good. Create the user.
-	$sql = 'INSERT INTO users(username, password, date_registered)
-		VALUES ("'.$username.'", "'.$password.'", now())';
+	$sql = 'INSERT INTO users(username, password, email, date_registered)
+		VALUES ("'.$username.'", "'.$password.'", "'.$email.'", now())';
 	
 	myqu($sql);
 	
