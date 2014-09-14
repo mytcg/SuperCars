@@ -87,7 +87,7 @@ function doLogin () {
                 eval('var res='+data);
                 if (res['result']) {
                     window.localStorage.setItem("user_id", res['user_id']);
-                    window.location = 'dashboard.html?header=Dashboard&header-color=none';
+                    window.location = 'dashboard.html?header=Dashboard&header_color=none';
                 } else {
                     alert(res['content']);
                 }
@@ -151,7 +151,7 @@ function getCardCategories (cat, deck_id) {
                         '<div class="row-fluid grid" id="'+categories[i]['category_id']+'" onclick="window.location=\'grid-template.html?'+
                                                     'cat_id='+categories[i]['category_id']+
                                                     '&deck_id='+deck_id+'&deck_count='+urlParams.deck_count+
-                                                    '&header='+categories[i]['description']+'&header-color='+urlParams.header-color+'&section='+url+'\'">'+
+                                                    '&header='+categories[i]['description']+'&header_color='+urlParams.header_color+'&section='+url+'\'">'+
                             '<div class="padded">'+
                             categories[i]['description']+
                             '</div>'+
@@ -316,7 +316,7 @@ function getproducts () {
                                                         '&description='+products[i]['description']+
                                                         '&price='+products[i]['price']+
                                                         '&pack_size='+products[i]['pack_size']+
-                                                        '&header='+products[i]['description']+'&header-color=yellow'+
+                                                        '&header='+products[i]['description']+'&header_color=yellow'+
                                                         '\'">'+
                             '<div class="col-xs-4 vcenter">'+
                                 '<img src="img/products/'+products[i]['product_id']+'.jpg" />'+
@@ -374,8 +374,8 @@ function newDeck (name, deck_id, deck_count) {
                 if (result['result']) {
 
                     var url = (rename) ?
-                        'grid-template.html?section=addToDeck&deck_id='+urlParams.deck_id+'&deck_count='+urlParams.deck_count+'&header='+name+'&header-color=blue' :
-                        'grid-template.html?section=addToDeck&deck_id='+result['deck_id']+'&deck_count=0&header='+name+'&header-color=blue';
+                        'grid-template.html?section=addToDeck&deck_id='+urlParams.deck_id+'&deck_count='+urlParams.deck_count+'&header='+name+'&header_color=blue' :
+                        'grid-template.html?section=addToDeck&deck_id='+result['deck_id']+'&deck_count=0&header='+name+'&header_color=blue';
 
                     window.location=url;
                 } else {
@@ -401,7 +401,7 @@ function getdecks (user_id) {
                 for(var i=0; i<decks.length; i++) {
 
                     var owned = (decks[i]['playable']=='0') ? ' notowned' : '';
-                    var location = (isGame) ? 'game.html?header=Challenge&header-color=yellow' : 'grid-template.html?deck_id='+decks[i]['deck_id']+'&deck_count='+decks[i]['cards_in_deck']+'&section=viewDeck&header='+decks[i]['description']+'&header-color=blue';
+                    var location = (isGame) ? 'game.html?header=Challenge&header_color=yellow' : 'grid-template.html?deck_id='+decks[i]['deck_id']+'&deck_count='+decks[i]['cards_in_deck']+'&section=viewDeck&header='+decks[i]['description']+'&header_color=blue';
 
                     $('#body_template').append(
                         '<div class="row grid'+owned+' decks vertical-align" id="'+decks[i]['deck_id']+'" onclick="window.location=\''+location+'\'">'+
@@ -466,7 +466,7 @@ function editDeck (action) {
                 onclick = "$('#delete-confirmation #delete-confirmation-confirm').attr('onclick', 'deleteDeck(\\\'"+$(this).attr('id')+"\\\');');"+
                             "$('#modal-content').html($('#delete-confirmation').html());$('#myModal').modal();";
             } else {
-                onclick = "window.location=\'create.html?deck_id="+$(this).attr('id')+"&deck_name="+$('#deck-name-'+$(this).attr('id')).html()+"&deck_id="+$(this).attr('id')+"&deck_count="+$('#deck-count-'+$(this).attr('id')).html()+'&header=Deck&header-color=blue'+"\'";
+                onclick = "window.location=\'create.html?deck_id="+$(this).attr('id')+"&deck_name="+$('#deck-name-'+$(this).attr('id')).html()+"&deck_id="+$(this).attr('id')+"&deck_count="+$('#deck-count-'+$(this).attr('id')).html()+'&header=Deck&header_color=blue'+"\'";
             }
             $(this).attr('onclick', onclick);
         }
@@ -480,7 +480,7 @@ function uneditDeck () {
     $('#cancel-button').hide();
     $('.decks').each(
         function() {
-            var newonclick = 'window.location=\'grid-template.html?deck_id='+$(this).attr('id')+'&section=viewDeck&header=Deck&header-color=blue\'';
+            var newonclick = 'window.location=\'grid-template.html?deck_id='+$(this).attr('id')+'&section=viewDeck&header=Deck&header_color=blue\'';
             $(this).attr('onclick', newonclick);
         }
     );
@@ -524,7 +524,7 @@ function getdeckCards (deck_id) {
                 for(var i=0; i<cards.length; i++) {
 
                     $('#body_template').append(
-                        '<div class="row grid cards vertical-align" id="'+cards[i]['card_id']+'" onclick="window.location=\'card.html?card_id='+cards[i]['card_id']+'&header='+cards[i]['name']+'&header-color=red\'">'+
+                        '<div class="row grid cards vertical-align" id="'+cards[i]['card_id']+'" onclick="window.location=\'card.html?card_id='+cards[i]['card_id']+'&header='+cards[i]['name']+'&header_color=red\'">'+
                             '<div class="col-xs-4 vcenter">'+
                                 '<img src="img/cards/'+cards[i]['card_id']+'-front.jpg" />'+
                             '</div>'+
@@ -634,7 +634,7 @@ function uneditDecksCards () {
         function() {
             $(this).removeClass('selectedCard');
             $(this).removeClass('notowned');
-            var newonclick = 'window.location=\'card.html?card_id='+$(this).attr('id')+'&header='+$('#card-name-'+$(this).attr('id')).html()+'&header-color=red\'';
+            var newonclick = 'window.location=\'card.html?card_id='+$(this).attr('id')+'&header='+$('#card-name-'+$(this).attr('id')).html()+'&header_color=red\'';
             $(this).attr('onclick', newonclick);
         }
     );
@@ -669,7 +669,7 @@ function footerCardEdits() {
                 '<div class="col-xs-9 footer-options-div deck-edit-count">'+
                     '<span id="deck-card-count">'+urlParams.deck_count+'</span>/10'+
                 '</div>'+
-                '<div class="col-xs-3 active-button" id="save-button" onclick="window.location=\'grid-template.html?section=decks&deck_id='+urlParams.deck_id+'header=Deck&header-color=blue\'">'+
+                '<div class="col-xs-3 active-button" id="save-button" onclick="window.location=\'grid-template.html?section=decks&deck_id='+urlParams.deck_id+'header=Deck&header_color=blue\'">'+
                     'DONE'+
                 '</div>'+
         '</div>'
