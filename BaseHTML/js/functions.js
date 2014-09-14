@@ -544,6 +544,7 @@ function getdeckCards (deck_id) {
                 $('#deck-card-count').html(cards.length);
                 if (cards.length==10) {
                     $('#deck-card-add').addClass('inactive');
+                    $('#deck-card-add').attr('onclick','');
                 }
         }
     });
