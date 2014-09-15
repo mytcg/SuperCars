@@ -286,10 +286,10 @@ function scrapCard (card_id) {
 function footerCardOptions() {
     $('#footer').html(
         '<div onclick="getMoreCredits()" class="row footer-options-holder">'+
-                '<div class="col-xs-6 footer-options-div" id="card-wrench">'+
+                '<div class="col-xs-6 footer-options-div divider-right" id="card-wrench">'+
                     '<span class="glyphicon glyphicon-wrench" onclick="$(\'#scrap-menu\').toggle();$(\'#card-wrench\').toggleClass(\'active\');"></span>'+
                 '</div>'+
-                '<div class="col-xs-6 footer-options-div" id="card-flip">'+
+                '<div class="col-xs-6 footer-options-div divider-left" id="card-flip">'+
                     '<span class="glyphicon glyphicon-share-alt" id="card-flip" onclick="$(\'.quickflip-wrapper\').quickFlipper();"></span>'+
                 '</div>'+
         '</div>'
