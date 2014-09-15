@@ -702,14 +702,14 @@ function navHtml() {
     $('#nav').html(
         '<ul class="list-group main-menu">'+
             '<li class="text-right"><a href="#" id="nav-close"><img src="elements/supercars_logo.jpg" /></a></li>'+
-            '<li class="list-group-item orange-border-right"><a href="dashboard.html?header=Dashboard&header_color=none"><span class="icon-dash"></span>DASHBOARD</a></li>'+
-            '<li class="list-group-item red-border-right"><a href="grid-template.html?header=Album&header_color=red"><span class="icon-album"></span>ALBUM</a></li>'+
-            '<li class="list-group-item yellow-border-right"><a href="grid-template.html?section=shop&header=Shop&header_color=yellow"><span class="icon-shop"></span>SHOP</a></li>'+
-            '<li class="list-group-item blue-border-right"><a href="grid-template.html?section=decks&header=Deck&header_color=blue"><span class="icon-dash"></span>DECKS</a></li>'+
-            '<li class="list-group-item green-border-right"><a href="grid-template.html?section=challenge&header=Challenge&header_color=blue"><span class="icon-dash"></span>GAME</a></li>'+
-            '<!--<li class="list-group-item green-border-right"><a href="leaderboard.html"><span class="icon-leader"></span>LEADERBOARD</a></li>'+
-            '<li class="list-group-item purple-border-right"><a href="credits.html"><span class="icon-credits"></span>CREDITS</a></li>'+
-            '<li class="list-group-item lime-border-right"><a href="profile.html"><span class="icon-profile"></span>PROFILE</a></li>-->'+
+            '<li class="list-group-item orange-border-right"><a href="dashboard.html?header=Dashboard&header_color=none"><img src="elements/icon_dash.jpg" class="icon-dash" /><p class="nav-menu-text">DASHBOARD</p></a></li>'+
+            '<li class="list-group-item red-border-right"><a href="grid-template.html?header=Album&header_color=red"><img src="elements/icon_album.jpg" class="icon-album" /><p class="nav-menu-text">ALBUM</p></a></li>'+
+            '<li class="list-group-item yellow-border-right"><a href="grid-template.html?section=shop&header=Shop&header_color=yellow"><img src="elements/icon_shop.jpg" class="icon-shop" /><p class="nav-menu-text">SHOP</p></a></li>'+
+            '<li class="list-group-item blue-border-right"><a href="grid-template.html?section=decks&header=Deck&header_color=blue"><img src="elements/icon_game.jpg" class="icon-deck" /><p class="nav-menu-text">DECKS</p></a></li>'+
+            '<li class="list-group-item green-border-right"><a href="grid-template.html?section=challenge&header=Challenge&header_color=blue"><img src="elements/icon_game.jpg" class="icon-game" /><p class="nav-menu-text">GAME</p></a></li>'+
+            '<!--<li class="list-group-item green-border-right"><a href="leaderboard.html"><img src="elements/icon_leader.jpg" class="icon-leader" />LEADERBOARD</a></li>'+
+            '<li class="list-group-item purple-border-right"><a href="credits.html"><img src="elements/icon_credits.jpg" class="icon-credits" />CREDITS</a></li>'+
+            '<li class="list-group-item lime-border-right"><a href="profile.html"><img src="elements/icon_profile.jpg" class="icon-profile" />PROFILE</a></li>-->'+
         '</ul>'
     );
     $('#nav').show();
