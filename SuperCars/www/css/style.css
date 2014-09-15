@@ -1,4 +1,4 @@
-body {background:#2a3137;}
+body {background:#2a3137;color:#8f9295;}
 #body_template{margin-top:55px;margin-bottom: 100px;}
 
 .row-fluid > img{margin: 0 4%;width: 90%;}
@@ -20,14 +20,19 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 .modal-popup-content .btn-group {display:block;}
 
 .caps {text-transform:uppercase;}
+.font-red {color:#e8463b;}
 .font-orange {color:#f26b28;}
+.font-yellow {color:#e9b31f;}
+.font-blue {color:#2c95f4;}
 .font-green {color:#20e58b;}
 .font-purple {color:#8069ad;}
-.font-red {color:#e8463b;}
-.font-blue {color:#2c95f4;}
+.font-lime {color:#b6d119;}
 
 .vcenter {display:inline-block; vertical-align:middle; float:none;}
 .vertical-align {display:flex; align-items:center;}
+
+.nav-back {font-size:1.5em; padding:12px 10px 0; display:inline-block;}
+.page-title {font-size:1.5em; color:#fff; display:inline-block; padding-bottom:2px; border-bottom-width:5px; border-bottom-style:solid; border-bottom-color:#000;}
 
 .footer-options-holder {background:#1f262c; font-size:1.4em;}
 .footer-options-div {padding:4% 2%; color:#1f262c; text-align:center;}
@@ -56,17 +61,17 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 .div-button:hover span{color:#fff; font-weight:bold;}
 .div-button .arrow{font-size:2em;}
 
-.credits-div {font-size:2em; color:#ccc; background:#1f262c;}
+.credits-div {font-size:1.5em; color:#ccc; background:#1f262c;}
 .credits-div .credit-stat{padding:4% 3%;}
 .credits-div span{color:#f26b28;}
-.credits-div .credit-more{}
+.credits-div .credit-more{padding:4% 3%;}
 
 .new-instruction {font-size:1.4em; color:#ccc; text-align:center;}
 
 .dashboard-CTA .btn {float:left;}
 
 #card-name {color:#fff;}
-.scrap-menu {display:none;}
+.scrap-menu {display:none; position:fixed; bottom:70px;}
 .scrap-menu .btn {background:#8f9295; float:left; color:#1f262c;}
 .scrap-menu button.highlighted {background:#f26b28; color:#fff;}
 #card-wrench.active {background:#8f9295;}
@@ -90,13 +95,17 @@ button.highlighted {background:#f26b28;font-weight:bold}
 .dashboard-progress {text-align:center; padding:10% 0 0;}
 input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !important;
         background: url('../elements/dashboard_cards.png') transparent no-repeat 0% 85% / 100% !important;}
-.dashboard-user-dets {color:#fff; text-align:center; margin-top:5%;}
-.dashboard-user-dets span{font-weight:bold;}
-.dashboard-user-creds {color:#fff; text-align:center; margin-top:5%;}
+.dashboard-user-dets {color:#fff; text-align:center; margin-top:5%;font-size:16px;}
+/*.dashboard-user-dets span{font-size:2em;}*/
+.dashboard-user-creds {color:#fff; text-align:center; margin-top:5%;font-size:16px;}
 
 /*****  Navigation Section Starts *******/
 .navbar-header {
     background: none repeat scroll 0 0 #1f262c;
+}
+.main-menu .text-right {
+    padding: 7px;
+    text-align: right;
 }
 .navbar-header .navbar-brand{
 	padding:0;
@@ -124,6 +133,27 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+.list-group-item{
+	background:none;
+	border:none;
+	padding:20px;
+        border-right:5px solid #000;
+}
+
+.red-border {border-color:#e8463b;}
+.red-border-right {border-color:#e8463b;}
+.orange-border {border-color:#f26b28;}
+.orange-border-right {border-color:#f26b28;}
+.yellow-border {border-color:#e9b31f;}
+.yellow-border-right {border-color:#e9b31f;}
+.blue-border {border-color:#2c95f4;}
+.blue-border-right {border-color:#2c95f4;}
+.green-border {border-color:#20e58b;}
+.green-border-right {border-color:#20e58b;}
+.purple-border {border-color:#8069ad;}
+.purple-border-right {border-color:#8069ad;}
+.lime-border {border-color:#b6d119;}
+.lime-border-right {border-color:#b6d119;}
 
 a.nav-expander {
 	color: #9b9d9f;
@@ -195,7 +225,6 @@ body.nav-expanded {
     border-bottom: 1px solid #0f0f0f;
     font-size: 18px;
     margin-left: 5px;
-    padding: 7px;
 }
 
 .main-menu li a {
@@ -271,4 +300,22 @@ body.nav-expanded {
 	float: left;
     margin-top: 8px;
     width: 150px;
+}
+
+
+/************************** rules section *************************/
+#rules-container {
+    text-align: justify;
+    color:#8f9295;
+    margin:0 10px;
+    width:90%;
+}
+#rules-container .rules-heading {
+    font-size: 3em;
+    font-weight: bold;
+}
+
+#rules-container .rules-text{
+	margin-top:10px;
+	font-size:1.1em;
 }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Supercars | Application</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" href="css/bootstrap-glyphicons.css" />
+        <link rel="stylesheet" href="css/jquery-ui.css" media="screen" type="text/css" />
+        <link rel="stylesheet" href="css/normalize.css" media="screen" type="text/css" />
+        <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+
+        <script src="js/jquery-latest.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/functions.js"></script>
+</head>
+<body>
+    <section id="body_template">
+        <div class="container">
+
+            <div class="row-fluid logo-wrapper">
+                <img src="elements/login_logo.jpg" />
+            </div>
+
+            <div class="row-fluid">
+                <form action="/" method="POST" id="login-form" class="login-form">
+
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                      <input type="text" class="form-control" id="username" name="username" placeholder="Type Username">
+                    </div>
+
+                    <br />
+
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                      <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    </div>
+
+                    <br />
+
+                    <div class="login-forgot">
+                        <span class="">
+                            <a class="font-orange" href="">Forgot Password?</a>
+                        </span>
+                    </div>
+
+                    <br /><br />
+
+                    <div class="login-buttons">
+                        <button type="button" class="btn highlighted" onclick="doLogin();">LOGIN</button>
+                        <br /><br />
+                        <button type="button" class="btn">CREATE AN ACCOUNT</button>
+                    </div>
+
+                    <br /><br /><br />
+
+                </form>
+            </div>
+
+        </div>
+    </section>
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="modal-content">
+                ...
+            </div>
+        </div>
+    </div>
+</body>
+</html>
