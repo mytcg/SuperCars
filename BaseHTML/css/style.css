@@ -55,6 +55,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 
 .divider-left{border-left: 1px solid #333;}
 .divider-right{border-right: 1px solid #000;}
+.divider-both{border-right: 1px solid #000;border-left: 1px solid #333;}
 
 .vcenter {display:inline-block; vertical-align:middle; float:none;}
 .vertical-align {display:flex; align-items:center;}
@@ -62,8 +63,8 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 .nav-back {font-size:1.5em; padding:12px 10px 0; display:inline-block;}
 .page-title {font-size:1.5em; color:#fff; display:inline-block; padding-bottom:2px; border-bottom-width:5px; border-bottom-style:solid; border-bottom-color:#000;}
 
-.footer-options-holder {background:#1f262c; font-size:1.4em;}
-.footer-options-div {padding:10px; color:#1f262c; text-align:center;}
+.footer-options-holder {background:#1f262c; font-size:1.1em;margin:0}
+.footer-options-div {padding:15px; color:#1f262c; text-align:center;}
 .footer-options-div .inactive {color:#3a4046;}
 
 .deck-edit-count {color:#f26b28;}
@@ -111,7 +112,12 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 #card-wrench.active {background:#8f9295;}
 
 .card-subtitle {font-size:2em; color:#9b9d9f;}
-.card-subtitle-right {font-size:1.5em; color:#9b9d9f; text-align:right;}
+.card-subtitle-right {
+	color: #9b9d9f;
+    font-size: 1.3em;
+    margin-top: 9px;
+    text-align: right;
+}
 .card-price {font-size:1.5em; color:#e9b31f; font-weight:bold;}
 
 button.highlighted {background:#f26b28;font-weight:bold}
