@@ -24,6 +24,7 @@ $REQUEST_RENAMEDECK = "renamedeck";
 // Game requests
 $GAMEREQUEST_NEWGAME = "newgame";
 $GAMEREQUEST_CONTINUEGAME = "continuegame";
+$GAMEREQUEST_PLAYGAME = "playgame";
 
 // Card statuses
 $CARDSTATUS_ALBUM = "album";
@@ -50,6 +51,10 @@ $STATTYPE_ACCELERATION = "Acceleration";
 $GAMESTATUS_LFM = "lfm";
 $GAMESTATUS_INPROGRESS = "inprogress";
 $GAMESTATUS_COMPLETE = "complete";
+
+// Game card statuses
+$GAMECARDSTATUS_NORMAL = "normal";
+$GAMECARDSTATUS_LIMBO = "limbo";
 
 // Voucher constants
 $VOUCHER_PERPLAYER = "per player";

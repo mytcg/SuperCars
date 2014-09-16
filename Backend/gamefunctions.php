@@ -148,6 +148,8 @@ function createGamePlayer($user_id, $game_id) {
 }
 
 function addGamePlayerCards($game_id, $game_player_id, $deck_id) {
+	global $GAMECARDSTATUS_NORMAL;
+	
 	// Select all the cards in the user's deck
 	$sql = 'select card_id from deck_cards where deck_id = '.$deck_id;
 	
@@ -161,8 +163,10 @@ function addGamePlayerCards($game_id, $game_player_id, $deck_id) {
 		$randomCardIndex = rand(0, (count($cards) - 1));
 		$randomCard = $cards[$randomCardIndex];
 		
-		$sql = 'insert into game_cards (game_player_id, card_id, game_id, `index`) 
-			values ('.$game_player_id.', '.$randomCard['card_id'].', '.$game_id.', '.$index.')';
+		$sql = 'insert into game_cards (game_player_id, card_id, game_id, `index`, game_card_status) 
+			select '.$game_player_id.', '.$randomCard['card_id'].', '.$game_id.', '.$index.', gcs.game_card_status_id
+			from game_card_statuses gcs
+			where gcs.description = "'.$GAMECARDSTATUS_NORMAL.'"';
 		
 		myqu($sql);
 		
@@ -185,7 +189,7 @@ function checkGame($user_id, $game_id) {
 	$sqlResult = myqu($sql);
 	
 	if ($gameData = $sqlResult[0]) {
-		return getGameData($user_id, $game_id)
+		return getGameData($user_id, $game_id);
 	}
 	else {
 		return array(
@@ -196,21 +200,154 @@ function checkGame($user_id, $game_id) {
 }
 
 function selectStat($game_id, $user_id, $stat_id) {
-	// Check that the right user is making the move
+	global $GAMESTATUS_INPROGRESS;
+	global $GAMESTATUS_COMPLETE;
 	
-	// If the incorrect user made the move, send response saying so
-	
-	// Select to cards and their values for the stat
-	
-	// If we get results, process them, otherwise return invalid stat selection
-	
-		// Check which stat is the winner and update game cards accordingly
+	global $GAMECARDSTATUS_NORMAL;
+	global $GAMECARDSTATUS_LIMBO;
+
+	// Select the current game state to make sure that it is in progress and it exists
+	$sql = 'select gs.description game_status, g.active_player 
+		from games g
+		join game_statuses gs
+		on gs.game_status_id = g.game_status
+		where g.game_id = '.$game_id;
 		
-		// Add an entry to game moves
-		
-		// Return current game state xml
+	$sqlResult = myqu($sql);
 	
-	// Return invalid stat selection
+	if ($gameData = $sqlResult[0]) {
+		if ($gameData['game_status'] != $GAMESTATUS_INPROGRESS) {
+			// Check that the game is in the correct state
+			return array(
+					'result'    =>  false
+					,'content'  =>  'Invalid game state.'
+				);
+		}
+		else if ($gameData['active_player'] != $user_id) {
+			// If the incorrect user made the move, send response saying so
+			return array(
+					'result'    =>  false
+					,'content'  =>  'You are not the active player.'
+				);
+		}
+		else {
+			// Select the cards and their values for the stat
+			$sql = 'select gs.description game_status, g.active_player, 
+				gp.game_player_id, gc.game_card_id, gc.card_id, min(gc.`index`) as `index`,
+				cs.value, max_index.max_index
+				from games g
+				join game_statuses gs
+				on gs.game_status_id = g.game_status
+				join game_players gp
+				on gp.game_id = g.game_id
+				join game_cards gc
+				on gc.game_player_id = gp.game_player_id
+				join game_card_statuses gcs
+				on gcs.game_card_status_id = gc.game_card_status
+				join card_stats cs
+				on cs.card_id = gc.card_id
+				join (select max(gc.`index`) max_index, gc.game_player_id from game_cards gc group by gc.game_player_id) max_index
+				on max_index.game_player_id = gc.game_player_id
+				where g.game_id = '.$game_id.' 
+				and cs.stat_id = '.$stat_id.' 
+				and gcs.description = "'.$GAMECARDSTATUS_NORMAL.'"
+				group by gp.game_player_id';
+				
+			$sqlResult = myqu($sql);
+			
+			// If we get results, process them, otherwise return invalid stat selection
+			if ($card1 = $sqlResult[0] && $card2 = $sqlResult[1]) {
+				$draw = false;
+				$winningPlayer = 0;
+				// Check if it is a draw
+				if ($card1['value'] == $card2['value']) {
+					$draw = true;
+					// In case of a draw, set both cards to be in limbo
+					foreach ($sqlResult as $tempCard) {
+						$sql = 'update game_cards gc 
+							set gc.game_card_status = (select gcs.game_card_status_id 
+							from game_card_statuses gcs where gcs.description = "'.$GAMECARDSTATUS_LIMBO.'")
+							where gc.game_card_id = '.$tempCard['game_card_id'];
+						
+						myqu($sql);
+					}
+				}
+				else {
+					// Check which stat is the winner and update game cards accordingly
+					$winnerIndex = ($card1['value'] > $card2['value'] ? 0 : 1);
+					$winningPlayer = $sqlResult[$winnerIndex]['game_player_id'];
+					
+					// Select any cards that are currently in limbo
+					$sql = 'select gc.game_card_id
+						from game_cards gc
+						join game_card_statuses gcs
+						on gcs.game_card_status_id = gc.game_card_status
+						where gc.game_id = 11
+						and gcs.description = "'.$GAMECARDSTATUS_LIMBO.'" order by gc.`index`';
+						
+					$limboResult = myqu($sql);
+					
+					$index = $sqlResult[$winnerIndex]['max_index'] + 1;
+					// Update each limbo card to now be in the winner's pile
+					foreach ($limboResult as $limboCard) {
+						myqu('update game_cards gc 
+							set gc.game_card_status = (select gcs.game_card_status_id 
+							from game_card_statuses gcs where gcs.description = "'.$GAMECARDSTATUS_NORMAL.'"),
+							gc.`index` = '.$index.', gc.game_player_id = '.$winningPlayer.'
+							where gc.game_card_id = '.$limboCard['game_card_id']);
+						
+						$index++;
+					}
+					
+					// Update each of the cards that were just played
+					foreach ($sqlResult as $tempCard) {
+						myqu('update game_cards gc 
+							set gc.`index` = '.$index.', gc.game_player_id = '.$winningPlayer.'
+							where gc.game_card_id = '.$tempCard['game_card_id']);
+						
+						$index++;
+					}
+				}
+				
+				// Add an entry to game moves
+				myqu('insert into game_moves (game_id, winner, stat_id, date_created) 
+					values ('.$game_id.', '.$winningPlayer.', '.$stat_id.', now())');
+				
+				// Check if the game is over, and update it of that is the case
+				$remainingResult = myqu('select count(gc.game_card_id) cards_left, gc.game_player_id
+					from game_cards gc
+					join game_card_statuses gcs 
+					on gcs.game_card_status_id = gc.game_card_status
+					where gcs.description = "'.$GAMECARDSTATUS_NORMAL.'"
+					and gc.game_id = '.$game_id.'
+					group by gc.game_player_id');
+				
+				if (count($remainingResult) < 2) {
+					// The game is over. Update it's status.
+					myqu('update games 
+						set game_status = (select gs.game_status_id 
+						from game_statuses gs where gs.description = "'.$GAMESTATUS_COMPLETE.'")
+						where game_id = '.$game_id);
+				}
+				
+				// Return current game state xml
+				return getGameData($user_id, $game_id);
+			}
+			else {
+				// Return invalid stat selection
+				return array(
+						'result'    =>  false
+						,'content'  =>  'Invalid stat selection.'
+					);
+			}
+		}
+	}
+	else {
+		return array(
+				'result'    =>  false
+				,'content'  =>  'Invalid game!'
+			);
+	}
 }
 
 function getGameData($user_id, $game_id) {
