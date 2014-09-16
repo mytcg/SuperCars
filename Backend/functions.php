@@ -238,12 +238,12 @@ function registerUser($username, $password, $email = '') {
 	}
 	
 	// If we get this far, things are looking good. Create the user.
-	$sql = 'INSERT INTO users(username, password, email, date_registered)
-		VALUES ("'.$username.'", "'.$password.'", "'.$email.'", now())';
+	$sql = 'INSERT INTO users(username, password, email, date_registered, credits)
+		VALUES ("'.$username.'", "'.$password.'", "'.$email.'", now(), 500)'; // TODO reset the starting credits to 0
 	
 	myqu($sql);
 	
-	$sql = 'SELECT *
+	$sql = 'SELECT user_id
 		FROM users
 		WHERE username = "'.$username.'"';
 	$result = myqu($sql);
