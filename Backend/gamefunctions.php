@@ -175,6 +175,26 @@ function addGamePlayerCards($game_id, $game_player_id, $deck_id) {
 	}
 }
 
+function checkGame($user_id, $game_id) {
+	$sql = 'select gs.description game_status, g.active_player 
+		from games g
+		join game_statuses gs
+		on gs.game_status_id = g.game_status
+		where g.game_id = '.$game_id;
+		
+	$sqlResult = myqu($sql);
+	
+	if ($gameData = $sqlResult[0]) {
+		return getGameData($user_id, $game_id)
+	}
+	else {
+		return array(
+				'result'    =>  false
+				,'content'  =>  'Invalid game!'
+			);
+	}
+}
+
 function selectStat($game_id, $user_id, $stat_id) {
 	// Check that the right user is making the move
 	
@@ -194,6 +214,10 @@ function selectStat($game_id, $user_id, $stat_id) {
 }
 
 function getGameData($user_id, $game_id) {
+	global $GAMESTATUS_LFM;
+	global $GAMESTATUS_INPROGRESS;
+	global $GAMESTATUS_COMPLETE;
+
 	return array(
 				'result'    =>  false
 				,'content'  =>  'GAME DATA(place holder)'

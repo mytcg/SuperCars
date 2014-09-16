@@ -23,6 +23,7 @@ $REQUEST_RENAMEDECK = "renamedeck";
 
 // Game requests
 $GAMEREQUEST_NEWGAME = "newgame";
+$GAMEREQUEST_CONTINUEGAME = "continuegame";
 
 // Card statuses
 $CARDSTATUS_ALBUM = "album";
