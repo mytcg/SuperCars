@@ -114,7 +114,7 @@ function doRegistration () {
     var ajax = jQuery.ajax({
         type: "POST",
         crossDomain: true,
-        url: 'http://topcarcards.co.za/?request=login&PHP_AUTH_PW='+$('#password').val()+'&PHP_AUTH_USER='+$('#username').val(),
+        url: 'http://topcarcards.co.za/?request=login&PHP_AUTH_PW='+$('#password').val()+'&PHP_AUTH_USER='+$('#username').val()+'&PHP_AUTH_EMAIL='+$('#email_add').val(),
         data : '',
         success: function(data) {
 
@@ -129,7 +129,7 @@ function doRegistration () {
     });
 }
 
-/******************************************* END Login Functions ******************************************************************/
+/******************************************* END Registration Functions ******************************************************************/
 
 
 
