@@ -90,6 +90,47 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 .div-button:hover span{color:#fff; font-weight:bold;}
 .div-button .arrow{font-size:2em;}
 
+#body_template.game {margin:0;}
+.game-status {padding:2% 2%; font-size:1.3em; color:#fff; background:#1f262c;}
+.game-progress-num {text-align:right; font-size:1.5em;}
+.game-card-title {text-align:right; line-height:110%;}
+.game-card-make {color:#f26b28;}
+.game .ui-progressbar {border-radius:0; border:0; height:0.5em;}
+.game .ui-progressbar-value {border-radius:0; border:0;}
+.game #progressbar1 {margin-bottom:0.3em;}
+.game-progress-filler {width:100%; height:0.6em; margin-top:-0.5em;
+                    background: -moz-linear-gradient(left,
+                    #1f262c 0%, #1f262c 1%,
+                    transparent 1%, transparent 9%, #1f262c 9%, #1f262c 11%,
+                    transparent 11%, transparent 19%, #1f262c 19%, #1f262c 21%,
+                    transparent 21%, transparent 29%, #1f262c 29%, #1f262c 31%,
+                    transparent 31%, transparent 39%, #1f262c 39%, #1f262c 41%,
+                    transparent 41%, transparent 49%, #1f262c 49%, #1f262c 51%,
+                    transparent 51%, transparent 59%, #1f262c 59%, #1f262c 61%,
+                    transparent 61%, transparent 69%, #1f262c 69%, #1f262c 71%,
+                    transparent 71%, transparent 79%, #1f262c 79%, #1f262c 81%,
+                    transparent 81%, transparent 89%, #1f262c 89%, #1f262c 91%,
+                    transparent 91%, transparent 100%
+                    );}
+#user-points .ui-progressbar {background:#234868;}
+#user-points .ui-progressbar-value {background:#2c95f4;}
+.ui-progressbar-value {display:block !important;}
+#challenger-points {padding:2%; border:2px solid #000; border-left:0; border-right:0;}
+#challenger-points .game-header {color:#5b6064;}
+#challenger-points .game-progress-num {color:#8f9295;}
+#challenger-points .ui-progressbar {background:#5b6064;}
+#challenger-points .ui-progressbar-value {background:#fff;}
+
+/*#user-card {background: url("../img/cards/2-back.jpg") no-repeat scroll center -12em transparent; height:22em; width:100%; background-size:cover;}*/
+#user-card-stat area {background:red; position:absolute;}
+
+.game-instruction {background:#bcbdc0;}
+.game-logo {padding:2em 0;}
+.game-instruction-message {font-size:1.5em; font-weight:bold; color:#1f262c; text-align:left;}
+.game-sponsor {padding:2em 0; text-align:right;}
+.game-footer {color:#63686c; padding:1em 0; text-align:center; font-weight:bold; font-size:1.5em; border-top:2px solid #000;}
+.game-footer-button {text-align:center; border-right:2px solid #63686c;}
+
 .credits-div {
 	background: none repeat scroll 0 0 #1f262c;
     color: #ccc;

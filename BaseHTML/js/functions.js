@@ -17,7 +17,10 @@ jQuery(document).ready(function() {
 
     $('#page-title').html(decodeURI(urlParams.header));
     $('#page-title').addClass(decodeURI(urlParams.header_color)+'-border');
-    navHtml();
+
+    if (urlParams.ingame!='true') {
+        navHtml();
+    }
     
    
    //Navigation Menu Slider
@@ -466,7 +469,7 @@ function getdecks (user_id) {
                             'Create New Deck'+
                         '</div>'+
                     '</div>'+
-                    '<div class="row grid deck" onclick="window.location=\'game.html?&header=Challenge&header_color=blue\'">'+
+                    '<div class="row grid deck" onclick="window.location=\'game.html?&header=Challenge&header_color=blue&ingame=true\'">'+
                         '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
                             '<span class="glyphicon glyphicon-play-circle" style="text-align:center; color:#2c95f4;"></span>'+
                         '</div>'+
