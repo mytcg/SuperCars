@@ -1,8 +1,9 @@
 body {background:#2a3137;color:#8f9295;}
-#body_template{margin-top:55px;margin-bottom: 100px;}
+#body_template{margin-top:50px;margin-bottom: 100px;}
 
 .row-fluid > img{margin: 0 4%;width: 90%;}
 img {width:100%;}
+
 clear {clear:both; width:0; height:0; line-height:0; overflow:hidden;}
 
 input {box-shadow:none !important; color:#4c5156 !important; background:#8f9295 !important; border:0 !important; border-radius:0 !important; }
@@ -10,9 +11,33 @@ input:focus {background:#bcbec0 !important;}
 .input-group-addon {background:#3d4751; border:0; border-radius:0;}
 button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2a2a1; text-transform:uppercase; padding:10px 12px;}
 .glyphicon {color:#bcbec0;}
+
+.front img {
+    margin: 0 5%;
+    width: 90%;
+}
+
+.back img {
+    margin: 0 5%;
+    width: 90%;
+}
+
+.navbar-inverse{background:#1f262c}
+
+
+/************* MODAL WINDOW	****************/
+#myModal .btn-group {
+    margin-bottom: 10px;
+}
+.col-xs-8.col-xs-offset-2 {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);
+    border: 2px solid #0a0a0a;
+    font-size: 14px;
+    text-align: center;
+}
 .modal-backdrop {background:#2a3137;}
 .modal-backdrop.in {opacity:0.8; MozOpacity:0.8; KhtmlOpacity:0.8; filter: alpha(opacity = 80);}
-.modal-content {background:transparent;}
+.modal-content {background:none;box-shadow:none;border:none}
 
 .modal-popup-content-holder {display:none;}
 .modal-popup-content {/*display:none;*/ margin-top:30%; color:#ccc; font-size:1.3em;}
@@ -28,14 +53,18 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 .font-purple {color:#8069ad;}
 .font-lime {color:#b6d119;}
 
+.divider-left{border-left: 1px solid #333;}
+.divider-right{border-right: 1px solid #000;}
+.divider-both{border-right: 1px solid #000;border-left: 1px solid #333;}
+
 .vcenter {display:inline-block; vertical-align:middle; float:none;}
 .vertical-align {display:flex; align-items:center;}
 
 .nav-back {font-size:1.5em; padding:12px 10px 0; display:inline-block;}
 .page-title {font-size:1.5em; color:#fff; display:inline-block; padding-bottom:2px; border-bottom-width:5px; border-bottom-style:solid; border-bottom-color:#000;}
 
-.footer-options-holder {background:#1f262c; font-size:1.4em;}
-.footer-options-div {padding:4% 2%; color:#1f262c; text-align:center;}
+.footer-options-holder {background:#1f262c; font-size:1.1em;margin:0}
+.footer-options-div {padding:15px; color:#1f262c; text-align:center;}
 .footer-options-div .inactive {color:#3a4046;}
 
 .deck-edit-count {color:#f26b28;}
@@ -61,23 +90,34 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 .div-button:hover span{color:#fff; font-weight:bold;}
 .div-button .arrow{font-size:2em;}
 
-.credits-div {font-size:1.5em; color:#ccc; background:#1f262c;}
-.credits-div .credit-stat{padding:4% 3%;}
+.credits-div {
+	background: none repeat scroll 0 0 #1f262c;
+    color: #ccc;
+    font-size: 1.2em;
+    margin: 0;
+    width: 100%;
+}
+.credits-div .credit-stat{padding:15px;}
 .credits-div span{color:#f26b28;}
-.credits-div .credit-more{padding:4% 3%;}
+.credits-div .credit-more{padding:15px;}
 
 .new-instruction {font-size:1.4em; color:#ccc; text-align:center;}
 
 .dashboard-CTA .btn {float:left;}
 
 #card-name {color:#fff;}
-.scrap-menu {display:none; position:fixed; bottom:70px;}
+.scrap-menu {display:none; position:fixed; bottom:49px;z-index: 2;width:100%}
 .scrap-menu .btn {background:#8f9295; float:left; color:#1f262c;}
 .scrap-menu button.highlighted {background:#f26b28; color:#fff;}
 #card-wrench.active {background:#8f9295;}
 
 .card-subtitle {font-size:2em; color:#9b9d9f;}
-.card-subtitle-right {font-size:1.5em; color:#9b9d9f; text-align:right;}
+.card-subtitle-right {
+	color: #9b9d9f;
+    font-size: 1.3em;
+    margin-top: 9px;
+    text-align: right;
+}
 .card-price {font-size:1.5em; color:#e9b31f; font-weight:bold;}
 
 button.highlighted {background:#f26b28;font-weight:bold}
@@ -126,7 +166,7 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 	background:none;
 }
 .navbar-inverse .navbar-toggle .icon-bar {background-color: #8f9295;height: 3px;width: 25px;}
-.navbar-default{background:none;box-shadow:none;border-color:#000}
+.navbar-default{background:none;box-shadow:none;border-color:#000;z-index:1}
 
 
 /****** new nav styling ************/
@@ -225,15 +265,20 @@ body.nav-expanded {
     border-bottom: 1px solid #0f0f0f;
     font-size: 18px;
     margin-left: 5px;
+    padding:5px;
 }
 
 .main-menu li a {
-  color: #fff;
+  color: #ccc;
   text-decoration: none;
 }
 
 .main-menu li a:hover {
-  color: #1d1d1d;
+  color: #fff;
+  text-decoration: none;
+}
+.main-menu li a:active {
+  color: #fff;
   text-decoration: none;
 }
 
@@ -302,7 +347,23 @@ body.nav-expanded {
     width: 150px;
 }
 
+.icon-dash, .icon-album, .icon-credits, .icon-leader, .icon-shop, .icon-profile, .icon-game, .icon-deck {
+    width: 40px;
+    margin-right:10px;
+    float: left;
+}
+.nav-menu-text {
+    margin: 0;
+    padding: 8px 0 5px;
+}
 
+/********  card full image *******
+.quickFlipCta {
+    margin: 0 5%;
+    max-width: 357px;
+    width: 90%;
+}
+*/
 /************************** rules section *************************/
 #rules-container {
     text-align: justify;
@@ -319,3 +380,4 @@ body.nav-expanded {
 	margin-top:10px;
 	font-size:1.1em;
 }
+

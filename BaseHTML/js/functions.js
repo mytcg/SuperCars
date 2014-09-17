@@ -465,6 +465,14 @@ function getdecks (user_id) {
                         '<div class="col-xs-8 padded vcenter">'+
                             'Create New Deck'+
                         '</div>'+
+                    '</div>'+
+                    '<div class="row grid deck" onclick="window.location=\'game.html?&header=Challenge&header_color=blue\'">'+
+                        '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
+                            '<span class="glyphicon glyphicon-play-circle" style="text-align:center; color:#2c95f4;"></span>'+
+                        '</div>'+
+                        '<div class="col-xs-8 padded vcenter">'+
+                            'Continue Game'+
+                        '</div>'+
                     '</div>'
                 );
                 if (urlParams.section=='challenge') {

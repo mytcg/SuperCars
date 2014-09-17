@@ -286,10 +286,10 @@ function scrapCard (card_id) {
 function footerCardOptions() {
     $('#footer').html(
         '<div onclick="getMoreCredits()" class="row footer-options-holder">'+
-                '<div class="col-xs-6 footer-options-div" id="card-wrench">'+
+                '<div class="col-xs-6 footer-options-div divider-right" id="card-wrench">'+
                     '<span class="glyphicon glyphicon-wrench" onclick="$(\'#scrap-menu\').toggle();$(\'#card-wrench\').toggleClass(\'active\');"></span>'+
                 '</div>'+
-                '<div class="col-xs-6 footer-options-div" id="card-flip">'+
+                '<div class="col-xs-6 footer-options-div divider-left" id="card-flip">'+
                     '<span class="glyphicon glyphicon-share-alt" id="card-flip" onclick="$(\'.quickflip-wrapper\').quickFlipper();"></span>'+
                 '</div>'+
         '</div>'
@@ -443,13 +443,13 @@ function getdecks (user_id) {
 function footerDeckEdits() {
     $('#footer').html(
         '<div class="row footer-options-holder">'+
-                '<div class="col-xs-4 footer-options-div">'+
+                '<div class="col-xs-4 footer-options-div divider-right">'+
                     '<span class="glyphicon glyphicon-trash" id="deck-card-trash" onclick="editDeck(\'trash\');"></span>'+
                 '</div>'+
-                '<div class="col-xs-4 footer-options-div">'+
+                '<div class="col-xs-4 footer-options-div divider-both">'+
                     '<span class="glyphicon glyphicon-edit" id="deck-card-edit" onclick="editDeck(\'edit\');"></span>'+
                 '</div>'+
-                '<div class="col-xs-4 active-button" id="cancel-button" style="display:none;" onclick="uneditDeck();">'+
+                '<div class="col-xs-4 active-button divider-left" id="cancel-button" style="display:none;" onclick="uneditDeck();">'+
                     'CANCEL'+
                 '</div>'+
         '</div>'
@@ -598,16 +598,16 @@ function removedeckCards (deck_id, card_id) {
 function footerDeckCardEdits() {
     $('#footer').html(
         '<div class="row footer-options-holder">'+
-                '<div class="col-xs-3 footer-options-div deck-edit-count">'+
+                '<div class="col-xs-3 footer-options-div deck-edit-count divider-right">'+
                     '<span id="deck-card-count">***</span>/10'+
                 '</div>'+
-                '<div class="col-xs-3 footer-options-div">'+
+                '<div class="col-xs-3 footer-options-div divider-both">'+
                     '<span class="glyphicon glyphicon-plus" id="deck-card-add" onclick="window.location=\'grid-template.html?section=addToDeck&deck_id='+urlParams.deck_id+'&deck_count='+urlParams.deck_count+'\'"></span>'+
                 '</div>'+
-                '<div class="col-xs-3 footer-options-div">'+
+                '<div class="col-xs-3 footer-options-div divider-both">'+
                     '<span class="glyphicon glyphicon-edit" id="deck-card-edit" onclick="editDecksCards();"></span>'+
                 '</div>'+
-                '<div class="col-xs-3 active-button" id="cancel-button" style="display:none;" onclick="uneditDecksCards();">'+
+                '<div class="col-xs-3 active-button divider-left" id="cancel-button" style="display:none;" onclick="uneditDecksCards();">'+
                     'CANCEL'+
                 '</div>'+
         '</div>'
@@ -702,14 +702,14 @@ function navHtml() {
     $('#nav').html(
         '<ul class="list-group main-menu">'+
             '<li class="text-right"><a href="#" id="nav-close"><img src="elements/supercars_logo.jpg" /></a></li>'+
-            '<li class="list-group-item orange-border-right"><a href="dashboard.html?header=Dashboard&header_color=none"><span class="icon-dash"></span>DASHBOARD</a></li>'+
-            '<li class="list-group-item red-border-right"><a href="grid-template.html?header=Album&header_color=red"><span class="icon-album"></span>ALBUM</a></li>'+
-            '<li class="list-group-item yellow-border-right"><a href="grid-template.html?section=shop&header=Shop&header_color=yellow"><span class="icon-shop"></span>SHOP</a></li>'+
-            '<li class="list-group-item blue-border-right"><a href="grid-template.html?section=decks&header=Deck&header_color=blue"><span class="icon-dash"></span>DECKS</a></li>'+
-            '<li class="list-group-item green-border-right"><a href="grid-template.html?section=challenge&header=Challenge&header_color=blue"><span class="icon-dash"></span>GAME</a></li>'+
-            '<!--<li class="list-group-item green-border-right"><a href="leaderboard.html"><span class="icon-leader"></span>LEADERBOARD</a></li>'+
-            '<li class="list-group-item purple-border-right"><a href="credits.html"><span class="icon-credits"></span>CREDITS</a></li>'+
-            '<li class="list-group-item lime-border-right"><a href="profile.html"><span class="icon-profile"></span>PROFILE</a></li>-->'+
+            '<li class="list-group-item orange-border-right"><a href="dashboard.html?header=Dashboard&header_color=none"><img src="elements/icon_dash.jpg" class="icon-dash" /><p class="nav-menu-text">DASHBOARD</p></a></li>'+
+            '<li class="list-group-item red-border-right"><a href="grid-template.html?header=Album&header_color=red"><img src="elements/icon_album.jpg" class="icon-album" /><p class="nav-menu-text">ALBUM</p></a></li>'+
+            '<li class="list-group-item yellow-border-right"><a href="grid-template.html?section=shop&header=Shop&header_color=yellow"><img src="elements/icon_shop.jpg" class="icon-shop" /><p class="nav-menu-text">SHOP</p></a></li>'+
+            '<li class="list-group-item blue-border-right"><a href="grid-template.html?section=decks&header=Deck&header_color=blue"><img src="elements/icon_game.jpg" class="icon-deck" /><p class="nav-menu-text">DECKS</p></a></li>'+
+            '<li class="list-group-item green-border-right"><a href="grid-template.html?section=challenge&header=Challenge&header_color=blue"><img src="elements/icon_game.jpg" class="icon-game" /><p class="nav-menu-text">GAME</p></a></li>'+
+            '<!--<li class="list-group-item green-border-right"><a href="leaderboard.html"><img src="elements/icon_leader.jpg" class="icon-leader" />LEADERBOARD</a></li>'+
+            '<li class="list-group-item purple-border-right"><a href="credits.html"><img src="elements/icon_credits.jpg" class="icon-credits" />CREDITS</a></li>'+
+            '<li class="list-group-item lime-border-right"><a href="profile.html"><img src="elements/icon_profile.jpg" class="icon-profile" />PROFILE</a></li>-->'+
         '</ul>'
     );
     $('#nav').show();
