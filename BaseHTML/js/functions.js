@@ -1,5 +1,6 @@
 var username = window.localStorage.getItem("username");
 var password = window.localStorage.getItem("password");
+var email = window.localStorage.getItem("email_add");
 var user_id = window.localStorage.getItem("user_id");
 var credit = window.localStorage.getItem("credit");
 var urlParams = queryParameters();
@@ -100,6 +101,39 @@ function doLogin () {
 }
 
 /******************************************* END Login Functions ******************************************************************/
+
+
+/******************************************* Registration Functions ******************************************************************/
+
+function doRegistration () {
+
+    window.localStorage.setItem("username", $('#username').val());
+    window.localStorage.setItem("password", $('#password').val());
+    window.localStorage.setItem("email", $('#email_add').val());
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=login&PHP_AUTH_PW='+$('#password').val()+'&PHP_AUTH_USER='+$('#username').val(),
+        data : '',
+        success: function(data) {
+
+                eval('var res='+data);
+                if (res['result']) {
+                    window.localStorage.setItem("user_id", res['user_id']);3
+                    window.location = 'dashboard.html?header=Dashboard&header_color=none';
+                } else {
+                    alert(res['content']);
+                }
+        }
+    });
+}
+
+/******************************************* END Login Functions ******************************************************************/
+
+
+
+
 
 /******************************************* User Details --Dashboard ******************************************************************/
 

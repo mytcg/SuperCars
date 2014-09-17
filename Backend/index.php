@@ -138,7 +138,7 @@ switch($request) {
 		break;
 	case $GAMEREQUEST_PLAYGAME:
 		$result = selectStat($_GET['game_id'], $user_id, $_GET['stat_id']);
-		break
+		break;
 	
 	default:
 		$result = array(
