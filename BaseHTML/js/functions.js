@@ -706,6 +706,77 @@ function deleteDecks () {
 
 /******************************************* END Deck Cards ******************************************************************/
 
+/********************************************* Leaderboard *******************************************************************/
+
+function getleaderboard () {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=null'+appendToken,
+        data : '',
+        success: function(data) {
+
+                //eval('var users='+data);
+                var users = [
+                    {"place":"234th","points":"23","own_score":true}
+                    ,{"place":"1st","username":"John","points":"12331","own_score":false}
+                    ,{"place":"2nd","username":"Zoe","points":"12312","own_score":false}
+                    ,{"place":"3rd","username":"Shady","points":"12312","own_score":false}
+                    ,{"place":"4th","username":"Jane","points":"1231","own_score":false}
+                    ,{"place":"5th","username":"Doe","points":"123","own_score":false}
+                    ,{"place":"6th","username":"Widey","points":"123123","own_score":false}
+                    ,{"place":"7th","username":"xxxYxxx","points":"1312","own_score":false}
+                    ,{"place":"8th","username":"assign","points":"1123","own_score":false}
+                    ,{"place":"9th","username":"justin","points":"1321","own_score":false}
+                    ,{"place":"10th","username":"People","points":"12242","own_score":false}
+                ];
+
+                var userHtml = '';
+                var boardHtml = '';
+                for(var i=0; i<users.length; i++) {
+
+                    if (users[i].own_score) {
+
+                        userHtml =
+                            '<div class="row grid leaderboard vertical-align" id="'+users[i]['place']+'">'+
+                                '<div class="col-xs-2 col-xs-offset-1 vcenter star place">'+
+                                    '<span class="glyphicon glyphicon-star-empty" style="color:#20e58b;"></span>'+
+                                '</div>'+
+                                '<div class="col-xs-6 padded vcenter username">'+
+                                    users[i]['place']+' place<br />'+
+                                    '<span class="secondary">'+users[i]['points']+' points</span>'+
+                                '</div>'+
+                                '<div class="col-xs-3 padded vcenter points">'+
+                                    ' points'+
+                                '</div>'+
+                            '</div>'
+
+                    } else {
+
+                        boardHtml +=
+                            '<div class="row grid leaderboard vertical-align" id="'+users[i]['place']+'">'+
+                                '<div class="col-xs-2 col-xs-offset-1 vcenter place">'+
+                                    users[i]['place']+
+                                '</div>'+
+                                '<div class="col-xs-6 padded vcenter username">'+
+                                    users[i]['username']+' place'+
+                                '</div>'+
+                                '<div class="col-xs-3 padded vcenter greenpoints">'+
+                                    +users[i]['points']+
+                                '</div>'+
+                            '</div>'
+                    }
+                }
+                $('#body_template').append(
+                        userHtml+''+boardHtml
+                    );
+        }
+    });
+}
+
+/******************************************* END Leaderboard *****************************************************************/
+
 function checkTrashButton () {
 
     if ($('.selectedCard').attr('id')) { // Make clickable
@@ -752,8 +823,8 @@ function navHtml() {
             '<li class="list-group-item yellow-border-right"><a href="grid-template.html?section=shop&header=Shop&header_color=yellow"><img src="elements/icon_shop.jpg" class="icon-shop" /><p class="nav-menu-text">SHOP</p></a></li>'+
             '<li class="list-group-item blue-border-right"><a href="grid-template.html?section=decks&header=Deck&header_color=blue"><img src="elements/icon_game.jpg" class="icon-deck" /><p class="nav-menu-text">DECKS</p></a></li>'+
             '<li class="list-group-item green-border-right"><a href="grid-template.html?section=challenge&header=Challenge&header_color=blue"><img src="elements/icon_game.jpg" class="icon-game" /><p class="nav-menu-text">GAME</p></a></li>'+
-            '<!--<li class="list-group-item green-border-right"><a href="leaderboard.html"><img src="elements/icon_leader.jpg" class="icon-leader" />LEADERBOARD</a></li>'+
-            '<li class="list-group-item purple-border-right"><a href="credits.html"><img src="elements/icon_credits.jpg" class="icon-credits" />CREDITS</a></li>'+
+            '<<li class="list-group-item green-border-right"><a href="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"><img src="elements/icon_leader.jpg" class="icon-leader" />LEADERBOARD</a></li>'+
+            '<!--li class="list-group-item purple-border-right"><a href="credits.html"><img src="elements/icon_credits.jpg" class="icon-credits" />CREDITS</a></li>'+
             '<li class="list-group-item lime-border-right"><a href="profile.html"><img src="elements/icon_profile.jpg" class="icon-profile" />PROFILE</a></li>-->'+
         '</ul>'
     );

@@ -63,6 +63,13 @@
                     footerMoreCredits();
                 });
 
+            } else if (urlParams.section=='leaderboard') {
+
+                getleaderboard();
+                jQuery(document).ready(function() {
+                    $('#footer').hide();
+                });
+
             } else { /* Default to categories page */
 
                 var cat = (urlParams.cat_id) ? urlParams.cat_id : '';
