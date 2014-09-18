@@ -132,7 +132,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 #challenger-points .ui-progressbar-value {background:#fff;}
 
 .loader {width:3em; margin-right:1em;}
-.card-stats {position:absolute; margin-top:5em; height:2em; width:20em; background:red;}
+.card-stats {position:absolute; margin:-61% 0 0 6%; height:2em; width:79%; background:red;}
 .game-instruction {background:#bcbdc0;}
 .game-logo {padding:2em 0;}
 .game-instruction-message {font-size:1.3em; font-weight:bold; color:#1f262c; text-align:left;}
