@@ -283,26 +283,30 @@ function addRemoveCardDecks (card_id) {
 
 /******************************************* CARD VIEW starts here ******************************************************************/
 
-function getCard (card_id) {
-
+function getCardData (card_id) {
+    
+    var cardData;
     var ajax = jQuery.ajax({
+        async: false,
         type: "POST",
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=card&card_id='+card_id+appendToken,
         data : '',
         success: function(data) {
-
-            eval('var car='+data);
-            if (car) {
-                
-//                $('#card-name').html(car['name']);
-                $('#card-parts').html(car['scrap_value']);
-                $('#card-img').attr('src', 'img/cards/'+car['card_id']+'-front.jpg');
-                $('#card-img-bck').attr('src', 'img/cards/'+car['card_id']+'-back.jpg');
-
-            }
+            cardData = data;
         }
     });
+    return cardData;
+}
+
+function getCard (card_id) {
+
+    var data = getCardData(card_id);
+    eval('var cardData='+data);
+
+    $('#card-parts').html(cardData['scrap_value']);
+    $('#card-img').attr('src', 'img/cards/'+cardData['card_id']+'-front.jpg');
+    $('#card-img-bck').attr('src', 'img/cards/'+cardData['card_id']+'-back.jpg');
 }
 
 function scrapCard (card_id) {
@@ -443,7 +447,7 @@ function getdecks (user_id) {
                 for(var i=0; i<decks.length; i++) {
 
                     var owned = (decks[i]['playable']=='0') ? ' notowned' : '';
-                    var location = (isGame) ? 'game.html?header=Challenge&header_color=yellow' : 'grid-template.html?deck_id='+decks[i]['deck_id']+'&deck_count='+decks[i]['cards_in_deck']+'&section=viewDeck&header='+decks[i]['description']+'&header_color=blue';
+                    var location = (isGame) ? 'game.html?&header=Challenge&header_color=blue&ingame=true&deck_id='+decks[i]['deck_id'] : 'grid-template.html?deck_id='+decks[i]['deck_id']+'&deck_count='+decks[i]['cards_in_deck']+'&section=viewDeck&header='+decks[i]['description']+'&header_color=blue';
 
                     $('#body_template').append(
                         '<div class="row grid'+owned+' decks vertical-align" id="'+decks[i]['deck_id']+'" onclick="window.location=\''+location+'\'">'+
@@ -457,7 +461,6 @@ function getdecks (user_id) {
                             '</div>'+
                         '</div>'
                     );
-
                 }
 
                 $('#body_template').append(
@@ -468,7 +471,25 @@ function getdecks (user_id) {
                         '<div class="col-xs-8 padded vcenter">'+
                             'Create New Deck'+
                         '</div>'+
-                    '</div>'+
+                    '</div>'
+                );
+                if (urlParams.section=='challenge') {
+                    $('#body_template').append($('#rules-container').html());
+                }
+        }
+    });
+    
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=gameinprogress '+appendToken,
+        data : '',
+        success: function(data) {
+
+                eval('var game='+data);
+alert(game);
+alert(data);
+                $('#body_template').append(
                     '<div class="row grid deck" onclick="window.location=\'game.html?&header=Challenge&header_color=blue&ingame=true\'">'+
                         '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
                             '<span class="glyphicon glyphicon-play-circle" style="text-align:center; color:#2c95f4;"></span>'+
@@ -478,9 +499,6 @@ function getdecks (user_id) {
                         '</div>'+
                     '</div>'
                 );
-                if (urlParams.section=='challenge') {
-                    $('#body_template').append($('#rules-container').html());
-                }
         }
     });
 }
@@ -776,6 +794,77 @@ function getleaderboard () {
 }
 
 /******************************************* END Leaderboard *****************************************************************/
+
+/**************************************** Start game functions ***************************************************************/
+
+//function init_game () {
+//
+//    var ajax = jQuery.ajax({
+//        type: "POST",
+//        crossDomain: true,
+//        url: 'http://topcarcards.co.za/?request=newgame&deck_id='+urlParams.deck_id+appendToken,
+//        data : '',
+//        success: function(data) {
+//
+//                eval('var game='+data);
+//
+//                var data = getCardData(card_id);
+//                eval('var cardData='+data);
+//
+//        }
+//    });
+//
+//    $( "#user-points #progressbar1" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
+//    $( "#user-points #progressbar2" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
+//    $( "#challenger-points #progressbar1" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
+//    $( "#challenger-points #progressbar2" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
+//
+//}
+//
+//function stat_select () {
+//
+//    var ajax = jQuery.ajax({
+//        type: "POST",
+//        crossDomain: true,
+//        url: 'http://topcarcards.co.za/?request=playgame&deck_id='+urlParams.deck_id+appendToken,
+//        data : '',
+//        success: function(data) {
+//
+//                eval('var game='+data);
+//
+//        }
+//    });
+//
+//    $( "#user-points #progressbar1" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
+//    $( "#user-points #progressbar2" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
+//    $( "#challenger-points #progressbar1" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
+//    $( "#challenger-points #progressbar2" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
+//
+//}
+//
+//function showCard (card_id, prefix) {
+//
+//    var ajax = jQuery.ajax({
+//        type: "POST",
+//        crossDomain: true,
+//        url: 'http://topcarcards.co.za/?request=card&card_id='+card_id+appendToken,
+//        data : '',
+//        success: function(data) {
+//
+//            eval('var car='+data);
+//            if (car) {
+//
+////                $('#card-name').html(car['name']);
+//                $('#card-parts').html(car['scrap_value']);
+//                $('#card-img').attr('src', 'img/cards/'+car['card_id']+'-front.jpg');
+//                $('#card-img-bck').attr('src', 'img/cards/'+car['card_id']+'-back.jpg');
+//
+//            }
+//        }
+//    });
+//}
+
+/****************************************** END Game Function ***************************************************************/
 
 function checkTrashButton () {
 

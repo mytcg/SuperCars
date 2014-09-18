@@ -100,6 +100,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 
 #body_template.game {margin:0;}
 .game-status {padding:2% 2%; font-size:1.3em; color:#fff; background:#1f262c;}
+.game-message {padding-left:15px; font-size:1em; color:#fff; background:#1f262c;}
 .game-progress-num {text-align:right; font-size:1.5em;}
 .game-card-title {text-align:right; line-height:110%;}
 .game-card-make {color:#f26b28;}
