@@ -32,40 +32,28 @@
                 <div id="progressbar1"></div>
                 <div id="progressbar2"></div>
             </div>
-            <div class="col-xs-2 game-progress-num vcenter">
-                <span id="game-score-user">*</span>/20
+            <div class="col-xs-3 game-progress-num vcenter">
+                <span id="game-score-user"></span>/20
             </div>
-            <div class="col-xs-6 game-card-title vcenter">
+            <div class="col-xs-5 game-card-title vcenter">
                 <div class="game-card-model" id="game-card-model">
-                    *
+                    
                 </div>
                 <div class="game-card-make" id="game-card-make">
-                    *
+                    
                 </div>
             </div>
         </div>
 
-        <div class="row game-card" id="user-card-holder">
-            <div class="col-xs-10 col-xs-offset-1" id="user-card">
-                <img id="map-img" src="img/cards/2-stats.jpg" usemap="#map">
-            </div>
-            <div class="col-xs-8 col-xs-offset-2" id="user-card-stat">
-                <map id="map" name="map">
-                    <area coords="28,8,316,44" shape="rect" style="background:red;" onclick="">
-                    <area coords="28,53,316,90" shape="rect" style="background:red;" onclick="">
-                    <area coords="28,100,316,135" shape="rect" style="background:red;" onclick="">
-                    <area coords="28,145,316,180" shape="rect" style="background:red;" onclick="">
-                    <area coords="28,190,316,225" shape="rect" style="background:red;" onclick="">
-                </map>
-            </div>
+        <div class="user-area" id="user-area">
         </div>
 
         <div class="row vertical-align game-status" id="challenger-points">
-            <div class="col-xs-6 game-message vcenter" id="game-message">
-                Its your move.
+            <div class="col-xs-5 game-message vcenter" id="game-message">
+                
             </div>
-            <div class="col-xs-2 game-progress-num vcenter">
-                <span id="game-score-opponent">*</span>/20
+            <div class="col-xs-3 game-progress-num vcenter">
+                <span id="game-score-opponent"></span>/20
             </div>
             <div class="col-xs-4 game-progress vcenter">
                 <div id="progressbar1"></div>
@@ -73,16 +61,7 @@
             </div>
         </div>
 
-        <div class="row game-instruction">
-            <div class="col-xs-5 col-xs-offset-1 game-logo">
-                <img src="img/logo-game.jpg" />
-            </div>
-            <div class="col-xs-10 col-xs-offset-1 game-instruction-message">
-                Select a high value on your card.
-            </div>
-            <div class="col-xs-5 col-xs-offset-6 game-sponsor">
-                <img src="img/game-sponsor.jpg" />
-            </div>
+        <div class="challenger-area" id="challenger-area">
         </div>
 
         <div class="row game-footer">
@@ -91,6 +70,54 @@
             </div>
             <div class="col-xs-6 game-footer-button highlight" onclick="window.location='grid-template.html?section=challenge&header=Challenge&header_color=blue'">
                 NEXT ROUND
+            </div>
+        </div>
+
+        <!------------------------------------------ HIDDEN DIVS -------------------------------------------->
+
+        <div class="hiddenDiv" id="user-card-div">
+            <div class="row game-card" id="user-card-holder">
+                <div class="col-xs-10 col-xs-offset-1" id="user-card">
+                    <img id="user-map-img" src="img/cards/2-stats.jpg" usemap="#user-map">
+                </div>
+                <div class="col-xs-8 col-xs-offset-2" id="user-card-stat">
+                    <map id="user-map" name="user-map">
+                        <area coords="28,8,316,44" shape="rect" style="background:red;" onclick="">
+                        <area coords="28,53,316,90" shape="rect" style="background:red;" onclick="">
+                        <area coords="28,100,316,135" shape="rect" style="background:red;" onclick="">
+                        <area coords="28,145,316,180" shape="rect" style="background:red;" onclick="">
+                        <area coords="28,190,316,225" shape="rect" style="background:red;" onclick="">
+                    </map>
+                </div>
+            </div>
+        </div>
+        <div class="hiddenDiv" id="challenger-card-div">
+            <div class="row game-card" id="challenger-card-holder">
+                <div class="col-xs-10 col-xs-offset-1" id="challenger-card">
+                    <img id="challenger-map-img" src="img/cards/2-stats.jpg" usemap="#challenger-map">
+                </div>
+                <div class="col-xs-8 col-xs-offset-2" id="challenger-card-stat">
+                    <map id="challenger-map" name="challenger-map">
+                        <area coords="28,8,316,44" shape="rect" style="background:red;" onclick="">
+                        <area coords="28,53,316,90" shape="rect" style="background:red;" onclick="">
+                        <area coords="28,100,316,135" shape="rect" style="background:red;" onclick="">
+                        <area coords="28,145,316,180" shape="rect" style="background:red;" onclick="">
+                        <area coords="28,190,316,225" shape="rect" style="background:red;" onclick="">
+                    </map>
+                </div>
+            </div>
+        </div>
+        <div class="hiddenDiv" id="game-message-div">
+            <div class="row game-instruction">
+                <div class="col-xs-5 col-xs-offset-1 game-logo">
+                    <img src="img/logo-game.jpg" />
+                </div>
+                <div class="col-xs-10 col-xs-offset-1 game-instruction-message" id="game-instruction-message">
+                    <img src="img/loading.gif" class="loader" /> Loading the game...
+                </div>
+                <div class="col-xs-5 col-xs-offset-6 game-sponsor">
+                    <img src="img/game-sponsor.jpg" />
+                </div>
             </div>
         </div>
         

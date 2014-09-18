@@ -99,6 +99,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 .div-button .arrow{font-size:2em;}
 
 #body_template.game {margin:0;}
+.hiddenDiv {display:none;}
 .game-status {padding:2% 2%; font-size:1.3em; color:#fff; background:#1f262c;}
 .game-message {padding-left:15px; font-size:1em; color:#fff; background:#1f262c;}
 .game-progress-num {text-align:right; font-size:1.5em;}
@@ -131,8 +132,9 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 #challenger-points .ui-progressbar-value {background:#fff;}
 
 /*#user-card {background: url("../img/cards/2-back.jpg") no-repeat scroll center -12em transparent; height:22em; width:100%; background-size:cover;}*/
-#user-card-stat area {background:red; position:absolute;}
+/*#user-card-stat area {background:red; position:absolute;}*/
 
+.loader {width:3em; margin-right:1em;}
 .game-instruction {background:#bcbdc0;}
 .game-logo {padding:2em 0;}
 .game-instruction-message {font-size:1.5em; font-weight:bold; color:#1f262c; text-align:left;}

@@ -441,38 +441,35 @@ function getdecks (user_id) {
         dataType: "json",
         success: function(decks) {
 
-                for(var i=0; i<decks.length; i++) {
+            for(var i=0; i<decks.length; i++) {
 
-                    var owned = (decks[i]['playable']=='0') ? ' notowned' : '';
-                    var location = (isGame) ? 'game.html?&header=Challenge&header_color=blue&ingame=true&deck_id='+decks[i]['deck_id'] : 'grid-template.html?deck_id='+decks[i]['deck_id']+'&deck_count='+decks[i]['cards_in_deck']+'&section=viewDeck&header='+decks[i]['description']+'&header_color=blue';
-
-                    $('#body_template').append(
-                        '<div class="row grid'+owned+' decks vertical-align" id="'+decks[i]['deck_id']+'" onclick="window.location=\''+location+'\'">'+
-                            '<div class="col-xs-4 vcenter">'+
-//                                '<img src="img/decks/'+decks[i]['deck_id']+'.jpg" />'+
-                                '<img src="img/decks/placeholder.jpg" />'+
-                            '</div>'+
-                            '<div class="col-xs-8 padded vcenter">'+
-                                '<div id="deck-name-'+decks[i]['deck_id']+'">'+decks[i]['description']+'</div>'
-                                +'<span class="secondary"><span id="deck-count-'+decks[i]['deck_id']+'">'+decks[i]['cards_in_deck']+'</span> cards in deck</span>'+
-                            '</div>'+
-                        '</div>'
-                    );
-                }
+                var owned = (decks[i]['playable']=='0') ? ' notowned' : '';
+                var location = (isGame) ? 'game.html?&header=Challenge&header_color=blue&ingame=true&new_game=true&deck_id='+decks[i]['deck_id'] : 'grid-template.html?deck_id='+decks[i]['deck_id']+'&deck_count='+decks[i]['cards_in_deck']+'&section=viewDeck&header='+decks[i]['description']+'&header_color=blue';
 
                 $('#body_template').append(
-                    '<div class="row grid deck" onclick="window.location=\'create.html?section=decks\'">'+
-                        '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
-                            '<span class="glyphicon glyphicon-plus" style="text-align:center; color:#2c95f4;"></span>'+
+                    '<div class="row grid'+owned+' decks vertical-align" id="'+decks[i]['deck_id']+'" onclick="window.location=\''+location+'\'">'+
+                        '<div class="col-xs-4 vcenter">'+
+//                                '<img src="img/decks/'+decks[i]['deck_id']+'.jpg" />'+
+                            '<img src="img/decks/placeholder.jpg" />'+
                         '</div>'+
                         '<div class="col-xs-8 padded vcenter">'+
-                            'Create New Deck'+
+                            '<div id="deck-name-'+decks[i]['deck_id']+'">'+decks[i]['description']+'</div>'
+                            +'<span class="secondary"><span id="deck-count-'+decks[i]['deck_id']+'">'+decks[i]['cards_in_deck']+'</span> cards in deck</span>'+
                         '</div>'+
                     '</div>'
                 );
-                if (urlParams.section=='challenge') {
-                    $('#body_template').append($('#rules-container').html());
-                }
+            }
+
+            $('#body_template').append(
+                '<div class="row grid deck" onclick="window.location=\'create.html?section=decks\'">'+
+                    '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
+                        '<span class="glyphicon glyphicon-plus" style="text-align:center; color:#2c95f4;"></span>'+
+                    '</div>'+
+                    '<div class="col-xs-8 padded vcenter">'+
+                        'Create New Deck'+
+                    '</div>'+
+                '</div>'
+            );
         }
     });
     
@@ -484,8 +481,9 @@ function getdecks (user_id) {
         dataType: "json",
         success: function(game) {
 
+            if (game['result']) {
                 $('#body_template').append(
-                    '<div class="row grid deck" onclick="window.location=\'game.html?&header=Challenge&header_color=blue&ingame=true\'">'+
+                    '<div class="row grid deck" onclick="window.location=\'game.html?&header=Challenge&header_color=blue&ingame=true&new_game=false\'">'+
                         '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
                             '<span class="glyphicon glyphicon-play-circle" style="text-align:center; color:#2c95f4;"></span>'+
                         '</div>'+
@@ -494,6 +492,10 @@ function getdecks (user_id) {
                         '</div>'+
                     '</div>'
                 );
+            }
+            if (urlParams.section=='challenge') {
+                $('#body_template').append($('#rules-container').html());
+            }
         }
     });
 }
@@ -788,48 +790,56 @@ function getleaderboard () {
 
 /**************************************** Start game functions ***************************************************************/
 
-//function init_game () {
-//
-//    var ajax = jQuery.ajax({
-//        type: "POST",
-//        crossDomain: true,
-//        url: 'http://topcarcards.co.za/?request=newgame&deck_id='+urlParams.deck_id+appendToken,
-//        data : '',
-//        dataType: "json",
-//        success: function(game) {
-//
-//                var data = getCardData(card_id);
-//                eval('var cardData='+data);
-//
-//        }
-//    });
-//
-//    $( "#user-points #progressbar1" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
-//    $( "#user-points #progressbar2" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
-//    $( "#challenger-points #progressbar1" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
-//    $( "#challenger-points #progressbar2" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
-//
-//}
-//
-//function stat_select () {
-//
-//    var ajax = jQuery.ajax({
-//        type: "POST",
-//        crossDomain: true,
-//        url: 'http://topcarcards.co.za/?request=playgame&deck_id='+urlParams.deck_id+appendToken,
-//        data : '',
-//        dataType: "json",
-//        success: function(game) {
-//
-//        }
-//    });
-//
-//    $( "#user-points #progressbar1" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
-//    $( "#user-points #progressbar2" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
-//    $( "#challenger-points #progressbar1" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
-//    $( "#challenger-points #progressbar2" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
-//
-//}
+function init_game () {
+
+    $( "#user-points #progressbar1" ).progressbar({value: 100}).append('<div class="game-progress-filler">&nbsp;</div>');
+    $( "#user-points #progressbar2" ).progressbar({value: 0}).append('<div class="game-progress-filler">&nbsp;</div>');
+    $( "#challenger-points #progressbar1" ).progressbar({value: 100}).append('<div class="game-progress-filler">&nbsp;</div>');
+    $( "#challenger-points #progressbar2" ).progressbar({value: 0}).append('<div class="game-progress-filler">&nbsp;</div>');
+    $( "#game-score-user" ).html('10');
+    $( "#game-score-opponent" ).html('10');
+    $( "#user-area" ).html($( "#game-message-div" ).html());
+
+    start_game();
+
+}
+
+function start_game () {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=newgame&deck_id='+urlParams.deck_id+appendToken,
+        data : '',
+        dataType: "json",
+        success: function(game) {
+
+                //var cardData = getCardData(card_id);
+
+        }
+    });
+
+}
+
+function stat_select () {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=playgame&deck_id='+urlParams.deck_id+appendToken,
+        data : '',
+        dataType: "json",
+        success: function(game) {
+
+        }
+    });
+
+    $( "#user-points #progressbar1" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
+    $( "#user-points #progressbar2" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
+    $( "#challenger-points #progressbar1" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
+    $( "#challenger-points #progressbar2" ).progressbar({value: 50}).append('<div class="game-progress-filler">&nbsp;</div>');
+
+}
 //
 //function showCard (card_id, prefix) {
 //
