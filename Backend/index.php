@@ -78,7 +78,7 @@ switch($request) {
                 );
 		break;
 	case $REQUEST_USER:
-		$result = getUser($_GET['user_id']);
+		$result = getUser($user_id);
 		break;
 	case $REQUEST_CATEGORIES:
 		$result = getCategories($_GET['category_id']);

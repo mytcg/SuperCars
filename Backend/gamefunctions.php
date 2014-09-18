@@ -48,9 +48,9 @@ function newGame($user_id, $deck_id) {
 		
 	$results = myqu($sql);
 	
-	// If they do have an open incomplete game, return the game xml
+	// If they do have an open lfm game, return the game xml
 	if ($result=$results[0]) {
-		return getGameData($user_id, $result['game_id']);
+		return getGameData($user_id, $result['game_id'], 'new');
 	}
 	
 	// If they dont have an open game, check if there is an LFM game.
@@ -479,6 +479,7 @@ function getGameData($user_id, $game_id, $new_or_old = 'old') {
 		}
 		
 		// Return the active player, both top cards, and the current scores.
+		$retArray['game_id'] = $game_id;
 		$retArray['user_score'] = $gameData['user_cards'];
 		$retArray['opponent_score'] = $gameData['opp_cards'];
 		$retArray['moved'] = $gameData['moved'];

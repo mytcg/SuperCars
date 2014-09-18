@@ -239,7 +239,7 @@ function registerUser($username, $password, $email = '') {
 	
 	// If we get this far, things are looking good. Create the user.
 	$sql = 'INSERT INTO users(username, password, email, date_registered, credits)
-		VALUES ("'.$username.'", "'.$password.'", "'.$email.'", now(), 500)'; // TODO reset the starting credits to 0
+		VALUES ("'.$username.'", "'.$password.'", "'.$email.'", now(), 1000)'; // TODO reset the starting credits to 0
 	
 	myqu($sql);
 	
@@ -269,12 +269,17 @@ function getUser($user_id) {
                 );
 	}
 
-	// Check that the username isnt taken.
-	$sql = 'SELECT *
-		FROM users
-		WHERE user_id = "'.$user_id.'"';
+	// Check that the user exists
+	$sql = 'SELECT u.user_id, u.username, u.credits, u.parts, u.ranking, 
+		count(distinct uc.card_id) cards_owned, count(distinct c.card_id) cards_total
+		FROM users u
+		left outer join user_cards uc
+		on uc.user_id = u.user_id, cards c
+		WHERE u.user_id = '.$user_id.' 
+		group by u.user_id';
+	
 	$user = myqu($sql);
-	if (!$user[0]) {
+	if (!$userData = $user[0]) {
 		return $result = array(
                     'result'    =>  false
                     ,'content'  =>  'Invalid User.'
@@ -282,10 +287,13 @@ function getUser($user_id) {
 	} else {
 
             $user = array(
-                'user_id'       =>  $user[0]['user_id']
-                ,'username'     =>  $user[0]['username']
-                ,'credits'      =>  $user[0]['credits']
-                ,'parts'        =>  $user[0]['parts']
+                'user_id'       =>  $userData['user_id']
+                ,'username'     =>  $userData['username']
+                ,'credits'      =>  $userData['credits']
+                ,'parts'        =>  $userData['parts']
+				,'points'       =>  $userData['ranking']
+				,'cards_owned'  =>  $userData['cards_owned']
+				,'cards_total'  =>  $userData['cards_total']
             );
         }
         return $user;
