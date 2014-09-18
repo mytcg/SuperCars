@@ -1,6 +1,6 @@
 body {background:#2a3137;color:#8f9295;}
 #body_template{margin-top:50px;margin-bottom: 100px;}
-
+.row{margin:0}
 .row-fluid > img{margin: 0 4%;width: 90%;}
 img {width:100%;}
 
