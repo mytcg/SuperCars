@@ -123,7 +123,7 @@ function doRegistration () {
 
                 eval('var res='+data);
                 if (res['result']) {
-                    window.localStorage.setItem("user_id", res['user_id']);3
+                    window.localStorage.setItem("user_id", res['user_id']);
                     window.location = 'dashboard.html?header=Dashboard&header_color=none';
                 } else {
                     alert(res['content']);
