@@ -18,25 +18,8 @@
         <script src="js/functions.js"></script>
         <script src="js/jquery.knob.min.js"></script>
         <script>
-            getuserDets (window.localStorage.getItem("user_id"));
-
-            $(function($) {
-
-                $(".knob").knob({
-                    change : function (value) {
-                        //console.log("change : " + value);
-                    },
-                    release : function (value) {
-                        //console.log(this.$.attr('value'));
-                        //console.log("release : " + value);
-                    },
-                    cancel : function () {
-                        //console.log("cancel : ", this);
-                    },
-                    format : function (value) {
-                        return value + '/73';
-                    }
-                })
+            jQuery(document).ready(function() {
+                getuserDets (window.localStorage.getItem("user_id"));
             });
         </script>
 </head>
