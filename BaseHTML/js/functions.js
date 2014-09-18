@@ -291,6 +291,7 @@ function getCardData (card_id) {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=card&card_id='+card_id+appendToken,
         data : '',
+        dataType: "json",
         success: function(data) {
             cardData = data;
         }
@@ -300,8 +301,7 @@ function getCardData (card_id) {
 
 function getCard (card_id) {
 
-    var data = getCardData(card_id);
-    eval('var cardData='+data);
+    var cardData = getCardData(card_id);
 
     $('#card-parts').html(cardData['scrap_value']);
     $('#card-img').attr('src', 'img/cards/'+cardData['card_id']+'-front.jpg');
