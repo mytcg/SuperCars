@@ -19,6 +19,8 @@ function newGame($user_id, $deck_id) {
 		}
 	}
 	
+	// Commenting the below out for now. 
+	/*
 	// Check if this user already has an incomplete game
 	$sql = 'select g.game_id, gp.game_player_id
 		from games g
@@ -28,6 +30,21 @@ function newGame($user_id, $deck_id) {
 		on gp.game_id = g.game_id
 		where gs.description != "complete"
 		and user_id = '.$user_id;
+		
+	$results = myqu($sql);
+	
+	// If they do have an open incomplete game, return the game xml
+	if ($result=$results[0]) {
+		return getGameData($user_id, $result['game_id']);
+	}*/
+	
+	// Check if this user already has an lfm game
+	$sql = 'select g.game_id
+		from games g
+		join game_statuses gs 
+		on gs.game_status_id = g.game_status
+		where gs.description = "LFM"
+		and g.creator_id = '.$user_id;
 		
 	$results = myqu($sql);
 	
@@ -391,26 +408,30 @@ function getGameData($user_id, $game_id, $new_or_old = 'old') {
 	global $GAMECARDSTATUS_LIMBO;
 
 	// Select last check date + other core game data.
-	$sqlResult = myqu('select g.active_player, gp.game_player_id, gs.description,
-		case when max(gm.date_created) > gp.last_check then "true" else "false" end as moved, 
-		count(distinct user_gc.game_card_id) user_cards, count(distinct opp_gc.game_card_id) opp_cards
-		from games g
-		join game_players gp
-		on gp.game_id = g.game_id
-		join game_statuses gs
-		on gs.game_status_id = g.game_status
-		left outer join game_moves gm
-		on gm.game_id = g.game_id
-		left outer join game_cards user_gc
-		on user_gc.game_player_id = gp.game_player_id
-		left outer join game_players opp_gp
-		on opp_gp.game_id = g.game_id
-		left outer join game_cards opp_gc
-		on opp_gc.game_player_id = opp_gp.game_player_id
-		where g.game_id = '.$game_id.'
-		and gp.user_id = '.$user_id.'
-		and opp_gp.user_id != '.$user_id.'
-		group by g.game_id');
+	$sqlResult = myqu('select g.active_player, user_data.game_player_id, gs.description,
+		case when max(gm.date_created) > user_data.last_check then "true" else "false" end as moved,
+		user_data.cards user_cards, opp_data.cards opp_cards
+				from games g
+				join game_statuses gs
+				on gs.game_status_id = g.game_status
+				left outer join game_moves gm
+				on gm.game_id = g.game_id
+				left outer join (select gp1.game_player_id, count(gc.game_card_id) cards, gp1.game_id, gp1.user_id, gp1.last_check
+					from game_players gp1
+					join game_cards gc
+					on gc.game_player_id = gp1.game_player_id
+					where gp1.user_id = '.$user_id.'
+					group by gp1.game_player_id) user_data
+				on user_data.game_id = g.game_id
+				left outer join (select gp1.game_player_id, count(gc.game_card_id) cards, gp1.game_id, gp1.user_id, gp1.last_check
+					from game_players gp1
+					join game_cards gc
+					on gc.game_player_id = gp1.game_player_id
+					where gp1.user_id != '.$user_id.'
+					group by gp1.game_player_id) opp_data
+				on g.game_id = opp_data.game_id
+				where g.game_id = '.$game_id.' 
+				group by g.game_id');
 		
 	if ($gameData = $sqlResult[0]) {
 		$retArray = array();
