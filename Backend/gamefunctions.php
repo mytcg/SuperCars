@@ -31,12 +31,8 @@ function newGame($user_id, $deck_id) {
 		
 	$results = myqu($sql);
 	
-	// If they do have an open incomplete game, update the last check date and return the game xml
+	// If they do have an open incomplete game, return the game xml
 	if ($result=$results[0]) {
-		$sql = 'update game_players set last_check = now() where game_player_id = '.$result['game_player_id'];
-		
-		myqu($sql);
-		
 		return getGameXML($user_id, $result['game_id']);
 	}
 	
@@ -124,7 +120,7 @@ function newGame($user_id, $deck_id) {
 	}
 	
 	// Return game data
-	return getGameData($user_id, $game_id);
+	return getGameData($user_id, $game_id, 'new');
 }
 
 /**
@@ -259,6 +255,9 @@ function selectStat($game_id, $user_id, $stat_id) {
 			if ($card1 = $sqlResult[0] && $card2 = $sqlResult[1]) {
 				$draw = false;
 				$winningPlayer = 0;
+				
+				$winningCard = 0;
+				$losingCard = 0;
 				// Check if it is a draw
 				if ($card1['value'] == $card2['value']) {
 					$draw = true;
@@ -271,11 +270,16 @@ function selectStat($game_id, $user_id, $stat_id) {
 						
 						myqu($sql);
 					}
+					$winningCard = $card1['game_card_id'];
+					$losingCard = $card2['game_card_id'];
 				}
 				else {
 					// Check which stat is the winner and update game cards accordingly
 					$winnerIndex = ($card1['value'] > $card2['value'] ? 0 : 1);
 					$winningPlayer = $sqlResult[$winnerIndex]['game_player_id'];
+					
+					$winningCard = $sqlResult[$winnerIndex]['game_card_id'];
+					$losingCard = $sqlResult[1-$winnerIndex]['game_card_id'];
 					
 					// Select any cards that are currently in limbo
 					$sql = 'select gc.game_card_id
@@ -310,8 +314,8 @@ function selectStat($game_id, $user_id, $stat_id) {
 				}
 				
 				// Add an entry to game moves
-				myqu('insert into game_moves (game_id, winner, stat_id, date_created) 
-					values ('.$game_id.', '.$winningPlayer.', '.$stat_id.', now())');
+				myqu('insert into game_moves (game_id, winner, stat_id, date_created, winning_card, losing_card) 
+					values ('.$game_id.', '.$winningPlayer.', '.$stat_id.', now(), '.$winningCard.', '.$losingCard.')');
 				
 				// Check if the game is over, and update it of that is the case
 				$remainingResult = myqu('select count(gc.game_card_id) cards_left, gc.game_player_id
@@ -350,15 +354,88 @@ function selectStat($game_id, $user_id, $stat_id) {
 	}
 }
 
-function getGameData($user_id, $game_id) {
+function getGameData($user_id, $game_id, $new_or_old = 'old') {
 	global $GAMESTATUS_LFM;
 	global $GAMESTATUS_INPROGRESS;
 	global $GAMESTATUS_COMPLETE;
+	
+	global $GAMECARDSTATUS_NORMAL;
+	global $GAMECARDSTATUS_LIMBO;
 
-	return array(
+	// Select last check date + other core game data.
+	$sqlResult = myqu('select g.active_player, gp.game_player_id, gs.description,
+		case when max(gm.date_created) > gp.last_check then "true" else "false" end as moved, 
+		count(distinct user_gc.game_card_id) user_cards, count(distinct opp_gc.game_card_id) opp_cards
+		from games g
+		join game_players gp
+		on gp.game_id = g.game_id
+		join game_statuses gs
+		on gs.game_status_id = g.game_status
+		left outer join game_moves gm
+		on gm.game_id = g.game_id
+		left outer join game_cards user_gc
+		on user_gc.game_player_id = gp.game_player_id
+		left outer join game_players opp_gp
+		on opp_gp.game_id = g.game_id
+		left outer join game_cards opp_gc
+		on opp_gc.game_player_id = opp_gp.game_player_id
+		where g.game_id = '.$game_id.'
+		and gp.user_id = '.$user_id.'
+		and opp_gp.user_id != '.$user_id.'
+		group by g.game_id');
+		
+	if ($gameData = $sqlResult[0]) {
+		$retArray = array();
+	
+		// Update the user's last_check date
+		myqu('update game_players set last_check = now() where game_player_id = '.$gameData['game_player_id']);
+		
+		// Check if there was a move since the user's last check
+		if ($gameData['moved'] == 'true') {
+			
+			$sqlResult = myqu('select gm.winner, gm.stat_id, gm.winning_card, gm.losing_card 
+				from game_moves gm 
+				where gm.game_id = '.$game_id.'
+				order by gm.date_created desc
+				limit 1');
+				
+			$retArray['moveData'] = $sqlResult[0];
+		}
+		
+		// Get the top card for each player
+		$sqlResult = myqu('select gc.card_id, min(gc.`index`), gp.user_id
+			from game_cards gc
+			join game_card_statuses gcs
+			on gcs.game_card_status_id = gc.game_card_status
+			join game_players gp 
+			on gp.game_player_id = gc.game_player_id
+			where gc.game_id = '.$game_id.'
+			and gcs.description = "'.$GAMECARDSTATUS_NORMAL.'"
+			group by gc.game_player_id');
+			
+		foreach ($sqlResult as $topcard) {
+			if ($topcard['user_id'] == $user_id) {
+				$retArray['card_id_user'] = $topcard['card_id'];
+			}
+			else {
+				$retArray['card_id_opponent'] = $topcard['card_id'];
+			}
+		}
+		
+		// Return the active player, both top cards, and the current scores.
+		$retArray['user_score'] = $gameData['user_cards'];
+		$retArray['opponent_score'] = $gameData['opp_cards'];
+		$retArray['moved'] = $gameData['moved'];
+		$retArray['new_or_old'] = $new_or_old;
+		
+		return $retArray;
+	}
+	else {
+		return array(
 				'result'    =>  false
-				,'content'  =>  'GAME DATA(place holder)'
+				,'content'  =>  'Invalid game.'
 			);
+	}
 }
 
 ?>
