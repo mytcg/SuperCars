@@ -20,8 +20,8 @@
 <body>
      <script>
         $(function() {
-            $( "#user-points #progressbar1" ).progressbar({value: 20}).append('<div class="game-progress-filler">&nbsp;</div>');
-            $( "#user-points #progressbar2" ).progressbar({value: 100}).append('<div class="game-progress-filler">&nbsp;</div>');
+            $( "#user-points #progressbar1" ).progressbar({value: 100}).append('<div class="game-progress-filler">&nbsp;</div>');
+            $( "#user-points #progressbar2" ).progressbar({value: 20}).append('<div class="game-progress-filler">&nbsp;</div>');
             $( "#challenger-points #progressbar1" ).progressbar({value: 80}).append('<div class="game-progress-filler">&nbsp;</div>');
             $( "#challenger-points #progressbar2" ).progressbar({value: 0}).append('<div class="game-progress-filler">&nbsp;</div>');
         });
@@ -67,7 +67,7 @@
             <div class="col-xs-6 game-progress-num vcenter">
             </div>
             <div class="col-xs-2 game-progress-num vcenter">
-                <span id="game-score">12</span>/20
+                <span id="game-score">8</span>/20
             </div>
             <div class="col-xs-4 game-progress vcenter">
                 <div id="progressbar1"></div>
@@ -90,6 +90,9 @@
         <div class="row game-footer">
             <div class="col-xs-6 game-footer-button" onclick="window.location='dashboard.html?header=Dashboard&header_color=none'">
                 QUIT GAME
+            </div>
+            <div class="col-xs-6 game-footer-button highlight" onclick="window.location='grid-template.html?section=challenge&header=Challenge&header_color=blue'">
+                NEXT ROUND
             </div>
         </div>
         

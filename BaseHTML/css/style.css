@@ -136,8 +136,9 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 .game-logo {padding:2em 0;}
 .game-instruction-message {font-size:1.5em; font-weight:bold; color:#1f262c; text-align:left;}
 .game-sponsor {padding:2em 0; text-align:right;}
-.game-footer {color:#63686c; padding:1em 0; text-align:center; font-weight:bold; font-size:1.5em; border-top:2px solid #000;}
-.game-footer-button {text-align:center; border-right:2px solid #63686c;}
+.game-footer {color:#63686c; text-align:center; font-weight:bold; font-size:1.5em; border-top:2px solid #000;}
+.game-footer-button {text-align:center; border-right:2px solid #63686c; padding:1em 0;}
+.game-footer-button.highlight {text-align:center; border-right:0; background:#f26b28; color:#fff;}
 
 .credits-div {
 	background: none repeat scroll 0 0 #1f262c;
