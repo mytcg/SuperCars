@@ -90,9 +90,9 @@ function doLogin () {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=login&PHP_AUTH_PW='+$('#password').val()+'&PHP_AUTH_USER='+$('#username').val(),
         data : '',
-        success: function(data) {
+        dataType: "json",
+        success: function(res) {
 
-                eval('var res='+data);
                 if (res['result']) {
                     window.localStorage.setItem("user_id", res['user_id']);
                     window.location = 'dashboard.html?header=Dashboard&header_color=none';
@@ -119,9 +119,9 @@ function doRegistration () {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=register&password='+$('#password').val()+'&username='+$('#username').val()+'&email='+$('#email_add').val(),
         data : '',
-        success: function(data) {
+        dataType: "json",
+        success: function(res) {
 
-                eval('var res='+data);
                 if (res['result']) {
                     window.localStorage.setItem("user_id", res['user_id']);
                     window.location = 'dashboard.html?header=Dashboard&header_color=none';
@@ -147,9 +147,8 @@ function getuserDets (userid) {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=user'+appendToken,
         data : '',
-        success: function(data) {
-
-            eval('var res='+data);
+        dataType: "json",
+        success: function(res) {
 
             $('#user-username').html(res['username']);
             $('#user-creds').html(res['credits']);
@@ -176,9 +175,9 @@ function getCardCategories (cat, deck_id) {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request='+action+'&category_id='+cat+'&deck_id='+deck_id+appendToken,
         data : '',
-        success: function(data) {
+        dataType: "json",
+        success: function(categories) {
 
-            eval('var categories='+data);
             if (categories) {
                 for(var i=0; i<categories.length; i++) {
 
@@ -219,9 +218,9 @@ function getCards (cat, deck_id) {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request='+action+'&category_id='+cat+'&deck_id='+deck_id+appendToken,
         data : '',
-        success: function(data) {
+        dataType: "json",
+        success: function(cards) {
 
-            eval('var cards='+data);
             if (cards) {
                 for(var i=0; i<cards.length; i++) {
 
@@ -316,9 +315,9 @@ function scrapCard (card_id) {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=scrapcard&card_id='+card_id+appendToken,
         data : '',
-        success: function(data) {
+        dataType: "json",
+        success: function(res) {
 
-            eval('var res='+data);
             alert(res['content']);
         }
     });
@@ -349,9 +348,8 @@ function getproducts () {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=products'+appendToken,
         data : '',
-        success: function(data) {
-
-                eval('var products='+data);
+        dataType: "json",
+        success: function(products) {
 
                 for(var i=0; i<products.length; i++) {
 
@@ -386,9 +384,9 @@ function buyproduct (product_id) {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=purchaseproduct&product_id='+product_id+appendToken,
         data : '',
-        success: function(data) {
+        dataType: "json",
+        success: function(result) {
 
-                eval('var result='+data);
                 if (result['result']) {
                     $('#modal-content').html($('#parchase-confirmation').html());
                     $('#myModal').modal();
@@ -414,9 +412,9 @@ function newDeck (name, deck_id, deck_count) {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request='+action+'&deck_name='+name+'&deck_id='+deck_id+appendToken,
         data : '',
-        success: function(data) {
+        dataType: "json",
+        success: function(result) {
 
-                eval('var result='+data);
                 if (result['result']) {
 
                     var url = (rename) ?
@@ -440,9 +438,8 @@ function getdecks (user_id) {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=getdecks'+appendToken,
         data : '',
-        success: function(data) {
-
-                eval('var decks='+data);
+        dataType: "json",
+        success: function(decks) {
 
                 for(var i=0; i<decks.length; i++) {
 
@@ -484,11 +481,9 @@ function getdecks (user_id) {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=gameinprogress '+appendToken,
         data : '',
-        success: function(data) {
+        dataType: "json",
+        success: function(game) {
 
-                eval('var game='+data);
-alert(game);
-alert(data);
                 $('#body_template').append(
                     '<div class="row grid deck" onclick="window.location=\'game.html?&header=Challenge&header_color=blue&ingame=true\'">'+
                         '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
@@ -563,9 +558,9 @@ function deleteDeck (deck_id) {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=deletedeck&deck_id='+deck_id+appendToken,
         data : '',
-        success: function(data) {
+        dataType: "json",
+        success: function(result) {
 
-                eval('var result='+data);
                 if (result['result']) {
                     window.location=window.location;
                 }
@@ -586,9 +581,8 @@ function getdeckCards (deck_id) {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=getdeckcards&deck_id='+deck_id+appendToken,
         data : '',
-        success: function(data) {
-
-                eval('var cards='+data);
+        dataType: "json",
+        success: function(cards) {
 
                 for(var i=0; i<cards.length; i++) {
 
@@ -620,9 +614,8 @@ function removedeckCards (deck_id, card_id) {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=removecardfromdeck&deck_id='+deck_id+'&card_id='+card_id+appendToken,
         data : '',
-        success: function(data) {
-
-                eval('var cards='+data);
+        dataType: "json",
+        success: function(cards) {
 
         }
     });
@@ -635,9 +628,8 @@ function adddeckCards (deck_id, card_id) {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=addcardtodeck&deck_id='+deck_id+'&card_id='+card_id+appendToken,
         data : '',
-        success: function(data) {
-
-                eval('var cards='+data);
+        dataType: "json",
+        success: function(cards) {
 
         }
     });
@@ -650,9 +642,8 @@ function removedeckCards (deck_id, card_id) {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=removecardfromdeck&deck_id='+deck_id+'&card_id='+card_id+appendToken,
         data : '',
-        success: function(data) {
-
-                eval('var cards='+data);
+        dataType: "json",
+        success: function(cards) {
 
         }
     });
@@ -733,9 +724,9 @@ function getleaderboard () {
         crossDomain: true,
         url: 'http://topcarcards.co.za/?request=null'+appendToken,
         data : '',
-        success: function(data) {
+        dataType: "json",
+        success: function(users) {
 
-                //eval('var users='+data);
                 var users = [
                     {"place":"234th","points":"23","own_score":true}
                     ,{"place":"1st","username":"John","points":"12331","own_score":false}
@@ -804,9 +795,8 @@ function getleaderboard () {
 //        crossDomain: true,
 //        url: 'http://topcarcards.co.za/?request=newgame&deck_id='+urlParams.deck_id+appendToken,
 //        data : '',
-//        success: function(data) {
-//
-//                eval('var game='+data);
+//        dataType: "json",
+//        success: function(game) {
 //
 //                var data = getCardData(card_id);
 //                eval('var cardData='+data);
@@ -828,9 +818,8 @@ function getleaderboard () {
 //        crossDomain: true,
 //        url: 'http://topcarcards.co.za/?request=playgame&deck_id='+urlParams.deck_id+appendToken,
 //        data : '',
-//        success: function(data) {
-//
-//                eval('var game='+data);
+//        dataType: "json",
+//        success: function(game) {
 //
 //        }
 //    });
@@ -849,9 +838,9 @@ function getleaderboard () {
 //        crossDomain: true,
 //        url: 'http://topcarcards.co.za/?request=card&card_id='+card_id+appendToken,
 //        data : '',
-//        success: function(data) {
+//        dataType: "json",
+//        success: function(car) {
 //
-//            eval('var car='+data);
 //            if (car) {
 //
 ////                $('#card-name').html(car['name']);
