@@ -467,6 +467,50 @@ function renameDeck($deck_id, $deck_name) {
 	}
 }
 
+function getLeaderboard($user_id) {
+	$retArr = array();
+	
+	$sqlResult = myqu('select count(others.user_id) + 1 as place, u.username, u.ranking as points, "true" as own_score
+		from users u, users others
+		where u.user_id = '.$user_id.'
+		and others.ranking > u.ranking');
+	
+	$userData = $sqlResult[0];
+	
+	$retArr [] = array(
+					'place' => $userData['place'].ordinal($userData['place']),
+					'username' => $userData['username'],
+					'points' => $userData['points'],
+					'own_score' => $userData['own_score']
+					);
+	
+	$sqlResult = myqu('select u.username, u.ranking as points, "false" as own_score
+		from users u
+		order by u.ranking desc
+		limit 10');
+	
+	$count = 1;
+	foreach($sqlResult as $topRank) {
+		$retArr [] = array(
+					'place' => $count.ordinal($count),
+					'username' => $topRank['username'],
+					'points' => $topRank['points'],
+					'own_score' => $topRank['own_score']
+					);
+		
+		$count++;
+	}
+	
+	return $retArr;
+}
+
+function ordinal($i) {
+    $l = substr($i,-1);
+    $s = substr($i,-2,-1);
+     
+    return (($l==1&&$s==1)||($l==2&&$s==1)||($l==3&&$s==1)||$l>3||$l==0?'th':($l==3?'rd':($l==2?'nd':'st')));
+}
+
 function padReturnString($retString) {
 	$retXml = padXMLContent((strlen($retString) > 0 ? 'true' : 'false'), $retString);
 	return $retXml;

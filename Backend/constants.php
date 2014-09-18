@@ -20,6 +20,7 @@ $REQUEST_REDEEMVOUCHER = "redeemvoucher";
 $REQUEST_CREATEDECK = "createdeck";
 $REQUEST_DELETEDECK = "deletedeck";
 $REQUEST_RENAMEDECK = "renamedeck";
+$REQUEST_GETLEADERBOARD = "leaderboard";
 
 // Game requests
 $GAMEREQUEST_NEWGAME = "newgame";

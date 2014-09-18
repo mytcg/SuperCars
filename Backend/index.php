@@ -128,6 +128,9 @@ switch($request) {
 	case $REQUEST_RENAMEDECK:
 		$result  = renameDeck($_GET['deck_id'], $_GET['deck_name']);
 		break;
+	case $REQUEST_GETLEADERBOARD:
+		$result  = getLeaderboard($user_id);
+		break;
 	
 	// Check for game requests
 	case $GAMEREQUEST_NEWGAME:
