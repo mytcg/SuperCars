@@ -332,6 +332,34 @@ function selectStat($game_id, $user_id, $stat_id) {
 						set game_status = (select gs.game_status_id 
 						from game_statuses gs where gs.description = "'.$GAMESTATUS_COMPLETE.'")
 						where game_id = '.$game_id);
+					
+					// Select the winner and loser data so we can adjsut their rankings.
+					$resultData = myqu('select gp.user_id, count(gc.game_card_id) as cards, u.ranking
+						from game_players gp
+						join game_cards gc 
+						on gc.game_player_id = gp.game_player_id
+						join users u on u.user_id = gp.user_id
+						where gp.game_id = '.$game_id.' 
+						group by gp.game_player_id
+						order by cards desc');
+					
+					if (count($resultData) == 2) {
+						global $BASE_RANK_CHANGE;
+						$rankChange = $BASE_RANK_CHANGE;
+						
+						$winnerData = $resultData[0];
+						$loserData = $resultData[1];
+						
+						// Work out the ranking adjustment.
+						$diff = $loserData['ranking'] - $winnerData['ranking'];
+						if ($diff > 0) {
+							$rankChange += intval($diff / 25);
+						}
+						
+						// When we have the rank change amount, do the updates
+						myqu('update users set ranking = ranking + '.$rankChange.' where user_id = '.$winnerData['user_id']);
+						myqu('update users set ranking = ranking - '.$rankChange.' where user_id = '.$loserData['user_id']);
+					}
 				}
 				
 				// Return current game state xml

@@ -64,4 +64,7 @@ $VOUCHER_ONCEOFF = "once off";
 
 // Default category
 $SUPERCARS_CATEGORY = 1;
+
+// Base rank change
+$BASE_RANK_CHANGE = 4;
 ?>
