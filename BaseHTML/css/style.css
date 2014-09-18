@@ -131,8 +131,14 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 #challenger-points .ui-progressbar {background:#5b6064;}
 #challenger-points .ui-progressbar-value {background:#fff;}
 
+#game-id-holder {display:none;}
 .loader {width:3em; margin-right:1em;}
-.card-stats {position:absolute; margin:-61% 0 0 6%; height:2em; width:79%; background:red;}
+.card-stats {position:absolute; margin:-60% 0 0 6%; width:76%;}
+#card-stat1 {margin-top:-60%;}
+#card-stat2 {margin-top:-48%;}
+#card-stat3 {margin-top:-36%;}
+#card-stat4 {margin-top:-24%;}
+#card-stat5 {margin-top:-12%;}
 .game-instruction {background:#bcbdc0;}
 .game-logo {padding:2em 0;}
 .game-instruction-message {font-size:1.3em; font-weight:bold; color:#1f262c; text-align:left;}
