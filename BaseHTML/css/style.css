@@ -29,7 +29,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 #myModal .btn-group {
     margin-bottom: 10px;
 }
-.col-xs-8.col-xs-offset-2 {
+.model-message {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);
     border: 2px solid #0a0a0a;
     font-size: 14px;
@@ -131,13 +131,11 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#a2
 #challenger-points .ui-progressbar {background:#5b6064;}
 #challenger-points .ui-progressbar-value {background:#fff;}
 
-/*#user-card {background: url("../img/cards/2-back.jpg") no-repeat scroll center -12em transparent; height:22em; width:100%; background-size:cover;}*/
-/*#user-card-stat area {background:red; position:absolute;}*/
-
 .loader {width:3em; margin-right:1em;}
+.card-stats {position:absolute; margin-top:5em; height:2em; width:20em; background:red;}
 .game-instruction {background:#bcbdc0;}
 .game-logo {padding:2em 0;}
-.game-instruction-message {font-size:1.5em; font-weight:bold; color:#1f262c; text-align:left;}
+.game-instruction-message {font-size:1.3em; font-weight:bold; color:#1f262c; text-align:left;}
 .game-sponsor {padding:2em 0; text-align:right;}
 .game-footer {color:#63686c; text-align:center; font-weight:bold; font-size:1.5em; border-top:2px solid #000;}
 .game-footer-button {text-align:center; border-right:2px solid #63686c; padding:1em 0;}

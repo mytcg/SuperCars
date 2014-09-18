@@ -724,30 +724,16 @@ function getleaderboard () {
     var ajax = jQuery.ajax({
         type: "POST",
         crossDomain: true,
-        url: 'http://topcarcards.co.za/?request=null'+appendToken,
+        url: 'http://topcarcards.co.za/?request=leaderboard'+appendToken,
         data : '',
         dataType: "json",
         success: function(users) {
-
-                var users = [
-                    {"place":"234th","points":"23","own_score":true}
-                    ,{"place":"1st","username":"John","points":"12331","own_score":false}
-                    ,{"place":"2nd","username":"Zoe","points":"12312","own_score":false}
-                    ,{"place":"3rd","username":"Shady","points":"12312","own_score":false}
-                    ,{"place":"4th","username":"Jane","points":"1231","own_score":false}
-                    ,{"place":"5th","username":"Doe","points":"123","own_score":false}
-                    ,{"place":"6th","username":"Widey","points":"123123","own_score":false}
-                    ,{"place":"7th","username":"xxxYxxx","points":"1312","own_score":false}
-                    ,{"place":"8th","username":"assign","points":"1123","own_score":false}
-                    ,{"place":"9th","username":"justin","points":"1321","own_score":false}
-                    ,{"place":"10th","username":"People","points":"12242","own_score":false}
-                ];
 
                 var userHtml = '';
                 var boardHtml = '';
                 for(var i=0; i<users.length; i++) {
 
-                    if (users[i].own_score) {
+                    if (users[i].own_score=='true') {
 
                         userHtml =
                             '<div class="row grid leaderboard vertical-align" id="'+users[i]['place']+'">'+
@@ -771,7 +757,7 @@ function getleaderboard () {
                                     users[i]['place']+
                                 '</div>'+
                                 '<div class="col-xs-6 padded vcenter username">'+
-                                    users[i]['username']+' place'+
+                                    users[i]['username']+
                                 '</div>'+
                                 '<div class="col-xs-3 padded vcenter greenpoints">'+
                                     +users[i]['points']+
@@ -799,6 +785,8 @@ function init_game () {
     $( "#game-score-user" ).html('10');
     $( "#game-score-opponent" ).html('10');
     $( "#user-area" ).html($( "#game-message-div" ).html());
+
+    $( "#challenger-area" ).html($( "#user-card-div" ).html());
 
     start_game();
 
