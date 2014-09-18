@@ -26,6 +26,7 @@ $REQUEST_GETLEADERBOARD = "leaderboard";
 $GAMEREQUEST_NEWGAME = "newgame";
 $GAMEREQUEST_CONTINUEGAME = "continuegame";
 $GAMEREQUEST_PLAYGAME = "playgame";
+$GAMEREQUEST_INPROGRESS = "gameinprogress";
 
 // Card statuses
 $CARDSTATUS_ALBUM = "album";

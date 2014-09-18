@@ -142,6 +142,9 @@ switch($request) {
 	case $GAMEREQUEST_PLAYGAME:
 		$result = selectStat($_GET['game_id'], $user_id, $_GET['stat_id']);
 		break;
+	case $GAMEREQUEST_INPROGRESS:
+		$result = gameInProgress($user_id);
+		break;
 	
 	default:
 		$result = array(

@@ -399,7 +399,14 @@ function getGameData($user_id, $game_id, $new_or_old = 'old') {
 				order by gm.date_created desc
 				limit 1');
 				
-			$retArray['moveData'] = $sqlResult[0];
+			$moveData = $sqlResult[0];
+				
+			$retArray['moveData'] = array(
+					'winner' => $moveData['winner'],
+					'stat_id' => $moveData['stat_id'],
+					'winning_card' => $moveData['winning_card'],
+					'losing_card' => $moveData['losing_card']
+			);
 		}
 		
 		// Get the top card for each player
@@ -426,7 +433,9 @@ function getGameData($user_id, $game_id, $new_or_old = 'old') {
 		$retArray['user_score'] = $gameData['user_cards'];
 		$retArray['opponent_score'] = $gameData['opp_cards'];
 		$retArray['moved'] = $gameData['moved'];
+		$retArray['active_player'] = $gameData['active_player'];
 		$retArray['new_or_old'] = $new_or_old;
+		$retArray['game_status'] = $gameData['description'];
 		
 		return $retArray;
 	}
@@ -434,6 +443,30 @@ function getGameData($user_id, $game_id, $new_or_old = 'old') {
 		return array(
 				'result'    =>  false
 				,'content'  =>  'Invalid game.'
+			);
+	}
+}
+
+function gameInProgress($user_id) {
+	global $GAMESTATUS_COMPLETE;
+	$sqlResult = myqu('select g.game_id
+		from games g
+		join game_players gp
+		on gp.game_id = g.game_id
+		join game_statuses gs 
+		on gs.game_status_id = g.game_status
+		where gs.description != "'.$GAMESTATUS_COMPLETE.'"
+		and gp.user_id = '.$user_id);
+	
+	if ($gameData = $sqlResult[0]) {
+		return array(
+				'in_game'    =>  true
+				,'game_id'  =>  $gameData['game_id']
+			);
+	}
+	else {
+		return array(
+				'in_game'    =>  false
 			);
 	}
 }
