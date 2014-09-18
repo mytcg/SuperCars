@@ -33,7 +33,7 @@ function newGame($user_id, $deck_id) {
 	
 	// If they do have an open incomplete game, return the game xml
 	if ($result=$results[0]) {
-		return getGameXML($user_id, $result['game_id']);
+		return getGameData($user_id, $result['game_id']);
 	}
 	
 	// If they dont have an open game, check if there is an LFM game.
