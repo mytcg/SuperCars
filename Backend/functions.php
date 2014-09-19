@@ -341,7 +341,7 @@ function scrapUserCards($card_id, $user_id) {
 		if ($usercard=$cardsResult[0]) {
 			if ($usercard['cards'] == 0) {
 				myqu($sql = 'DELETE FROM deck_cards
-					WHERE card_id = '.$card_id);
+					WHERE card_id = '.$card_id.' and deck_id in (select d.deck_id from decks d where d.user_id = '.$user_id.')');
 			}
 		}
 		

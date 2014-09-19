@@ -111,7 +111,7 @@ function newGame($user_id, $deck_id) {
 		// Get the players
 		$sql = 'select gp.game_player_id
 			from game_players gp
-			where game_id = 1';
+			where game_id = '.$game_id;
 		
 		$results = myqu($sql);
 		
@@ -220,10 +220,12 @@ function selectStat($game_id, $user_id, $stat_id) {
 	global $GAMECARDSTATUS_LIMBO;
 
 	// Select the current game state to make sure that it is in progress and it exists
-	$sql = 'select gs.description game_status, g.active_player 
+	$sql = 'select gs.description game_status, gp.user_id as active_player 
 		from games g
 		join game_statuses gs
 		on gs.game_status_id = g.game_status
+		join game_players gp
+		on gp.game_player_id = g.active_player
 		where g.game_id = '.$game_id;
 		
 	$sqlResult = myqu($sql);
@@ -408,7 +410,7 @@ function getGameData($user_id, $game_id, $new_or_old = 'old') {
 	global $GAMECARDSTATUS_LIMBO;
 
 	// Select last check date + other core game data.
-	$sqlResult = myqu('select g.active_player, user_data.game_player_id, gs.description,
+	$sqlResult = myqu('select active.user_id as active_player, user_data.game_player_id, gs.description,
 		case when max(gm.date_created) > user_data.last_check then "true" else "false" end as moved,
 		user_data.cards user_cards, opp_data.cards opp_cards
 				from games g
@@ -430,6 +432,8 @@ function getGameData($user_id, $game_id, $new_or_old = 'old') {
 					where gp1.user_id != '.$user_id.'
 					group by gp1.game_player_id) opp_data
 				on g.game_id = opp_data.game_id
+				left outer join game_players active
+				on active.game_player_id = g.active_player
 				where g.game_id = '.$game_id.' 
 				group by g.game_id');
 		
@@ -442,8 +446,14 @@ function getGameData($user_id, $game_id, $new_or_old = 'old') {
 		// Check if there was a move since the user's last check
 		if ($gameData['moved'] == 'true') {
 			
-			$sqlResult = myqu('select gm.winner, gm.stat_id, gm.winning_card, gm.losing_card 
+			$sqlResult = myqu('select gp.user_id winner, gm.stat_id, winner.card_id winning_card, loser.card_id losing_card
 				from game_moves gm 
+				join game_cards winner
+				on winner.game_card_id = gm.winning_card
+				join game_cards loser
+				on loser.game_card_id = gm.losing_card
+				join game_players gp
+				on gp.game_player_id = gm.winner
 				where gm.game_id = '.$game_id.'
 				order by gm.date_created desc
 				limit 1');
