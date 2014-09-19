@@ -305,7 +305,7 @@ function selectStat($game_id, $user_id, $stat_id) {
 						from game_cards gc
 						join game_card_statuses gcs
 						on gcs.game_card_status_id = gc.game_card_status
-						where gc.game_id = 11
+						where gc.game_id = '.$game_id.'
 						and gcs.description = "'.$GAMECARDSTATUS_LIMBO.'" order by gc.`index`';
 						
 					$limboResult = myqu($sql);
@@ -330,6 +330,9 @@ function selectStat($game_id, $user_id, $stat_id) {
 						
 						$index++;
 					}
+					
+					// Set the new active player
+					myqu('update games g set g.active_player = '.$winningPlayer);
 				}
 				
 				// Add an entry to game moves
