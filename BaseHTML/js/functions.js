@@ -107,8 +107,12 @@ function doLogin () {
 
 
 /******************************************* Registration Functions ******************************************************************/
-
+function loadRegistration(){
+	window.location.replace("register.html");
+}
 function doRegistration () {
+	
+	// window.location.replace("register.html");
 
     window.localStorage.setItem("username", $('#username').val());
     window.localStorage.setItem("password", $('#password').val());
