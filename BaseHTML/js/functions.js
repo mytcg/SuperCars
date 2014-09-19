@@ -238,7 +238,7 @@ function getCards (cat, deck_id) {
 
                     } else {
 
-                        onclick = "window.location='card.html?card_id="+cards[i]['card_id']+"&header="+cards[i]['name']+"&header_color="+urlParams.header_color+"'";
+                        onclick = (cards[i]['owned']=='0') ? "" : "window.location='card.html?card_id="+cards[i]['card_id']+"&header="+cards[i]['name']+"&header_color="+urlParams.header_color+"'";
                         owned = (cards[i]['owned']=='0') ? ' notowned' : '';
                     }
 
@@ -449,11 +449,19 @@ function getdecks (user_id) {
 
             for(var i=0; i<decks.length; i++) {
 
-                var owned = (decks[i]['playable']=='0') ? ' notowned' : '';
-                var location = (isGame) ? 'game.html?&header=Challenge&header_color=blue&ingame=true&new_game=true&deck_id='+decks[i]['deck_id'] : 'grid-template.html?deck_id='+decks[i]['deck_id']+'&deck_count='+decks[i]['cards_in_deck']+'&section=viewDeck&header='+decks[i]['description']+'&header_color=blue';
+                var owned = (decks[i]['playable']=='true') ? '' : ' notowned';
+                if (isGame) {
+                    if (decks[i]['playable']!='true') {
+                        var location = '';
+                    } else {
+                        var location = 'window.location=\'game.html?&header=Challenge&header_color=blue&ingame=true&new_game=true&deck_id='+decks[i]['deck_id']+'\''
+                    }
+                } else {
+                    var location = 'window.location=\'grid-template.html?deck_id='+decks[i]['deck_id']+'&deck_count='+decks[i]['cards_in_deck']+'&section=viewDeck&header='+decks[i]['description']+'&header_color=blue\'';
+                }
 
                 $('#body_template').append(
-                    '<div class="row grid'+owned+' decks vertical-align" id="'+decks[i]['deck_id']+'" onclick="window.location=\''+location+'\'">'+
+                    '<div class="row grid'+owned+' decks vertical-align" id="'+decks[i]['deck_id']+'" onclick="'+location+'">'+
                         '<div class="col-xs-4 vcenter">'+
 //                                '<img src="img/decks/'+decks[i]['deck_id']+'.jpg" />'+
                             '<img src="img/decks/placeholder.jpg" />'+
