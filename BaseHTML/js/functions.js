@@ -867,7 +867,7 @@ function checkGame (stat) {
                         var endText = 'You WON!';
                     } else {
                         var endText = 'You Loss!';
-                    }
+                    } 
                     alert(endText);
                     setTimeout('window.location="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"', 3000);
 
