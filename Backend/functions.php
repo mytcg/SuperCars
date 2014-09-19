@@ -251,6 +251,7 @@ function registerUser($username, $password, $email = '') {
 		return array(
             'result'    =>  true
 			,'content'  =>  'User created.'
+			,'user_id'  =>  $user['user_id']
         );
 	}
 	else {

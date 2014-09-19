@@ -45,7 +45,7 @@ function buyProduct($user_id, $product_id) {
 				// If the user has enough credits, and the product is valid, deduct their credits and give the the product.
 				$sql = 'UPDATE users
 				   SET credits = credits - '.$product_data['price'].'
-				 WHERE user_id = 1';
+				 WHERE user_id = '.$user_id;
 				myqu($sql);
 				// Then go through the product types, to make sure that the user gets their cards correctly.
 				switch ($product_data['product_type']) {
@@ -148,7 +148,7 @@ function buyBooster($user_id, $product_id) {
                        card_id,
                        user_card_status,
                        date_created)
-				   SELECT 1,
+				   SELECT '.$user_id.',
 						  '.$cardId.',
 						  card_status_id,
 						  now()
