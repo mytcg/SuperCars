@@ -826,6 +826,7 @@ function start_game () {
                 $( "#user-area" ).html('');
                 $( "#game-instruction-message" ).html('<img src="img/loading.gif" class="loader" /> Waiting for opponent...');
                 $( "#user-area" ).html($( "#game-message-div" ).html());
+                $("#game-id-holder").html(gameData['game_id'])
                 setTimeout('checkGame()', 5000);
 
             } else if (gameData['active_player']=='true') {
@@ -842,7 +843,7 @@ function checkGame (stat) {
     var ajax = jQuery.ajax({
         type: "POST",
         crossDomain: true,
-        url: 'http://topcarcards.co.za/?request=continuegame&game_id='+$( "#game-id-holder" ).html()+appendToken,
+        url: 'http://topcarcards.co.za/?request=continuegame&game_id='+$("#game-id-holder").html()+appendToken,
         data : '',
         dataType: "json",
         success: function(gameData) {
@@ -887,6 +888,12 @@ function stat_select (stat) {
 
             $( "#challenger-area" ).html($( "#challenger-card-div" ).html());
 
+            if (game['stat']=='done') {
+            } else if (game['stat']=='done') {
+                $( "#user-area" ).addClass('game-overlay');
+                $( "#user-card" ).prepend('YOU WIN');
+                setTimeout("$('#user-area').removeClass('game-overlay');", 3000);
+            }
         }
     });
 }
