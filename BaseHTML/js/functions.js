@@ -805,7 +805,6 @@ function init_game () {
     $( "#challenger-points #progressbar2" ).progressbar({value: 0}).append('<div class="game-progress-filler">&nbsp;</div>');
     $( "#game-score-user" ).html('10');
     $( "#game-score-opponent" ).html('10');
-    $( "#user-area" ).html($( "#game-message-div" ).html());
 
     start_game();
 
@@ -826,7 +825,7 @@ function start_game () {
                 $( "#user-area" ).html('');
                 $( "#game-instruction-message" ).html('<img src="img/loading.gif" class="loader" /> Waiting for opponent...');
                 $( "#user-area" ).html($( "#game-message-div" ).html());
-                $("#game-id-holder").html(gameData['game_id'])
+                $("#game-id-holder").html(gameData['game_id']);
                 setTimeout('checkGame()', 5000);
 
             } else if (gameData['active_player']=='true') {
@@ -852,28 +851,70 @@ function checkGame (stat) {
 
                 setTimeout('checkGame()', 5000);
 
-            } else if (gameData['active_player']=='true') {
+            } else if (gameData['game_status']=='inprogress') {
 
-                users_turn(gameData);
+
+                if (gameData['active_player']==user_id) {
+
+                    //users_turn(gameData);
+                    users_turn();
+
+                } else if (gameData['game_status']=='completed') {
+
+                    if (parseInt(gameData['user_score'])==parseInt(gameData['opponent_score'])) {
+                        var endText = 'Its a Draw!';
+                    } else if (parseInt(gameData['user_score'])>parseInt(gameData['opponent_score'])) {
+                        var endText = 'You WON!';
+                    } else {
+                        var endText = 'You Loss!';
+                    }
+                    alert(endText);
+                    setTimeout('window.location="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"', 3000);
+
+                } else {
+
+                    if (gameData['moveData']) {
+
+                        gameMoveAction(gameData);
+
+                    } else {
+                        
+                        $( "#user-area" ).html('');
+                        $( "#challenger-area" ).html('');
+                        $( "#game-message" ).html('');
+                        $( "#game-instruction-message" ).html('<img src="img/loading.gif" class="loader" /> Waiting for opponent\'s move..');
+                        $( "#user-area" ).html($( "#game-message-div" ).html());
+                        $("#game-id-holder").html(gameData['game_id']);
+                        setTimeout('checkGame()', 5000); 
+                    }
+                }
             }
-
         }
     });
 }
 
-function users_turn(gameData) {
+function users_turn() {
 
-    var cardData = getCardData(gameData['card_id_user']);
+     var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=continuegame&game_id='+$("#game-id-holder").html()+appendToken,
+        data : '',
+        dataType: "json",
+        success: function(gameData) {
+            var cardData = getCardData(gameData['card_id_user']);
 
-    $( "#game-id-holder" ).html(game['game_id']);
-    $( "#game-score-user" ).html(game['user_score']);
+            $( "#game-id-holder" ).html(gameData['game_id']);
+            $( "#game-score-user" ).html(gameData['user_score']);
 
-    $( "#user-area" ).html($( "#user-card-div" ).html());
-    $( "#user-card-img" ).attr('src', 'img/cards/'+cardData['card_id']+'-stats.jpg');
-    $( "#game-card-model" ).html(cardData['name']);
+            $( "#user-area" ).html($( "#user-card-div" ).html());
+            $( "#user-card-img" ).attr('src', 'img/cards/'+cardData['card_id']+'-stats.jpg');
+            $( "#game-card-model" ).html(cardData['name']);
 
-    $( "#game-instruction-message" ).html('Select a high value on your card.');
-    $( "#challenger-area" ).html($( "#game-message-div" ).html());
+            $( "#game-instruction-message" ).html('Select a high value on your card.');
+            $( "#challenger-area" ).html($( "#game-message-div" ).html());
+        }
+     });
 }
 
 function stat_select (stat) {
@@ -884,18 +925,63 @@ function stat_select (stat) {
         url: 'http://topcarcards.co.za/?request=playgame&stat_id='+stat+'&game_id='+$( "#game-id-holder" ).html()+appendToken,
         data : '',
         dataType: "json",
-        success: function(game) {
+        success: function(gameData) {
 
-            $( "#challenger-area" ).html($( "#challenger-card-div" ).html());
-
-            if (game['stat']=='done') {
-            } else if (game['stat']=='done') {
-                $( "#user-area" ).addClass('game-overlay');
-                $( "#user-card" ).prepend('YOU WIN');
-                setTimeout("$('#user-area').removeClass('game-overlay');", 3000);
-            }
+            gameMoveAction(gameData);
+            
         }
     });
+}
+
+function gameMoveAction (gameData) {
+
+    $( "#challenger-area" ).html($( "#challenger-card-div" ).html());
+
+    if (gameData['stat']=='done') {
+
+        $( "#user-area" ).addClass('game-overlay');
+        $( "#user-card" ).prepend('YOU WIN');
+        setTimeout("$('#user-area').removeClass('game-overlay');", 3000);
+
+    } else {
+
+        if (gameData['moveData']['winner']==user_id) {
+            var user_card = gameData['moveData']['winning_card'];
+            var challenger_card = gameData['moveData']['losing_card'];
+            var message = 'You Won!';
+        } else {
+            var user_card = gameData['moveData']['losing_card'];
+            var challenger_card = gameData['moveData']['winning_card'];
+            var message = 'You Won!';
+        }
+        $( "#game-message" ).html(message);
+
+        $( "#game-score-user" ).html(gameData['user_score']);
+        var barScore1 = (parseInt(gameData['user_score'])>10) ? 100 : parseInt(gameData['user_score'])*10;
+        var barScore2 = (parseInt(gameData['user_score'])>10) ? (parseInt(gameData['user_score'])-10)*10 : 0;
+        $( "#user-points #progressbar1" ).progressbar({value: barScore1}).append('<div class="game-progress-filler">&nbsp;</div>');
+        $( "#user-points #progressbar2" ).progressbar({value: barScore2}).append('<div class="game-progress-filler">&nbsp;</div>');
+
+        $( "#user-area" ).html($( "#user-card-div" ).html());
+        $( "#user-card-img" ).attr('src', 'img/cards/'+user_card+'-stats.jpg');
+
+        $( "#game-score-opponent" ).html(gameData['opponent_score']);
+        var barScore1 = (parseInt(gameData['opponent_score'])>10) ? 100 : parseInt(gameData['opponent_score'])*10;
+        var barScore2 = (parseInt(gameData['opponent_score'])>10) ? (parseInt(gameData['opponent_score'])-10)*10 : 0;
+        $( "#challenger-points #progressbar1" ).progressbar({value: barScore1}).append('<div class="game-progress-filler">&nbsp;</div>');
+        $( "#challenger-points #progressbar2" ).progressbar({value: barScore2}).append('<div class="game-progress-filler">&nbsp;</div>');
+
+        $( "#challenger-area" ).html($( "#challenger-card-div" ).html());
+        $( "#challenger-card-img" ).attr('src', 'img/cards/'+challenger_card+'-stats.jpg');
+
+        //sleep(10000);
+        if (gameData['active_player']==user_id) {
+            users_turn(gameData);
+        } else {
+            setTimeout('checkGame()', 5000);
+        }
+    }
+
 }
 
 /****************************************** END Game Function ***************************************************************/
@@ -967,4 +1053,9 @@ function queryParameters () {
     });
 
     return result;
+}
+
+function sleep( sleepDuration ){
+    var now = new Date().getTime();
+    while(new Date().getTime() < now + sleepDuration){ /* do nothing */ }
 }
