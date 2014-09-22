@@ -861,20 +861,6 @@ function checkGame (stat) {
                     //users_turn(gameData);
                     users_turn();
 
-                } else if (gameData['game_status']=='completed') {
-
-                    if (parseInt(gameData['user_score'])==parseInt(gameData['opponent_score'])) {
-                        var endText = 'Its a Draw!';
-                    } else if (parseInt(gameData['user_score'])>parseInt(gameData['opponent_score'])) {
-                        var endText = 'You WON!';
-                    } else {
-                        var endText = 'You Loss!';
-                    }
-                    $( "#user-area" ).addClass('game-overlay');
-                    $( "#user-card" ).prepend(endText);
-                    setTimeout("$('#user-area').removeClass('game-overlay');", 3000);
-                    setTimeout('window.location="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"', 7000);
-
                 } else {
 
                     if (gameData['moveData']) {
@@ -892,6 +878,20 @@ function checkGame (stat) {
                         setTimeout('checkGame()', 5000); 
                     }
                 }
+            } else if (gameData['game_status']=='completed') {
+
+                if (parseInt(gameData['user_score'])==parseInt(gameData['opponent_score'])) {
+                    var endText = 'Its a Draw!';
+                } else if (parseInt(gameData['user_score'])>parseInt(gameData['opponent_score'])) {
+                    var endText = 'You WON!';
+                } else {
+                    var endText = 'You Loss!';
+                }
+                $( "#user-area" ).addClass('game-overlay');
+                $( "#user-card" ).prepend(endText);
+                alert(endText);
+                setTimeout("$('#user-area').removeClass('game-overlay');", 3000);
+                setTimeout('window.location="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"', 7000);
             }
         }
     });
@@ -953,6 +953,7 @@ function gameMoveAction (gameData) {
         }
         $( "#user-area" ).addClass('game-overlay');
         $( "#user-card" ).prepend(endText);
+        alert(endText);
         setTimeout("$('#user-area').removeClass('game-overlay');", 3000);
         setTimeout('window.location="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"', 7000);
 
