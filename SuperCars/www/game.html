@@ -18,25 +18,105 @@
         <script src="js/functions.js"></script>
 </head>
 <body>
-	<header>
-	    <div class="navbar navbar-inverse navbar-fixed-top">
-                <div class="nav-back">
-                    <span class="glyphicon glyphicon-chevron-left" onclick="history.go(-1)"></span>
-                </div>
-                <div id="page-title" class="page-title">
-                </div>
-	        <div class="navbar-header">
-	          <a id="nav-expander" class="nav-expander fixed">
-	            <img src="elements/icon_menu.jpg" />
-	          </a>
-	        </div>
-	    </div>
-	</header>
-	<nav id="nav">
-	</nav>
-    <section id="body_template">
+     <script>
+        jQuery(document).ready(function() {
+            init_game();
+        });
 
-        This is where you will be gaming
+//$("#progressbar").progressbar("option", {value: 23 });
+        </script>
+    <div id="game-id-holder"></div>
+    <section id="body_template" class="game">
+
+        <div class="row vertical-align game-status" id="user-points">
+            <div class="col-xs-4 game-progress vcenter">
+                <div id="progressbar1"></div>
+                <div id="progressbar2"></div>
+            </div>
+            <div class="col-xs-3 game-progress-num vcenter">
+                <span id="game-score-user"></span>/20
+            </div>
+            <div class="col-xs-5 game-card-title vcenter">
+                <div class="game-card-model" id="game-card-model">
+                    
+                </div>
+                <div class="game-card-make" id="game-card-make">
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="user-area" id="user-area">
+        </div>
+
+        <div class="row vertical-align game-status" id="challenger-points">
+            <div class="col-xs-5 game-message vcenter" id="game-message">
+                
+            </div>
+            <div class="col-xs-3 game-progress-num vcenter">
+                <span id="game-score-opponent"></span>/20
+            </div>
+            <div class="col-xs-4 game-progress vcenter">
+                <div id="progressbar1"></div>
+                <div id="progressbar2"></div>
+            </div>
+        </div>
+
+        <div class="challenger-area" id="challenger-area">
+        </div>
+
+        <div class="row game-footer">
+            <div class="col-xs-6 game-footer-button" onclick="window.location='dashboard.html?header=Dashboard&header_color=none'">
+                QUIT GAME
+            </div>
+            <div class="col-xs-6 game-footer-button highlight" onclick="window.location='grid-template.html?section=challenge&header=Challenge&header_color=blue'">
+                NEXT ROUND
+            </div>
+        </div>
+
+        <!------------------------------------------ HIDDEN DIVS -------------------------------------------->
+
+        <div class="hiddenDiv" id="user-card-div">
+            <div class="row game-card" id="user-card-holder">
+                <div class="col-xs-10 col-xs-offset-1" id="user-card">
+                    <img id="user-card-img" src="img/cards/2-stats.jpg">
+                </div>
+                <div class="col-xs-10 col-xs-offset-1" id="user-card-stat">
+                        <div class="card-stats" id="card-stat1" onclick="stat_select('1');"><img src="img/stat-filler.png" /></div>
+                        <div class="card-stats" id="card-stat2" onclick="stat_select('2');"><img src="img/stat-filler.png" /></div>
+                        <div class="card-stats" id="card-stat3" onclick="stat_select('3');"><img src="img/stat-filler.png" /></div>
+                        <div class="card-stats" id="card-stat4" onclick="stat_select('4');"><img src="img/stat-filler.png" /></div>
+                        <div class="card-stats" id="card-stat5" onclick="stat_select('5');"><img src="img/stat-filler.png" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="hiddenDiv" id="challenger-card-div">
+            <div class="row game-card" id="challenger-card-holder">
+                <div class="col-xs-10 col-xs-offset-1" id="challenger-card">
+                    <img id="challenger-card-img" src="img/cards/2-stats.jpg">
+                </div>
+            </div>
+        </div>
+        <div class="hiddenDiv" id="game-message-div">
+            <div class="row game-instruction">
+                <div class="col-xs-5 col-xs-offset-1 game-logo">
+                    <img src="img/logo-game.jpg" />
+                </div>
+                <div class="col-xs-10 col-xs-offset-1 game-instruction-message" id="game-instruction-message">
+                    <img src="img/loading.gif" class="loader" /> Loading the game...
+                </div>
+                <div class="col-xs-5 col-xs-offset-6 game-sponsor">
+                    <img src="img/game-sponsor.jpg" />
+                </div>
+            </div>
+        </div>
+        <div class="hiddenDiv" id="game-message-overlay">
+            <div class="row game-overlay">
+                <div class="col-xs-10 col-xs-offset-1 game-overlay-message" id="game-instruction-message">
+
+                </div>
+            </div>
+        </div>
         
     </section>
 </body>
