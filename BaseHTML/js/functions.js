@@ -820,17 +820,19 @@ function start_game () {
         dataType: "json",
         success: function(gameData) {
 
-            if (gameData['game_status']=='lfm') {
+            if (gameData['active_player']==user_id) {
 
+                users_turn(gameData);
+                
+//            } else if (gameData['game_status']=='lfm') {
+            } else {
+                
                 $( "#user-area" ).html('');
                 $( "#game-instruction-message" ).html('<img src="img/loading.gif" class="loader" /> Waiting for opponent...');
                 $( "#user-area" ).html($( "#game-message-div" ).html());
                 $("#game-id-holder").html(gameData['game_id']);
                 setTimeout('checkGame()', 5000);
 
-            } else if (gameData['active_player']=='true') {
-                
-                users_turn(gameData);
             }
         }
     });
@@ -867,9 +869,11 @@ function checkGame (stat) {
                         var endText = 'You WON!';
                     } else {
                         var endText = 'You Loss!';
-                    } 
-                    alert(endText);
-                    setTimeout('window.location="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"', 3000);
+                    }
+                    $( "#user-area" ).addClass('game-overlay');
+                    $( "#user-card" ).prepend(endText);
+                    setTimeout("$('#user-area').removeClass('game-overlay');", 3000);
+                    setTimeout('window.location="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"', 7000);
 
                 } else {
 
@@ -881,7 +885,7 @@ function checkGame (stat) {
                         
                         $( "#user-area" ).html('');
                         $( "#challenger-area" ).html('');
-                        $( "#game-message" ).html('');
+                        //$( "#game-message" ).html('');
                         $( "#game-instruction-message" ).html('<img src="img/loading.gif" class="loader" /> Waiting for opponent\'s move..');
                         $( "#user-area" ).html($( "#game-message-div" ).html());
                         $("#game-id-holder").html(gameData['game_id']);
@@ -913,6 +917,7 @@ function users_turn() {
 
             $( "#game-instruction-message" ).html('Select a high value on your card.');
             $( "#challenger-area" ).html($( "#game-message-div" ).html());
+            $( "#game-message" ).html('');
         }
      });
 }
@@ -937,11 +942,19 @@ function gameMoveAction (gameData) {
 
     $( "#challenger-area" ).html($( "#challenger-card-div" ).html());
 
-    if (gameData['stat']=='done') {
+    if (gameData['game_status']=='complete') {
 
+        if (parseInt(gameData['user_score'])==parseInt(gameData['opponent_score'])) {
+            var endText = 'Its a Draw!';
+        } else if (parseInt(gameData['user_score'])>parseInt(gameData['opponent_score'])) {
+            var endText = 'You WON!';
+        } else {
+            var endText = 'You Loss!';
+        }
         $( "#user-area" ).addClass('game-overlay');
-        $( "#user-card" ).prepend('YOU WIN');
+        $( "#user-card" ).prepend(endText);
         setTimeout("$('#user-area').removeClass('game-overlay');", 3000);
+        setTimeout('window.location="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"', 7000);
 
     } else {
 
@@ -952,7 +965,7 @@ function gameMoveAction (gameData) {
         } else {
             var user_card = gameData['moveData']['losing_card'];
             var challenger_card = gameData['moveData']['winning_card'];
-            var message = 'You Won!';
+            var message = 'You Lose!';
         }
         $( "#game-message" ).html(message);
 
@@ -976,8 +989,10 @@ function gameMoveAction (gameData) {
 
         //sleep(10000);
         if (gameData['active_player']==user_id) {
-            users_turn(gameData);
+            
+            setTimeout('users_turn();', 5000);
         } else {
+            
             setTimeout('checkGame()', 5000);
         }
     }
