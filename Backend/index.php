@@ -19,8 +19,8 @@ if ($request==$REQUEST_REGISTER) {
 	$password = $_GET['password'];
 	
 	$email = '';
-	if ($email = $_GET['email']) {
-		$email = base64_decode($email);
+	if (!$email = $_GET['email']) {
+		$email = '';
 	}
 	
 	$result = registerUser($username, $password, $email);
