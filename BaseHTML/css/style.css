@@ -1,4 +1,9 @@
-body {background:#2a3137;color:#8f9295;}
+@font-face {
+    font-family: "Roboto";
+    src: url("../fonts/content/Roboto-Regular_0.ttf") format("opentype");
+}
+
+body {font-family:"Roboto";background:#2a3137;color:#8f9295;}
 #body_template{margin-top:50px;margin-bottom: 100px;}
 .row{margin:0}
 .row-fluid > img{margin: 0 4%;width: 90%;}
@@ -291,7 +296,7 @@ nav {
   right: -20em;
   font-size: 15px;
   top: 0;
-  width: 20em;
+  width: 15em;
   z-index: 2000;
   
   transition: right 0.3s ease-in-out 0s;
@@ -321,13 +326,13 @@ body.nav-expanded {
 
 .main-menu li {
     border-bottom: 1px solid #0f0f0f;
-    font-size: 18px;
+    font-size: 1em;
     margin-left: 5px;
-    padding:5px;
+    padding: 6px
 }
 
 .main-menu li a {
-  color: #ccc;
+  color: #eee;
   text-decoration: none;
 }
 
@@ -406,7 +411,7 @@ body.nav-expanded {
 }
 
 .icon-dash, .icon-album, .icon-credits, .icon-leader, .icon-shop, .icon-profile, .icon-game, .icon-deck {
-    width: 40px;
+    width: 36px;
     margin-right:10px;
     float: left;
 }
