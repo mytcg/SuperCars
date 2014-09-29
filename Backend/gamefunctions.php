@@ -18,6 +18,13 @@ function newGame($user_id, $deck_id) {
 			);
 		}
 	}
+	else {
+		// If the deck did not exist, return unhappy result.
+		return array(
+			'result'    =>  false
+			,'content'  =>  'Invalid deck.'
+		);
+	}
 	
 	// Commenting the below out for now. 
 	/*
@@ -300,6 +307,16 @@ function selectStat($game_id, $user_id, $stat_id) {
 					$winningCard = $sqlResult[$winnerIndex]['game_card_id'];
 					$losingCard = $sqlResult[1-$winnerIndex]['game_card_id'];
 					
+					// Get the winners highest card index
+					$sql = 'select MAX(gc.`index`) as "index"
+						from game_cards gc
+						where gc.game_player_id = '.$winningPlayer;
+					
+					$indexResult = myqu($sql);
+					
+					$index = $indexResult[0]['index'];
+					$index++;
+					
 					// Select any cards that are currently in limbo
 					$sql = 'select gc.game_card_id
 						from game_cards gc
@@ -310,7 +327,6 @@ function selectStat($game_id, $user_id, $stat_id) {
 						
 					$limboResult = myqu($sql);
 					
-					$index = $sqlResult[$winnerIndex]['max_index'] + 1;
 					// Update each limbo card to now be in the winner's pile
 					foreach ($limboResult as $limboCard) {
 						myqu('update game_cards gc 
@@ -332,7 +348,7 @@ function selectStat($game_id, $user_id, $stat_id) {
 					}
 					
 					// Set the new active player
-					myqu('update games g set g.active_player = '.$winningPlayer);
+					myqu('update games g set g.active_player = '.$winningPlayer.' where g.game_id = '.$game_id);
 				}
 				
 				// Add an entry to game moves
