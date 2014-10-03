@@ -172,7 +172,8 @@ function getUserAlbumCards($category, $user_id) {
 					GROUP BY uc.card_id) uc
 					  ON uc.card_id = c.card_id
 			 WHERE c.category_id = '.$category.'
-			GROUP BY c.card_id;';
+			GROUP BY c.card_id
+			ORDER BY c.name;';
 	
     $cardArr = myqu($sql);
 
