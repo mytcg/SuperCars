@@ -211,6 +211,8 @@ function getCard($card_id, $user_id) {
 }
 
 function registerUser($username, $password, $email = '') {
+	global $BANNED_NAMES;
+	
 	// Check that the username and password are at least the minimum length.
 	if (strlen($username) < 5) {
 		return array(
@@ -225,10 +227,18 @@ function registerUser($username, $password, $email = '') {
         );
 	}
 	
+	// Check that the username isn't in the banned list
+	if (in_array(strtolower($username), $BANNED_NAMES)) {
+		return array(
+            'result'    =>  false
+			,'content'  =>  'Invalid username.'
+        );
+	}
+	
 	// Check that the username isnt taken.
 	$sql = 'SELECT *
 		FROM users
-		WHERE username = "'.$username.'"';
+		WHERE UPPER(username) = UPPER("'.$username.'")';
 	$result = myqu($sql);
 	if ($user=$result[0]) {
 		return array(

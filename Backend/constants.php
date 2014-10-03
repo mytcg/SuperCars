@@ -28,6 +28,9 @@ $GAMEREQUEST_CONTINUEGAME = "continuegame";
 $GAMEREQUEST_PLAYGAME = "playgame";
 $GAMEREQUEST_INPROGRESS = "gameinprogress";
 
+// Banned usernames
+$BANNED_NAMES = array("supercars");
+
 // Card statuses
 $CARDSTATUS_ALBUM = "album";
 $CARDSTATUS_SCRAP = "scrap";
