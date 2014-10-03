@@ -81,7 +81,7 @@ switch($request) {
 		$result = getUser($user_id);
 		break;
 	case $REQUEST_CATEGORIES:
-		$result = getCategories($_GET['category_id']);
+		$result = getCategories($user_id, $_GET['category_id']);
 		break;
 	case $REQUEST_ALBUMCARDS:
 		$result  = getUserAlbumCards($_GET['category_id'], $user_id);

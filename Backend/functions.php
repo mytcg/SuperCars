@@ -65,12 +65,18 @@ function getDecks($user_id) {
 	return $deckArr;
 }
 
-function getCategories($parent = '') {
-    $sql = 'SELECT c.category_id, c.description, (case when count(cd.card_id) = 0 then "false" else "true" end) as hascards
-                      FROM categories c
-                               left OUTER JOIN cards cd ON cd.category_id = c.category_id
-                      WHERE '.(($parent == '' || $parent == null) ? 'c.category_parent is null' : 'c.category_parent = '.$parent).
-                    ' GROUP BY c.category_id';
+function getCategories($user_id, $parent = '') {
+	global $SUPERCARS_CATEGORY;
+	
+	$sql = 'SELECT c.category_id, c.description, (case when count(cd.card_id) = 0 then "false" else "true" end) as hascards,
+		count(distinct cd.card_id) cards_in_category, count(distinct uc.card_id) cards_owned
+		FROM categories c
+		left OUTER JOIN cards cd ON cd.category_id = c.category_id
+		left outer join (select card_id from user_cards uc where uc.user_id = '.$user_id.') uc 
+		on uc.card_id = cd.card_id
+		WHERE c.category_parent = '.(($parent == '' || $parent == null) ? $SUPERCARS_CATEGORY : $parent).
+		' GROUP BY c.category_id
+		order by c.description asc';
 
     $categories = myqu($sql);
     foreach ($categories as $category) {
@@ -79,6 +85,8 @@ function getCategories($parent = '') {
             'category_id'   =>  $category['category_id']
             ,'description'  =>  $category['description']
             ,'hascards'     =>  $category['hascards']
+			,'cards_owned'     =>  $category['cards_owned']
+			,'cards_in_category'     =>  $category['cards_in_category']
         );
     }
 
@@ -152,7 +160,8 @@ function getUserAlbumCards($category, $user_id) {
                    c.name,
                    c.description,
                    c.scrap_value,
-                   ifnull(uc.owned, 0) owned
+                   ifnull(uc.owned, 0) owned,
+				   c.parts_cost
 			  FROM cards c
 				   LEFT JOIN
 				   (SELECT uc.card_id, count(uc.user_card_id) owned
@@ -175,6 +184,7 @@ function getUserAlbumCards($category, $user_id) {
 			,'description'   =>  $cardElement['description']
 			,'scrap_value'   =>  $cardElement['scrap_value']
 			,'owned'         =>  $cardElement['owned']
+			,'scrap_cost'    =>  $cardElement['parts_cost']
 		);
     }
 
