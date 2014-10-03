@@ -458,7 +458,7 @@ function getdecks (user_id) {
                     if (decks[i]['playable']!='true') {
                         var location = '';
                     } else {
-                        var location = 'window.location=\'game.html?&header=Challenge&header_color=blue&ingame=true&new_game=true&deck_id='+decks[i]['deck_id']+'\''
+                        var location = 'window.location=\'game.html?&header=Challenge&header_color=blue&ingame=true&new_game=true&deck_id='+decks[i]['deck_id']+'\'';
                     }
                 } else {
                     var location = 'window.location=\'grid-template.html?deck_id='+decks[i]['deck_id']+'&deck_count='+decks[i]['cards_in_deck']+'&section=viewDeck&header='+decks[i]['description']+'&header_color=blue\'';
@@ -768,7 +768,7 @@ function getleaderboard () {
                                 '<div class="col-xs-3 padded vcenter points">'+
                                     ' points'+
                                 '</div>'+
-                            '</div>'
+                            '</div>';
 
                     } else {
 
@@ -783,7 +783,7 @@ function getleaderboard () {
                                 '<div class="col-xs-3 padded vcenter greenpoints">'+
                                     +users[i]['points']+
                                 '</div>'+
-                            '</div>'
+                            '</div>';
                     }
                 }
                 $('#body_template').append(
