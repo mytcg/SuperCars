@@ -34,40 +34,18 @@ function sendEmail($sEmailAddress,$sFromEmailAddress,$sSubject,$sMessage){
 	return;
 }
 
-$smsText = $_GET['text'];
-$aSmsParts = explode(' ', trim($smsText));
-
-$username = $aSmsParts[sizeof($aSmsParts) - 1];
-
-$smsUser=myqu('SELECT user_id, email '
-	.'FROM users '
-	.'WHERE username="'.$username.'"');
+// The sms comes through with a parameter called 'Message', which is in the format (cell number) (message content) (date and time)
+// We can split it by spaces, and ignore the first and last part. Then try to select by each string in the message, except ones = 'supercars'
+// We give credits to the first match we get.
+$smsText = $_GET['Message'];
+$aSmsParts = preg_split('/\s+/', trim($smsText));
 
 $user = NULL;
-if ($user = $smsUser[0]) {
-	//if we got the user on a plain select
-}
-else {
-	//try to select the user, ignoring case
-	$smsUser=myqu('SELECT user_id, email '
-		.'FROM users '
-		.'WHERE UPPER(username)=UPPER("'.$username.'")');
-	if ($user = $smsUser[0]) {
-		//if we got the user on a case select
+for ($i = 1; $i < count($aSmsParts) - 1; $i++) {
+	$smsUser=myqu('SELECT user_id FROM users WHERE UPPER(username)=UPPER("'.$aSmsParts[$i].'")');
 	
-	}
-	else {
-		$aFileHandle=fopen('errors.txt','a+');
-		fwrite($aFileHandle,date("l dS \of F Y h:i:s A").' : '.curPageURL()."\n");
-		fwrite($aFileHandle,"Unable to find user.\n");
-		fclose($aFileHandle);
-		
-		sendEmail('jsincl4ir@gmail.com','Automated _sms live','Add credits failed',
-'SMS received, failed to add credits. Username not found.
-
-'.print_r($_GET, true));
-		
-		exit;
+	if ($user = $smsUser[0]) {
+		break;
 	}
 }
 
@@ -85,6 +63,19 @@ if ($user != NULL) {
 '.print_r($_GET, true));
 	
 	exit;
+}
+else {
+	$aFileHandle=fopen('errors.txt','a+');
+		fwrite($aFileHandle,date("l dS \of F Y h:i:s A").' : '.curPageURL()."\n");
+		fwrite($aFileHandle,"Unable to find user.\n");
+		fclose($aFileHandle);
+		
+		sendEmail('jsincl4ir@gmail.com','Automated _sms live','Add credits failed',
+'SMS received, failed to add credits. Username not found.
+
+'.print_r($_GET, true));
+		
+		exit;
 }
 
 ?>
