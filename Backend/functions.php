@@ -531,10 +531,12 @@ function resetPassword($username) {
 				if ($resetData = $result[0]) {
 					$encodedId = base64_encode($resetData['password_reset_id']);
 					
+					$message = 'A password reset was requested for the SuperCars account associated with this email address.
+Proceed to this address to enter a new password:
+http://topcarcards.co.za/_reset/?code='.$encodedId;
+					
 					// Send them an email with the url
-					sendEmail($user['email'], 'SuperCars Support', 'Password Reset',
-						'A password reset was requested for the SuperCars account associated with this email address.'.
-						' Proceed to this address to enter a new password: http://topcarcards.co.za/_reset/?code='.$encodedId);
+					sendEmail($user['email'], 'SuperCars Support', 'Password Reset', $message);
 						
 					return array('result' => true, 'content' => 'Password reset email sent.');
 				}
