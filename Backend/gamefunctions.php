@@ -488,15 +488,19 @@ function getGameData($user_id, $game_id, $new_or_old = 'old') {
 		}
 		
 		// Get the top card for each player
-		$sqlResult = myqu('select gc.card_id, min(gc.`index`), gp.user_id
+		$sqlResult = myqu('select gc.card_id, userData.`index`, userData.user_id
 			from game_cards gc
-			join game_card_statuses gcs
-			on gcs.game_card_status_id = gc.game_card_status
+			join (select min(gc.`index`) `index`, gp.user_id, gc.game_player_id
+			from game_cards gc
 			join game_players gp 
 			on gp.game_player_id = gc.game_player_id
+			join game_card_statuses gcs
+			on gcs.game_card_status_id = gc.game_card_status
 			where gc.game_id = '.$game_id.'
 			and gcs.description = "'.$GAMECARDSTATUS_NORMAL.'"
-			group by gc.game_player_id');
+			group by gc.game_player_id) userData
+			on userData.game_player_id = gc.game_player_id
+			where gc.`index` = userData.`index`');
 			
 		foreach ($sqlResult as $topcard) {
 			if ($topcard['user_id'] == $user_id) {

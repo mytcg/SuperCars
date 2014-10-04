@@ -534,7 +534,7 @@ function resetPassword($username) {
 					// Send them an email with the url
 					sendEmail($user['email'], 'SuperCars Support', 'Password Reset',
 						'A password reset was requested for the SuperCars account associated with this email address.'.
-						' Proceed to this address to enter a new password: http://topcarcards.co.za/reset/?code='.$encodedId);
+						' Proceed to this address to enter a new password: http://topcarcards.co.za/_reset/?code='.$encodedId);
 						
 					return array('result' => true, 'content' => 'Password reset email sent.');
 				}
