@@ -159,10 +159,12 @@ function getuserDets (userid) {
             $('#user-scrap').html(res['parts']);
             $('#user-points').html(res['points']);
             $(".knob").knob({
+            	// min:0,
+    			// max:res['cards_total'],
                 format : function (value) {
                     return res['cards_owned'] + '/'+res['cards_total'];
                 }
-            }).val(27);
+            }).val(res['cards_owned']);
 
             window.localStorage.setItem("credit", res['credits']);
 
