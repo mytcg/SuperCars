@@ -296,10 +296,10 @@ nav {
   height: 100%;
   overflow: auto;
   position: fixed;
-  right: -20em;
+  right: -80%;
   font-size: 15px;
   top: 0;
-  width: 15em;
+  width: 80%;
   z-index: 2000;
   
   transition: right 0.3s ease-in-out 0s;
