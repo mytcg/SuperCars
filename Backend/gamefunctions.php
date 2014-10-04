@@ -255,8 +255,7 @@ function selectStat($game_id, $user_id, $stat_id) {
 		else {
 			// Select the cards and their values for the stat
 			$sql = 'select gs.description game_status, g.active_player, 
-				gp.game_player_id, gc.game_card_id, gc.card_id, min(gc.`index`) as `index`,
-				cs.value, max_index.max_index
+				gp.game_player_id, gc.game_card_id, gc.card_id, cs.value
 				from games g
 				join game_statuses gs
 				on gs.game_status_id = g.game_status
@@ -264,21 +263,34 @@ function selectStat($game_id, $user_id, $stat_id) {
 				on gp.game_id = g.game_id
 				join game_cards gc
 				on gc.game_player_id = gp.game_player_id
+				join (select min(gc.`index`) `index`, gp.user_id, gc.game_player_id
+				from game_cards gc
+				join game_players gp 
+				on gp.game_player_id = gc.game_player_id
 				join game_card_statuses gcs
 				on gcs.game_card_status_id = gc.game_card_status
+				where gc.game_id = '.$game_id.'
+				and gcs.description = "'.$GAMECARDSTATUS_NORMAL.'"
+				group by gc.game_player_id) userData
+				on userData.game_player_id = gp.game_player_id
 				join card_stats cs
 				on cs.card_id = gc.card_id
-				join (select max(gc.`index`) max_index, gc.game_player_id from game_cards gc group by gc.game_player_id) max_index
-				on max_index.game_player_id = gc.game_player_id
 				where g.game_id = '.$game_id.' 
 				and cs.stat_id = '.$stat_id.' 
-				and gcs.description = "'.$GAMECARDSTATUS_NORMAL.'"
+				and gc.`index` = userData.`index`
 				group by gp.game_player_id';
 				
 			$sqlResult = myqu($sql);
 			
 			// If we get results, process them, otherwise return invalid stat selection
-			if ($card1 = $sqlResult[0] && $card2 = $sqlResult[1]) {
+			if (count($sqlResult) == 2) {
+				$card1 = $sqlResult[0];
+				$card2 = $sqlResult[1];
+				
+				/*echo '$sqlResult: '.print_r($sqlResult);
+				echo '$card1: '.print_r($card1);
+				echo '$card2: '.print_r($card2);*/
+				
 				$draw = false;
 				$winningPlayer = 0;
 				
