@@ -28,6 +28,12 @@ if ($request==$REQUEST_REGISTER) {
 	print json_encode($result);
 	exit;
 }
+else if ($request==$REQUEST_RESET) {
+	$result = resetPassword($_GET['username']);
+	
+	print json_encode($result);
+	exit;
+}
 
 // Check that the user is valid
 $sUsername = $_GET['PHP_AUTH_USER'];

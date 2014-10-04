@@ -258,6 +258,20 @@ function registerUser($username, $password, $email = '') {
         );
 	}
 	
+	// If an email was sent, check that it isnt taken
+	if ($email != '' && $email != null) {
+		$sql = 'SELECT *
+		FROM users
+		WHERE UPPER(email) = UPPER("'.$email.'")';
+		$result = myqu($sql);
+		if ($emailResult=$result[0]) {
+			return array(
+				'result'    =>  false
+				,'content'  =>  'Email already in use.'
+			);
+		}
+	}
+	
 	// If we get this far, things are looking good. Create the user.
 	$sql = 'INSERT INTO users(username, password, email, date_registered, credits)
 		VALUES ("'.$username.'", "'.$password.'", "'.$email.'", now(), 1000)'; // TODO reset the starting credits to 0
@@ -497,6 +511,50 @@ function renameDeck($deck_id, $deck_name) {
 	}
 }
 
+function resetPassword($username) {
+	if ($username != '' && $username != null) {
+		$sql = 'SELECT user_id, email
+		FROM users
+		WHERE UPPER(username) = UPPER("'.$username.'")';
+		$result = myqu($sql);
+		if ($user=$result[0]) {
+			if ($user['email'] != null && $user['email'] != '') {
+				// Set existing requests for this user to invalid
+				myqu('update password_resets set valid = 0 where user_id = '.$user['user_id']);
+				
+				// Create a new request
+				myqu('insert into password_resets (user_id, date_created) values ('.$user['user_id'].', now())');
+				
+				// Select the ID of the new password reset entry, and base64 it to make the reset url
+				$result = myqu('select password_reset_id from password_resets where user_id = '.$user['user_id'].' and valid = 1 limit 1');
+				
+				if ($resetData = $result[0]) {
+					$encodedId = base64_encode($resetData['password_reset_id']);
+					
+					// Send them an email with the url
+					sendEmail($user['email'], 'SuperCars Support', 'Password Reset',
+						'A password reset was requested for the SuperCars account associated with this email address.'.
+						' Proceed to this address to enter a new password: http://topcarcards.co.za/reset/?code='.$encodedId);
+						
+					return array('result' => true, 'content' => 'Password reset email sent.');
+				}
+				else {
+					return array('result' => false, 'content' => 'Error resetting password. Try again, or contact support.');
+				}
+			}
+			else {
+				return array('result' => false, 'content' => 'No email associated with this user, cannot reset password.');
+			}
+		}
+		else {
+			return array(
+				'result'    =>  false
+				,'content'  =>  'User not found.'
+			);
+		}
+	}
+}
+
 function getLeaderboard($user_id) {
 	$retArr = array();
 	
@@ -561,4 +619,10 @@ function close($retXml) {
 	exit;
 }
 
+//SEND MAIL FUNCTION
+function sendEmail($sEmailAddress,$sFromEmailAddress,$sSubject,$sMessage){
+	$sHeaders='From: '.$sFromEmailAddress;
+	mail($sEmailAddress,$sSubject,$sMessage,$sHeaders);
+	return;
+}
 ?>

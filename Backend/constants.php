@@ -2,6 +2,7 @@
 
 // Request keywords
 $REQUEST_REGISTER = "register";
+$REQUEST_RESET = "reset";
 $REQUEST_LOGIN = "login";
 $REQUEST_USER = "user";
 $REQUEST_CATEGORIES = "categories";
