@@ -35,22 +35,22 @@ jQuery(document).ready(function() {
   	
   	
   	// Initialize navgoco with default options
-    // $(".main-menu").navgoco({
-        // caret: '<span class="caret"></span>',
-        // accordion: false,
-        // openClass: 'open',
-        // save: true,
-        // cookie: {
-            // name: 'navgoco',
-            // expires: false,
-            // path: '/'
-        // },
-        // slide: {
-            // duration: 300,
-            // easing: 'swing'
-            // }
-        // });
-//         	
+    $(".main-menu").navgoco({
+        caret: '<span class="caret"></span>',
+        accordion: false,
+        openClass: 'open',
+        save: true,
+        cookie: {
+            name: 'navgoco',
+            expires: false,
+            path: '/'
+        },
+        slide: {
+            duration: 300,
+            easing: 'swing'
+            }
+        });
+        	
 
 });
 
@@ -488,6 +488,10 @@ function getdecks (user_id) {
                     '</div>'+
                 '</div>'
             );
+
+            if (isGame) {
+                $('#body_template').append($('#rules-container').html());
+            }
         }
     });
 
@@ -501,21 +505,18 @@ function getdecks (user_id) {
             dataType: "json",
             success: function(game) {
 
-                if (game['result']) {
-                    $('#body_template').append(
-                        '<div class="row grid deck" onclick="window.location=\'game.html?&header=Challenge&header_color=blue&ingame=true&new_game=false\'">'+
-                            '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
-                                '<span class="glyphicon glyphicon-play-circle" style="text-align:center; color:#2c95f4;"></span>'+
-                            '</div>'+
-                            '<div class="col-xs-8 padded vcenter">'+
-                                'Continue Game'+
-                            '</div>'+
-                        '</div>'
-                    );
-                }
-                if (urlParams.section=='challenge') {
-                    $('#body_template').append($('#rules-container').html());
-                }
+//                if (game['result']) {
+//                    $('#body_template').append(
+//                        '<div class="row grid deck" onclick="window.location=\'game.html?&header=Challenge&header_color=blue&ingame=true&new_game=false\'">'+
+//                            '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
+//                                '<span class="glyphicon glyphicon-play-circle" style="text-align:center; color:#2c95f4;"></span>'+
+//                            '</div>'+
+//                            '<div class="col-xs-8 padded vcenter">'+
+//                                'Continue Game'+
+//                            '</div>'+
+//                        '</div>'
+//                    );
+//                }
             }
         });
     }
@@ -848,18 +849,18 @@ function checkGame (stat) {
         data : '',
         dataType: "json",
         success: function(gameData) {
-
+alert('testing');
             if (gameData['game_status']=='lfm') {
 
                 setTimeout('checkGame()', 5000);
 
             } else if (gameData['game_status']=='inprogress') {
 
-
+alert('Testeer');
                 if (gameData['active_player']==user_id) {
-
-                    //users_turn(gameData);
-                    users_turn();
+alert('passive becomes active');
+                    gameMoveAction(gameData);
+//                    users_turn();
 
                 } else {
 
@@ -883,13 +884,12 @@ function checkGame (stat) {
                 if (parseInt(gameData['user_score'])==parseInt(gameData['opponent_score'])) {
                     var endText = 'Its a Draw!';
                 } else if (parseInt(gameData['user_score'])>parseInt(gameData['opponent_score'])) {
-                    var endText = 'You WON!';
+                    var endText = 'YOU WON';
                 } else {
-                    var endText = 'You Loss!';
+                    var endText = 'YOU LOSE';
                 }
                 $( "#user-area" ).addClass('game-overlay');
                 $( "#user-card" ).prepend(endText);
-                alert(endText);
                 setTimeout("$('#user-area').removeClass('game-overlay');", 3000);
                 setTimeout('window.location="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"', 7000);
             }
@@ -944,12 +944,13 @@ function gameMoveAction (gameData) {
 
     if (gameData['game_status']=='complete') {
 
+        var endText;
         if (parseInt(gameData['user_score'])==parseInt(gameData['opponent_score'])) {
-            var endText = 'Its a Draw!';
+            endText = 'Its a Draw!';
         } else if (parseInt(gameData['user_score'])>parseInt(gameData['opponent_score'])) {
-            var endText = 'You WON!';
+            endText = 'YOU WON';
         } else {
-            var endText = 'You Loss!';
+            endText = 'YOU LOSS';
         }
         $( "#user-area" ).addClass('game-overlay');
         $( "#user-card" ).prepend(endText);
@@ -959,17 +960,21 @@ function gameMoveAction (gameData) {
 
     } else {
 
+        var user_card;
+        var challenger_card;
+        var message;
         if (gameData['moveData']['winner']==user_id) {
-            var user_card = gameData['moveData']['winning_card'];
-            var challenger_card = gameData['moveData']['losing_card'];
-            var message = 'You Won!';
+            user_card = gameData['moveData']['winning_card'];
+            challenger_card = gameData['moveData']['losing_card'];
+            message = 'You Won!';
         } else {
-            var user_card = gameData['moveData']['losing_card'];
-            var challenger_card = gameData['moveData']['winning_card'];
-            var message = 'You Lose!';
+            user_card = gameData['moveData']['losing_card'];
+            challenger_card = gameData['moveData']['winning_card'];
+            message = 'You Lose!';
         }
-        $( "#game-message" ).html(message);
-
+        $( "#user-area" ).addClass('game-overlay');
+        $( "#user-card" ).prepend(message);
+alert('is there');
         $( "#game-score-user" ).html(gameData['user_score']);
         var barScore1 = (parseInt(gameData['user_score'])>10) ? 100 : parseInt(gameData['user_score'])*10;
         var barScore2 = (parseInt(gameData['user_score'])>10) ? (parseInt(gameData['user_score'])-10)*10 : 0;
@@ -989,13 +994,13 @@ function gameMoveAction (gameData) {
         $( "#challenger-card-img" ).attr('src', 'img/cards/'+challenger_card+'-stats.jpg');
 
         //sleep(10000);
-        if (gameData['active_player']==user_id) {
-            
-            setTimeout('users_turn();', 5000);
-        } else {
-            
-            setTimeout('checkGame()', 5000);
-        }
+//        if (gameData['active_player']==user_id) {
+//
+//            setTimeout('users_turn();', 5000);
+//        } else {
+//
+//            setTimeout('checkGame()', 5000);
+//        }
     }
 
 }
@@ -1048,9 +1053,9 @@ function navHtml() {
             '<li class="list-group-item yellow-border-right"><a href="grid-template.html?section=shop&header=Shop&header_color=yellow"><img src="elements/icon_shop.jpg" class="icon-shop" /><p class="nav-menu-text">SHOP</p></a></li>'+
             '<li class="list-group-item blue-border-right"><a href="grid-template.html?section=decks&header=Deck&header_color=blue"><img src="elements/icon_game.jpg" class="icon-deck" /><p class="nav-menu-text">DECKS</p></a></li>'+
             '<li class="list-group-item green-border-right"><a href="grid-template.html?section=challenge&header=Challenge&header_color=blue"><img src="elements/icon_game.jpg" class="icon-game" /><p class="nav-menu-text">GAME</p></a></li>'+
-            '<li class="list-group-item green-border-right"><a href="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"><img src="elements/icon_leader.jpg" class="icon-leader" />LEADERBOARD</a></li>'+
-            '<!--li class="list-group-item purple-border-right"><a href="credits.html"><img src="elements/icon_credits.jpg" class="icon-credits" />CREDITS</a></li>'+
-            '<li class="list-group-item lime-border-right"><a href="profile.html"><img src="elements/icon_profile.jpg" class="icon-profile" />PROFILE</a></li>-->'+
+            '<li class="list-group-item green-border-right"><a href="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"><img src="elements/icon_leader.jpg" class="icon-leader" /><p class="nav-menu-text">LEADERBOARD</p></a></li>'+
+            '<li class="list-group-item purple-border-right"><a href="credits.html"><img src="elements/icon_credits.jpg" class="icon-credits" /><p class="nav-menu-text">CREDITS</p></a></li>'+
+            '<li class="list-group-item lime-border-right"><a href="profile.html"><img src="elements/icon_profile.jpg" class="icon-profile" /><p class="nav-menu-text">PROFILE</p></a></li>'+
         '</ul>'
     );
     $('#nav').show();
