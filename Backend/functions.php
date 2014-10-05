@@ -130,13 +130,16 @@ function getDeckCards($deck_id) {
 		$cards = myqu($sql);
 		$result = array();
 		$result['deck_name'] = $deck['description'];
+		
+		$cardsArray = array();
 		foreach ($cards as $card) {
-			$result[] = array(
+			$cardsArray[] = array(
 				'card_id'   =>  $card['card_id']
 				,'name'  	=>  $card['name']
 			);
 		}
 		
+		$result['cards'] = $cardsArray;
 		return $result;
 	}
 	else {
