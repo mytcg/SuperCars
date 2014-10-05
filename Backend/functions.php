@@ -118,20 +118,33 @@ function getCategoriesNotInDeck($deck_id, $parent = '') {
 }
 
 function getDeckCards($deck_id) {
-	
-	$sql = 'SELECT c.card_id, c.name
-		  FROM deck_cards dc INNER JOIN cards c ON c.card_id = dc.card_id
-		 WHERE dc.deck_id = '.$deck_id;
-	
-	$cards = myqu($sql);
-	foreach ($cards as $card) {
-		$result[] = array(
-			'card_id'   =>  $card['card_id']
-            ,'name'  	=>  $card['name']
-		);
+	$sql = 'select description 
+		from decks
+		where deck_id = '.$deck_id;
+	$deckResult = myqu($sql);
+	if ($deck = $deckResult[0]) {
+		$sql = 'SELECT c.card_id, c.name
+			  FROM deck_cards dc INNER JOIN cards c ON c.card_id = dc.card_id
+			 WHERE dc.deck_id = '.$deck_id;
+		
+		$cards = myqu($sql);
+		$result = array();
+		$result['deck_name'] = $deck['description'];
+		foreach ($cards as $card) {
+			$result[] = array(
+				'card_id'   =>  $card['card_id']
+				,'name'  	=>  $card['name']
+			);
+		}
+		
+		return $result;
 	}
-	
-	return $result;
+	else {
+		return array(
+				'result'    =>  false
+				,'content'  =>  'Invalid deck!'
+			);
+	}
 }
 
 function getUserCardsNotInDeck($user_id, $deck_id, $category_id) {
