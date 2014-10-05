@@ -67,12 +67,18 @@ function getDecks($user_id) {
 
 function getCategories($user_id, $parent = '') {
 	global $SUPERCARS_CATEGORY;
+	global $CARDSTATUS_ALBUM;
 	
 	$sql = 'SELECT c.category_id, c.description, (case when count(cd.card_id) = 0 then "false" else "true" end) as hascards,
 		count(distinct cd.card_id) cards_in_category, count(distinct uc.card_id) cards_owned
 		FROM categories c
 		left OUTER JOIN cards cd ON cd.category_id = c.category_id
-		left outer join (select card_id from user_cards uc where uc.user_id = '.$user_id.') uc 
+		left outer join (select uc.card_id 
+		from user_cards uc
+		join card_statuses cs
+		on cs.card_status_id = uc.user_card_status
+		where uc.user_id = '.$user_id.'
+		and cs.description = "'.$CARDSTATUS_ALBUM.'") uc 
 		on uc.card_id = cd.card_id
 		WHERE c.category_parent = '.(($parent == '' || $parent == null) ? $SUPERCARS_CATEGORY : $parent).
 		' GROUP BY c.category_id
