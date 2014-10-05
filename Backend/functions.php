@@ -79,6 +79,8 @@ function getCategories($user_id, $parent = '') {
 		order by c.description asc';
 
     $categories = myqu($sql);
+	
+	$result = array();
     foreach ($categories as $category) {
 
         $result[] = array(
