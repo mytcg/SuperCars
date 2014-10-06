@@ -1022,7 +1022,7 @@ function footerCardEdits() {
                 '<div class="col-xs-9 footer-options-div deck-edit-count">'+
                     '<span id="deck-card-count">'+urlParams.deck_count+'</span>/10'+
                 '</div>'+
-                '<div class="col-xs-3 active-button" id="save-button" onclick="window.location=\'grid-template.html?section=decks&deck_id='+urlParams.deck_id+'header=Deck&header_color=blue\'">'+
+                '<div class="col-xs-3 active-button" id="save-button" onclick="addDeckToCards();\'">'+
                     'DONE'+
                 '</div>'+
         '</div>'
