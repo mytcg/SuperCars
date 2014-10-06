@@ -10,7 +10,10 @@
         <link rel="stylesheet" href="css/bootstrap-glyphicons.css" />
         <link rel="stylesheet" href="css/jquery-ui.css" media="screen" type="text/css" />
         <link rel="stylesheet" href="css/normalize.css" media="screen" type="text/css" />
+        <link rel="stylesheet" href="css/media.css" media="screen" type="text/css" />
         <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+
+        <link href="css/font-awesome.min.css" rel="stylesheet">
 
         <script src="js/jquery-latest.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
@@ -34,7 +37,7 @@
             });
         </script>
 </head>
-<body>
+<body style="background:#2a3137;">
 	<header>
 	    <div class="navbar navbar-inverse navbar-fixed-top">
                 <div class="nav-back">
@@ -68,9 +71,35 @@
             </div>
         </div>
         <div class="row-fluid scrap-menu" id="scrap-menu">
-                <button type="button" class="btn" style="width:90%;" onclick="scrapCard(urlParams.card_id);">scrap card for <span id="card-parts">***</span> parts</button>
-                <button type="button" class="btn highlighted quickFlipCta" style="width:10%;" onclick="scrapCard(urlParams.card_id);">></button>
+                <button type="button" class="btn" style="width:90%;" onclick="$('#modal-content').html($('#scrap-confirmation').html());$('#myModal').modal();">
+                    scrap card for <span id="card-parts">***</span> parts
+                </button>
+                <button type="button" class="btn highlighted quickFlipCta" style="width:10%;" onclick="$('#modal-content').html($('#scrap-confirmation').html());$('#myModal').modal();">></button>
                 <div class="clear"></div>
+        </div>
+        
+        <div id="scrap-confirmation" class="modal-popup-content-holder">
+            <div class="modal-popup-content row-fluid">
+                <div class="col-xs-8 col-xs-offset-2" style="text-align:center;">
+                    <div class="hightlight font-red">
+                        SCRAPPING CARD
+                    </div>
+                    <div class="">
+                        You are about to scrap '<span id="card-scrap-name"></span>'.<br />
+                        Are you sure you want to scrap this card?<br /><br />
+                        <span id="card-scrap-name2" class="font-red"></span><br />
+                        <span id="card-scrap-parts" class="font-red"></span><span class="font-red"> Parts</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:10%;">
+                <div class="btn-group col-xs-6" style="">
+                    <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">CANCEL</button><br /><br />
+                </div>
+                <div class="btn-group col-xs-6" style="">
+                    <button type="button" class="btn btn-default active-button" onclick="scrapCard(urlParams.card_id);$('#myModal').modal('hide');">SCRAP</button><br /><br />
+                </div>
+            </div>
         </div>
     </section>
     <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">

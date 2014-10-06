@@ -27,8 +27,10 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
     width: 90%;
 }
 
-.navbar-inverse{background:#1f262c}
-
+.navbar-inverse{background:#1f262c;}
+.album-state {background:#1f262c; display:none;}
+.album-state div{color:#ccc; text-align:center; font-size:1.05em; border-bottom:1px solid #1f262c; padding:6px 0;}
+.album-state div.selected-album-view{color:#fff;}
 
 /************* MODAL WINDOW	****************/
 #myModal .btn-group {
@@ -58,8 +60,9 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .font-purple {color:#8069ad;}
 .font-lime {color:#b6d119;}
 
-.divider-left{border-left: 1px solid #333;}
-.divider-right{border-right: 1px solid #000;}
+.footer-options-div.divider-left{color:#fff;}
+.footer-options-div.divider-ceter {text-align:center; color:#ccc; font-size:0.7em; padding-top:10px; padding-bottom:10px;}
+.footer-options-div.divider-right{}
 .divider-both{border-right: 1px solid #000;border-left: 1px solid #333;}
 
 .vcenter {display:inline-block; vertical-align:middle; float:none;}
@@ -74,16 +77,18 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 
 .deck-edit-count {color:#f26b28;}
 #deck-card-add, #deck-card-edit {cursor:pointer;}
+#save-button {display:none;}
 
 .active-button {background:#f26b28; font-weight:bold; cursor:pointer; padding:15px; text-align:center; color:#fff;}
 .btn:hover, .btn:focus{ color: #fff;}
 .grid {color:#ccc; font-size:1.5em; border-bottom:1px solid #1a1f23; cursor:pointer;}
 .grid .padded {padding:3% 4%; line-height:130%;}
-.grid:hover {background:#1f262c; color:#a2a2a1;}
+.grid:hover {background:#1f262c; color:#fff;}
 .grid span{padding-right:2%;}
 .grid:hover span{color:#2c95f4;}
 .grid.notowned {opacity:0.5; MozOpacity:0.5; KhtmlOpacity:0.5; filter: alpha(opacity = 50);}
 .grid span.secondary {color:#8f9295;}
+.grid span.secondary-sml {font-size:0.7em;}
 .grid:hover span.secondary {color:#e8463b;}
 .grid.shop:hover span.secondary{color:#e9b31f;}
 .grid img {float:left; margin:0 3% 0 0;}
@@ -139,13 +144,16 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 #game-id-holder {display:none;}
 .loader {width:3em; margin-right:1em;}
 .card-stats {position:absolute; margin:-60% 0 0 6%; width:76%;}
+.highlighted-stat {border:2px solid #f26b28;}
 #card-stat1 {margin-top:-60%;}
 #card-stat2 {margin-top:-48%;}
 #card-stat3 {margin-top:-36%;}
 #card-stat4 {margin-top:-24%;}
 #card-stat5 {margin-top:-12%;}
 .game-instruction {background:#bcbdc0;}
-.game-overlay {background:none repeat scroll 0 0 rgba(0, 0, 0, 0.7);}
+.game-overlay {background:none repeat scroll 0 0 rgba(39, 126, 204, 0.7);}
+.game-overlay img{opacity:0.6; MozOpacity:0.6; KhtmlOpacity:0.6; filter: alpha(opacity = 60);}
+.overlay-message {margin:18% 0 0 0; position:absolute; font-size: 2.5em; color:#fff; z-index:1; text-align:center; vertical-align:middle; width:100%;}
 .game-logo {padding:2em 0;}
 .game-instruction-message {font-size:1.3em; font-weight:bold; color:#1f262c; text-align:left;}
 .game-sponsor {padding:2em 0; text-align:right;}
@@ -293,10 +301,10 @@ nav {
   height: 100%;
   overflow: auto;
   position: fixed;
-  right: -20em;
+  right: -80%;
   font-size: 15px;
   top: 0;
-  width: 15em;
+  width: 80%;
   z-index: 2000;
   
   transition: right 0.3s ease-in-out 0s;
