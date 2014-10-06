@@ -4,6 +4,8 @@ var email = window.localStorage.getItem("email_add");
 var user_id = window.localStorage.getItem("user_id");
 var credit = window.localStorage.getItem("credit");
 var urlParams = queryParameters();
+var deckCardCount = 0;
+var cardsToDeck = [];
 
 var appendToken = '&user_id='+user_id+'&PHP_AUTH_PW='+password+'&PHP_AUTH_USER='+username;
 
@@ -194,18 +196,24 @@ function getCardCategories (cat, deck_id) {
                 for(var i=0; i<categories.length; i++) {
 
                     if (InDecks) {
-                        var url = (cat=='') ? 'addToDeck&deck_id='+deck_id+'&deck_count='+urlParams.deck_count : 'deckCards';
+                        //var url = (cat=='') ? 'addToDeck&deck_id='+deck_id : 'deckCards';
+                        var url = 'deckCards';
                     } else {
-                        var url = (cat=='') ? 'categories' : 'cards';
+                        //var url = (cat=='') ? 'categories' : 'cards';
+                        var url = 'cards';
                     }
+
+                    $('.album-state').css('display','flex');
+                    $('#model-make').css('border-bottom','3px solid #2c95f4').addClass('selected-album-view').addClass('blue-border');
 
                     $('#body_template').append(
                         '<div class="row-fluid grid" id="'+categories[i]['category_id']+'" onclick="window.location=\'grid-template.html?'+
                                                     'cat_id='+categories[i]['category_id']+
-                                                    '&deck_id='+deck_id+'&deck_count='+urlParams.deck_count+
+                                                    '&deck_id='+deck_id+
                                                     '&header='+categories[i]['description']+'&header_color='+urlParams.header_color+'&section='+url+'\'">'+
                             '<div class="padded">'+
-                            categories[i]['description']+
+                            categories[i]['description']+'<br />'+
+                            ( (categories[i]['cards_owned'])?'<span class="secondary-sml">'+categories[i]['cards_owned']+'/'+categories[i]['cards_in_category']+' cards</span>':'')+
                             '</div>'+
                         '</div>'
                     );
@@ -238,6 +246,7 @@ function getCards (cat, deck_id) {
 
                     var owned = '';
                     var onclick = '';
+                    var copies = '';
                     if (InDecks) {
 
                         onclick = 'addRemoveCardDecks('+cards[i]['card_id']+');';
@@ -246,7 +255,12 @@ function getCards (cat, deck_id) {
 
                         onclick = (cards[i]['owned']=='0') ? "" : "window.location='card.html?card_id="+cards[i]['card_id']+"&header="+cards[i]['name']+"&header_color="+urlParams.header_color+"'";
                         owned = (cards[i]['owned']=='0') ? ' notowned' : '';
+                        copies = (cards[i]['owned']=='0') ? '' : ' ('+cards[i]['owned']+' copies)';
+
                     }
+
+                    $('.album-state').css('display','flex');
+                    $('#model-all').css('border-bottom','3px solid #2c95f4').addClass('selected-album-view').addClass('blue-border');
 
                     $('#body_template').append(
                         '<div class="row grid'+owned+' cards vertical-align" id="'+cards[i]['card_id']+'" onclick="'+onclick+'">'+
@@ -255,7 +269,14 @@ function getCards (cat, deck_id) {
                             '</div>'+
                             '<div class="col-xs-8 padded vcenter">'+
                                 cards[i]['name']+'<br />'+
-                                ((cards[i]['scrap_value'])?'<span class="secondary">'+cards[i]['scrap_value']+' credits</span>':'')+
+                                (
+                                    (cards[i]['scrap_value']) ?
+                                        '<span class="secondary-sml">'+
+                                            cards[i]['scrap_value']+' credits'+
+                                            ((copies!='')?copies:'')+
+                                        '</span>'
+                                        :''
+                                )+
                             '</div>'+
                         '</div>'
                     );
@@ -274,7 +295,8 @@ function addRemoveCardDecks (card_id) {
         if (parseInt(deckCardCount)<10) {
 
             $('#'+card_id).addClass('selectedCard');
-            adddeckCards (urlParams.deck_id, card_id);
+            //adddeckCards (urlParams.deck_id, card_id);
+            cardsToDeck.push(card_id);
             deckCardCount++;
             $('#deck-card-count').html(deckCardCount);
 
@@ -286,7 +308,27 @@ function addRemoveCardDecks (card_id) {
         $('#'+card_id).removeClass('selectedCard');
         deckCardCount--;
         $('#deck-card-count').html(deckCardCount);
-        removedeckCards (urlParams.deck_id, card_id);
+        var index = cardsToDeck.indexOf(card_id);
+        cardsToDeck.splice(index, 1);
+    }
+    if (deckCardCount>0) {
+        $('#save-button').show();
+    } else {
+        $('#save-button').hide();
+    }
+}
+
+function addDeckToCards () {
+
+    if (cardsToDeck) {
+        for (var i = 0; i < cardsToDeck.length; i++) {
+            adddeckCards (urlParams.deck_id, cardsToDeck[i]);
+        }
+    }
+    if (deckCardCount<10) {
+        window.location='grid-template.html?cat_id=1&deck_id='+urlParams.deck_id+'&header=Supercars&header_color=red&section=addToDeck';
+    } else {
+        window.location='grid-template.html?deck_id='+urlParams.deck_id+'&section=viewDeck&header_color=blue';
     }
 }
 
@@ -351,71 +393,33 @@ function footerCardOptions() {
 
 /******************************************* END Card details ******************************************************************/
 
-/******************************************* Products start here ******************************************************************/
-
-function getproducts () {
-
-    var ajax = jQuery.ajax({
-        type: "POST",
-        crossDomain: true,
-        url: 'http://topcarcards.co.za/?request=products'+appendToken,
-        data : '',
-        dataType: "json",
-        success: function(products) {
-
-                for(var i=0; i<products.length; i++) {
-
-                    $('#body_template').append(
-                        '<div class="row grid shop vertical-align" id="'+products[i]['product_id']+'" onclick="window.location=\'product.html?'+
-                                                        'product_id='+products[i]['product_id']+
-                                                        '&description='+products[i]['description']+
-                                                        '&price='+products[i]['price']+
-                                                        '&pack_size='+products[i]['pack_size']+
-                                                        '&header='+products[i]['description']+'&header_color=yellow'+
-                                                        '\'">'+
-                            '<div class="col-xs-4 vcenter">'+
-//                                '<img src="img/products/'+products[i]['product_id']+'.jpg" />'+
-                                '<img src="img/products/placeholder.jpg" />'+
-                            '</div>'+
-                            '<div class="col-xs-8 padded vcenter">'+
-                                products[i]['description']+'<br />'
-                                +'<span class="secondary">'+products[i]['pack_size']+' cards in pack</span>'+
-                            '</div>'+
-                        '</div>'
-                    );
-
-                }
-        }
-    });
-}
-
-function buyproduct (product_id) {
-
-    var ajax = jQuery.ajax({
-        type: "POST",
-        crossDomain: true,
-        url: 'http://topcarcards.co.za/?request=purchaseproduct&product_id='+product_id+appendToken,
-        data : '',
-        dataType: "json",
-        success: function(result) {
-
-                if (result['result']) {
-                    $('#modal-content').html($('#parchase-confirmation').html());
-                    $('#myModal').modal();
-                } else {
-                    alert(result['content']);
-                }
-        }
-    });
-}
-
-/******************************************* END products ******************************************************************/
-
 /******************************************* Decks View start here ******************************************************************/
 
-function newDeck (name, deck_id, deck_count) {
+function getChooseGame () {
 
-    var deck_count = (urlParams.deck_count==undefined) ? '0' : urlParams.deck_count;
+    $('#body_template').append(
+        '<div class="row grid deck" onclick="window.location=\'grid-template.html?section=challenge&header=Challenge&header_color=blue&computer=true\'">'+
+            '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
+                '<img src="elements/icon_game.jpg" />'+
+            '</div>'+
+            '<div class="col-xs-8 padded vcenter">'+
+                'COMPUTER'+
+            '</div>'+
+        '</div>'+
+        '<div class="row grid deck" onclick="window.location=\'grid-template.html?section=challenge&header=Challenge&header_color=blue&computer=false\'">'+
+            '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
+                '<span class="glyphicon glyphicon-user" style="text-align:center; color:#2c95f4;"></span>'+
+            '</div>'+
+            '<div class="col-xs-8 padded vcenter">'+
+                'PLAYER'+
+            '</div>'+
+        '</div>'
+    );
+
+}
+
+function newDeck (name, deck_id) {
+
     var rename = (deck_id==undefined) ? false : true;
     var action = (rename) ? 'renamedeck' : 'createdeck';
 
@@ -430,9 +434,8 @@ function newDeck (name, deck_id, deck_count) {
                 if (result['result']) {
 
                     var url = (rename) ?
-                        'grid-template.html?section=addToDeck&deck_id='+urlParams.deck_id+'&deck_count='+urlParams.deck_count+'&header='+name+'&header_color=blue' :
-                        'grid-template.html?section=addToDeck&deck_id='+result['deck_id']+'&deck_count=0&header='+name+'&header_color=blue';
-
+                        'grid-template.html?section=decks&header=Decks&header_color=blue' :
+                        'grid-template.html?section=addToDeck&deck_id='+result['deck_id']+'&header='+name+'&header_color=blue&cat_id=1&header=Supercars';
                     window.location=url;
                 } else {
                     alert(result['content']);
@@ -460,10 +463,11 @@ function getdecks (user_id) {
                     if (decks[i]['playable']!='true') {
                         var location = '';
                     } else {
-                        var location = 'window.location=\'game.html?&header=Challenge&header_color=blue&ingame=true&new_game=true&deck_id='+decks[i]['deck_id']+'\'';
+                        //var location = 'window.location=\'grid-template.html?ingame=true&new_game=true&deck_id='+decks[i]['deck_id']+'&section=chooseGame&header=Game&header_color=blue\'';
+                        var location = 'window.location=\'game.html?&header=Challenge&header_color=blue&ingame=true&new_game=true&deck_id='+decks[i]['deck_id']+'&computer='+urlParams.computer+'\'';
                     }
                 } else {
-                    var location = 'window.location=\'grid-template.html?deck_id='+decks[i]['deck_id']+'&deck_count='+decks[i]['cards_in_deck']+'&section=viewDeck&header='+decks[i]['description']+'&header_color=blue\'';
+                    var location = 'window.location=\'grid-template.html?deck_id='+decks[i]['deck_id']+'&section=viewDeck&header='+decks[i]['description']+'&header_color=blue\'';
                 }
 
                 $('#body_template').append(
@@ -481,7 +485,7 @@ function getdecks (user_id) {
             }
 
             $('#body_template').append(
-                '<div class="row grid deck" onclick="window.location=\'create.html?section=decks\'">'+
+                '<div class="row grid deck" onclick="window.location=\'create.html?section=decks&header=New Deck\'">'+
                     '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
                         '<span class="glyphicon glyphicon-plus" style="text-align:center; color:#2c95f4;"></span>'+
                     '</div>'+
@@ -556,7 +560,7 @@ function editDeck (action) {
                 onclick = "$('#delete-confirmation #delete-confirmation-confirm').attr('onclick', 'deleteDeck(\\\'"+$(this).attr('id')+"\\\');');"+
                             "$('#modal-content').html($('#delete-confirmation').html());$('#myModal').modal();";
             } else {
-                onclick = "window.location=\'create.html?deck_id="+$(this).attr('id')+"&deck_name="+$('#deck-name-'+$(this).attr('id')).html()+"&deck_id="+$(this).attr('id')+"&deck_count="+$('#deck-count-'+$(this).attr('id')).html()+'&header=Deck&header_color=blue'+"\'";
+                onclick = "window.location=\'create.html?deck_id="+$(this).attr('id')+"&deck_name="+$('#deck-name-'+$(this).attr('id')).html()+"&deck_id="+$(this).attr('id')+'&header=Deck&header_color=blue'+"\'";
             }
             $(this).attr('onclick', onclick);
         }
@@ -598,7 +602,83 @@ function deleteDeck (deck_id) {
 
 /************************************ END Decks View start here ***********************************************************/
 
+/******************************************* Products start here ******************************************************************/
+
+function getproducts () {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=products'+appendToken,
+        data : '',
+        dataType: "json",
+        success: function(products) {
+
+                for(var i=0; i<products.length; i++) {
+
+                    $('#body_template').append(
+                        '<div class="row grid shop vertical-align" id="'+products[i]['product_id']+'" onclick="window.location=\'product.html?'+
+                                                        'product_id='+products[i]['product_id']+
+                                                        '&description='+products[i]['description']+
+                                                        '&price='+products[i]['price']+
+                                                        '&pack_size='+products[i]['pack_size']+
+                                                        '&header='+products[i]['description']+'&header_color=yellow'+
+                                                        '\'">'+
+                            '<div class="col-xs-4 vcenter">'+
+//                                '<img src="img/products/'+products[i]['product_id']+'.jpg" />'+
+                                '<img src="img/products/placeholder.jpg" />'+
+                            '</div>'+
+                            '<div class="col-xs-8 padded vcenter">'+
+                                products[i]['description']+'<br />'
+                                +'<span class="secondary">'+products[i]['pack_size']+' cards in pack</span>'+
+                            '</div>'+
+                        '</div>'
+                    );
+
+                }
+        }
+    });
+}
+
+function buyproduct (product_id) {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=purchaseproduct&product_id='+product_id+appendToken,
+        data : '',
+        dataType: "json",
+        success: function(result) {
+
+                if (result['result']) {
+                    $('#modal-content').html($('#parchase-confirmation').html());
+                    $('#myModal').modal();
+                } else {
+                    alert(result['content']);
+                }
+        }
+    });
+}
+
+/******************************************* END products ******************************************************************/
+
 /******************************************* Deck Cards ******************************************************************/
+
+function getdeckCardCount () {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        async: false,
+        url: 'http://topcarcards.co.za/?request=getdeckcards&deck_id='+urlParams.deck_id+appendToken,
+        data : '',
+        dataType: "json",
+        success: function(result) {
+
+                deckCardCount = result.cards.length;
+        }
+    });
+}
 
 function getdeckCards (deck_id) {
 
@@ -608,27 +688,36 @@ function getdeckCards (deck_id) {
         url: 'http://topcarcards.co.za/?request=getdeckcards&deck_id='+deck_id+appendToken,
         data : '',
         dataType: "json",
-        success: function(cards) {
+        success: function(result) {
 
-                for(var i=0; i<cards.length; i++) {
+            if (result) {
 
-                    $('#body_template').append(
-                        '<div class="row grid cards vertical-align" id="'+cards[i]['card_id']+'" onclick="window.location=\'card.html?card_id='+cards[i]['card_id']+'&header='+cards[i]['name']+'&header_color=red\'">'+
-                            '<div class="col-xs-4 vcenter">'+
-                                '<img src="img/cards/'+cards[i]['card_id']+'-front.jpg" />'+
-                            '</div>'+
-                            '<div class="col-xs-8 padded vcenter" id="card-name-'+cards[i]['name']+'">'+
-                                cards[i]['name']+
-                            '</div>'+
-                        '</div>'
-                    );
+                if (result.deck_name) {
+                    $('#page-title').html(result.deck_name);
+                }
+                var cards = result.cards;
+                if(cards) {
+                    for(var i=0; i<cards.length; i++) {
 
+                        $('#body_template').append(
+                            '<div class="row grid cards vertical-align" id="'+cards[i]['card_id']+'" onclick="window.location=\'card.html?card_id='+cards[i]['card_id']+'&header='+cards[i]['name']+'&header_color=red\'">'+
+                                '<div class="col-xs-4 vcenter">'+
+                                    '<img src="img/cards/'+cards[i]['card_id']+'-front.jpg" />'+
+                                '</div>'+
+                                '<div class="col-xs-8 padded vcenter" id="card-name-'+cards[i]['name']+'">'+
+                                    cards[i]['name']+
+                                '</div>'+
+                            '</div>'
+                        );
+
+                    }
                 }
                 $('#deck-card-count').html(cards.length);
                 if (cards.length==10) {
                     $('#deck-card-add').addClass('inactive');
                     $('#deck-card-add').attr('onclick','');
                 }
+            }
         }
     });
 }
@@ -652,6 +741,7 @@ function adddeckCards (deck_id, card_id) {
     var ajax = jQuery.ajax({
         type: "POST",
         crossDomain: true,
+        async: false,
         url: 'http://topcarcards.co.za/?request=addcardtodeck&deck_id='+deck_id+'&card_id='+card_id+appendToken,
         data : '',
         dataType: "json",
@@ -676,13 +766,16 @@ function removedeckCards (deck_id, card_id) {
 }
 
 function footerDeckCardEdits() {
+    
+    getdeckCardCount();
+    
     $('#footer').html(
         '<div class="row footer-options-holder">'+
                 '<div class="col-xs-3 footer-options-div deck-edit-count divider-right">'+
-                    '<span id="deck-card-count">***</span>/10'+
+                    '<span id="deck-card-count">'+deckCardCount+'</span>/10'+
                 '</div>'+
                 '<div class="col-xs-3 footer-options-div divider-both">'+
-                    '<span class="glyphicon glyphicon-plus" id="deck-card-add" onclick="window.location=\'grid-template.html?section=addToDeck&deck_id='+urlParams.deck_id+'&deck_count='+urlParams.deck_count+'\'"></span>'+
+                    '<span class="glyphicon glyphicon-plus" id="deck-card-add" onclick="window.location=\'grid-template.html?section=addToDeck&deck_id='+urlParams.deck_id+'&cat_id=1&header=Supercars\'"></span>'+
                 '</div>'+
                 '<div class="col-xs-3 footer-options-div divider-both">'+
                     '<span class="glyphicon glyphicon-edit" id="deck-card-edit" onclick="editDecksCards();"></span>'+
@@ -842,7 +935,7 @@ function start_game () {
 
 }
 
-function checkGame (stat) {
+function checkGame () {
 
     var ajax = jQuery.ajax({
         type: "POST",
@@ -876,7 +969,7 @@ function checkGame (stat) {
                         $( "#game-instruction-message" ).html('<img src="img/loading.gif" class="loader" /> Waiting for opponent\'s move..');
                         $( "#user-area" ).html($( "#game-message-div" ).html());
                         $("#game-id-holder").html(gameData['game_id']);
-                        setTimeout('checkGame()', 5000); 
+                        setTimeout('checkGame()', 2000);
                     }
                 }
             } else if (gameData['game_status']=='completed') {
@@ -1003,28 +1096,19 @@ function gameMoveAction (gameData) {
                 $(this).attr('onclick','');
         });
 
-        var outcome = (gameData['active_player']==user_id) ? true : false;
-        displayGameOutcome (message, outcome);
-//        setTimeout("displayGameOutcome ('"+message+"', "+outcome+")", 5000);
+        $( "#user-area" ).addClass('game-overlay');
+        $( "#user-area" ).prepend('<div class="overlay-message">'+message+'</div>');
 
+        if (gameData['active_player']==user_id) {
+
+            //setTimeout('users_turn();', 5000);
+            $('#new-game').show();
+
+        } else {
+
+            setTimeout('checkGame()', 5000);
+        }
     }
-}
-
-function displayGameOutcome (message, outcome) {
-
-    $( "#user-area" ).addClass('game-overlay');
-    $( "#user-area" ).prepend('<div class="overlay-message">'+message+'</div>');
-
-    if (outcome) {
-
-//        setTimeout('users_turn();', 5000);
-        $('#new-game').show();
-
-    } else {
-
-        setTimeout('checkGame()', 5000);
-    }
-
 }
 
 /****************************************** END Game Function ***************************************************************/
@@ -1039,12 +1123,15 @@ function checkTrashButton () {
 }
 
 function footerCardEdits() {
+
+    getdeckCardCount();
+
     $('#footer').html(
         '<div class="row footer-options-holder">'+
                 '<div class="col-xs-9 footer-options-div deck-edit-count">'+
-                    '<span id="deck-card-count">'+urlParams.deck_count+'</span>/10'+
+                    '<span id="deck-card-count">'+deckCardCount+'</span>/10'+
                 '</div>'+
-                '<div class="col-xs-3 active-button" id="save-button" onclick="window.location=\'grid-template.html?section=decks&deck_id='+urlParams.deck_id+'header=Deck&header_color=blue\'">'+
+                '<div class="col-xs-3 active-button" id="save-button" onclick="addDeckToCards();">'+
                     'DONE'+
                 '</div>'+
         '</div>'
@@ -1074,7 +1161,7 @@ function navHtml() {
             '<li class="list-group-item red-border-right"><a href="grid-template.html?header=Album&header_color=red"><img src="elements/icon_album.jpg" class="icon-album" /><p class="nav-menu-text">ALBUM</p></a></li>'+
             '<li class="list-group-item yellow-border-right"><a href="grid-template.html?section=shop&header=Shop&header_color=yellow"><img src="elements/icon_shop.jpg" class="icon-shop" /><p class="nav-menu-text">SHOP</p></a></li>'+
             '<li class="list-group-item blue-border-right"><a href="grid-template.html?section=decks&header=Deck&header_color=blue"><img src="elements/icon_game.jpg" class="icon-deck" /><p class="nav-menu-text">DECKS</p></a></li>'+
-            '<li class="list-group-item green-border-right"><a href="grid-template.html?section=challenge&header=Challenge&header_color=blue"><img src="elements/icon_game.jpg" class="icon-game" /><p class="nav-menu-text">GAME</p></a></li>'+
+            '<li class="list-group-item green-border-right"><a href="grid-template.html?section=chooseGame&header=Challenge&header_color=blue"><img src="elements/icon_game.jpg" class="icon-game" /><p class="nav-menu-text">GAME</p></a></li>'+
             '<li class="list-group-item green-border-right"><a href="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"><img src="elements/icon_leader.jpg" class="icon-leader" /><p class="nav-menu-text">LEADERBOARD</p></a></li>'+
             '<li class="list-group-item purple-border-right"><a href="credits.html"><img src="elements/icon_credits.jpg" class="icon-credits" /><p class="nav-menu-text">CREDITS</p></a></li>'+
             '<li class="list-group-item lime-border-right"><a href="profile.html"><img src="elements/icon_profile.jpg" class="icon-profile" /><p class="nav-menu-text">PROFILE</p></a></li>'+

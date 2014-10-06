@@ -21,16 +21,17 @@
         <script>
             if (urlParams.section=='cards') {
 
-                getCards(urlParams.cat_id);
                 jQuery(document).ready(function() {
+                    getCards(urlParams.cat_id);
                     $('#footer').hide();
                 });
 
             } else if (urlParams.section=='deckCards') {
 
-                var deckCardCount = urlParams.deck_count;
-                getCards(urlParams.cat_id, urlParams.deck_id);
                 jQuery(document).ready(function() {
+
+                    getCards(urlParams.cat_id, urlParams.deck_id);
+                    
                     if (urlParams.deck_id!='undefined') {
                         footerCardEdits();
                     }
@@ -38,45 +39,54 @@
 
             } else if (urlParams.section=='decks' || urlParams.section=='challenge') {
 
-                getdecks();
                 jQuery(document).ready(function() {
+                    getdecks();
+                    footerDeckEdits();
+                });
+
+            } else if (urlParams.section=='chooseGame') {
+
+                jQuery(document).ready(function() {
+                    getChooseGame();
                     footerDeckEdits();
                 });
 
             } else if (urlParams.section=='viewDeck') {
 
-                getdeckCards(urlParams.deck_id);
                 jQuery(document).ready(function() {
+                    getdeckCards(urlParams.deck_id);
                     footerDeckCardEdits();
                 });
 
             } else if (urlParams.section=='addToDeck') { 
 
                 var cat = (urlParams.cat_id) ? urlParams.cat_id : '';
-                getCardCategories(cat, urlParams.deck_id);
                 jQuery(document).ready(function() {
+
+                    getCardCategories(cat, urlParams.deck_id);
                     footerCardEdits();
                 });
 
             } else if (urlParams.section=='shop') {
 
-                getproducts();
                 jQuery(document).ready(function() {
+                    getproducts();
                     footerMoreCredits();
                 });
 
             } else if (urlParams.section=='leaderboard') {
 
-                getleaderboard();
                 jQuery(document).ready(function() {
+                    getleaderboard();
                     $('#footer').hide();
                 });
 
             } else { /* Default to categories page */
 
                 var cat = (urlParams.cat_id) ? urlParams.cat_id : '';
-                getCardCategories(cat);
                 jQuery(document).ready(function() {
+
+                    getCardCategories(cat);
                     $('#footer').hide();
                 });
             }
@@ -100,6 +110,14 @@
 	<nav id="nav">
 	</nav>
     <section id="body_template">
+        <div class="album-state row-fluid">
+            <div class="col-xs-6" id="model-make">
+                CAR MODEL
+            </div>
+            <div class="col-xs-6" id="model-all">
+                ALL CARDS
+            </div>
+        </div>
         <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
             <div class="modal-content" id="modal-content">
                 
