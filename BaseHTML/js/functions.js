@@ -358,8 +358,11 @@ function getCard (card_id) {
     var cardData = getCardData(card_id);
 
     $('#card-parts').html(cardData['scrap_value']);
+    $('#card-scrap-parts').html(cardData['scrap_value']);
     $('#card-img').attr('src', 'img/cards/'+cardData['card_id']+'-front.jpg');
     $('#card-img-bck').attr('src', 'img/cards/'+cardData['card_id']+'-back.jpg');
+    $('#card-scrap-name').html(cardData['name']);
+    $('#card-scrap-name2').html(cardData['name']);
 }
 
 function scrapCard (card_id) {
@@ -379,12 +382,15 @@ function scrapCard (card_id) {
 
 function footerCardOptions() {
     $('#footer').html(
-        '<div onclick="getMoreCredits()" class="row footer-options-holder">'+
-                '<div class="col-xs-6 footer-options-div divider-right" id="card-wrench">'+
+        '<div onclick="" class="row footer-options-holder">'+
+                '<div class="col-xs-4 footer-options-div divider-right" id="card-wrench">'+
                     '<span class="glyphicon glyphicon-wrench" onclick="$(\'#scrap-menu\').toggle();$(\'#card-wrench\').toggleClass(\'active\');"></span>'+
                 '</div>'+
-                '<div class="col-xs-6 footer-options-div divider-left" id="card-flip">'+
-                    '<span class="glyphicon glyphicon-share-alt" id="card-flip" onclick="$(\'.quickflip-wrapper\').quickFlipper();"></span>'+
+                '<div class="col-xs-4 footer-options-div divider-ceter" id="card-flip">'+
+                    '<span id="card-flip" onclick="$(\'.quickflip-wrapper\').quickFlipper();">TAP CARD TO FLIP</span>'+
+                '</div>'+
+                '<div class="col-xs-4 footer-options-div divider-left" id="card-flip">'+
+                    '<i class="fa fa-share-alt-square" onclick="alert(\'Feature coming soon!\');">'+
                 '</div>'+
         '</div>'
     );
@@ -651,7 +657,7 @@ function buyproduct (product_id) {
         success: function(result) {
 
                 if (result['result']) {
-                    $('#modal-content').html($('#parchase-confirmation').html());
+                    $('#modal-content').html($('#purchase-confirmation').html());
                     $('#myModal').modal();
                 } else {
                     alert(result['content']);

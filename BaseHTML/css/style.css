@@ -60,8 +60,9 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .font-purple {color:#8069ad;}
 .font-lime {color:#b6d119;}
 
-.divider-left{border-left: 1px solid #333;}
-.divider-right{border-right: 1px solid #000;}
+.footer-options-div.divider-left{color:#fff;}
+.footer-options-div.divider-ceter {text-align:center; color:#ccc; font-size:0.7em; padding-top:10px; padding-bottom:10px;}
+.footer-options-div.divider-right{}
 .divider-both{border-right: 1px solid #000;border-left: 1px solid #333;}
 
 .vcenter {display:inline-block; vertical-align:middle; float:none;}
