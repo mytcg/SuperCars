@@ -1,6 +1,6 @@
 <?php
 
-function newGame($user_id, $deck_id) {
+function newGame($user_id, $deck_id, $computer = 'false') {
 	// Declare the global constants
 	global $DECK_MAXIMUMCARDS;
 

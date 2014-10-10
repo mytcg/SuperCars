@@ -282,8 +282,10 @@ function registerUser($username, $password, $email = '') {
         );
 	}
 	
+	$hasEmail = false;
 	// If an email was sent, check that it isnt taken
 	if ($email != '' && $email != null) {
+		$hasEmail = true;
 		$sql = 'SELECT *
 		FROM users
 		WHERE UPPER(email) = UPPER("'.$email.'")';
@@ -307,6 +309,16 @@ function registerUser($username, $password, $email = '') {
 		WHERE username = "'.$username.'"';
 	$result = myqu($sql);
 	if ($user=$result[0]) {
+		if ($hasEmail) {
+			sendEmail($email, 'The Supercars Team', 'Welcome to the Supercars App!', 'Dear '.$username.'
+
+Welcome to Supercars! For your records, here are your login details:
+Username: '.$username.'
+Password: '.$password.'
+
+We hope you enjoy the app, and share it with your friends!');
+		}
+		
 		return array(
             'result'    =>  true
 			,'content'  =>  'User created.'
@@ -618,6 +630,13 @@ function getLeaderboard($user_id) {
 	return $retArr;
 }
 
+//SEND MAIL FUNCTION
+function sendEmail($sEmailAddress,$sFromEmailAddress,$sSubject,$sMessage){
+	$sHeaders='From: Supercars <noreply@media24.co.za>';
+	mail($sEmailAddress,$sSubject,$sMessage,$sHeaders);
+	return;
+}
+
 function ordinal($i) {
     $l = substr($i,-1);
     $s = substr($i,-2,-1);
@@ -643,12 +662,5 @@ function close($retXml) {
 	header('xml_length: '.strlen($retXml));
 	echo $retXml;
 	exit;
-}
-
-//SEND MAIL FUNCTION
-function sendEmail($sEmailAddress,$sFromEmailAddress,$sSubject,$sMessage){
-	$sHeaders='From: '.$sFromEmailAddress;
-	mail($sEmailAddress,$sSubject,$sMessage,$sHeaders);
-	return;
 }
 ?>

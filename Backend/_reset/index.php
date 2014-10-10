@@ -2,13 +2,6 @@
 
 include('../dbconnection.php');
 
-//SEND MAIL FUNCTION
-function sendEmail($sEmailAddress,$sFromEmailAddress,$sSubject,$sMessage){
-	$sHeaders='From: '.$sFromEmailAddress;
-	mail($sEmailAddress,$sSubject,$sMessage,$sHeaders);
-	return;
-}
-
 // We need to get the code from the url, and if it is valid, allow the user to enter a new password.
 if ($encodedCode = $_GET['code']) {
 	$code = base64_decode($encodedCode);

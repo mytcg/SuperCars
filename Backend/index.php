@@ -140,7 +140,7 @@ switch($request) {
 	
 	// Check for game requests
 	case $GAMEREQUEST_NEWGAME:
-		$result = newGame($user_id, $_GET['deck_id']);
+		$result = newGame($user_id, $_GET['deck_id'], $_GET['computer']);
 		break;
 	case $GAMEREQUEST_CONTINUEGAME:
 		$result = checkGame($user_id, $_GET['game_id']);
