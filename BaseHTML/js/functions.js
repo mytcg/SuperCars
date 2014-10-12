@@ -675,6 +675,22 @@ function buyproduct (product_id) {
                 if (result['result']) {
                     $('#modal-content').html($('#purchase-confirmation').html());
                     $('#myModal').modal();
+
+                    var ajax = jQuery.ajax({
+                        type: "POST",
+                        crossDomain: true,
+                        url: 'http://topcarcards.co.za/?request=user'+appendToken,
+                        data : '',
+                        dataType: "json",
+                        success: function(res) {
+
+                            $('#user-credits').html(res['credits']);
+                            window.localStorage.setItem("credit", res['credits']);
+
+                        }
+
+                    });
+
                 } else {
                     alert(result['content']);
                 }
