@@ -1207,9 +1207,9 @@ function navHtml() {
             '<div class="menu_divider"></div>'+
             '<li class="list-group-item green-border-right"><a href="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"><img src="elements/icon_leader.jpg" class="icon-leader" /><p class="nav-menu-text">LEADERBOARD</p></a></li>'+
             '<div class="menu_divider"></div>'+
-            '<li class="list-group-item purple-border-right"><a href="credits.html?header=Credits&header_color=green"><img src="elements/icon_credits.jpg" class="icon-credits" /><p class="nav-menu-text">CREDITS</p></a></li>'+
+            '<li class="list-group-item purple-border-right"><a href="credits.html?header=Credits&header_color=purple"><img src="elements/icon_credits.jpg" class="icon-credits" /><p class="nav-menu-text">CREDITS</p></a></li>'+
             '<div class="menu_divider"></div>'+
-            '<li class="list-group-item lime-border-right"><a href="profile.html?header=Profile&header_color=green"><img src="elements/icon_profile.jpg" class="icon-profile" /><p class="nav-menu-text">PROFILE</p></a></li>'+
+            '<li class="list-group-item lime-border-right"><a href="profile.html?header=Profile&header_color=lime"><img src="elements/icon_profile.jpg" class="icon-profile" /><p class="nav-menu-text">PROFILE</p></a></li>'+
         	'<div class="menu_divider"></div>'+
         '</ul>'
     );

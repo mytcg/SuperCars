@@ -237,10 +237,13 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 .menu_divider {
    	background: none repeat scroll 0 0 #0a0a0a;
     border-bottom: 1px solid #303030;
+    border-top: 1px solid #1f262c;
     float: left;
-    height: 2px;
+    height: 3px;
+    margin-left: 1px;
     position: relative;
     width: 100%;
+    z-index: 1
 }
 .navbar-header {
     background: none repeat scroll 0 0 #1f262c;
