@@ -4,8 +4,8 @@
 }
 
 body {font-family:"Roboto";background:#2a3137;color:#8f9295;}
-#body_template{height:10%;}
-#body_template{height:10%;}
+#body_top{height:10%;}
+#body_bottom{height:10%;}
 #body_template{height:80%;}
 .row{margin:0}
 .row-fluid > img{margin: 0 4%;width: 90%;}
