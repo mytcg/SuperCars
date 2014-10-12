@@ -507,7 +507,7 @@ function getdecks (user_id) {
             }
 
             $('#body_template').append(
-                '<div class="row grid deck" onclick="window.location=\'create.html?section=decks&header=New Deck\'">'+
+                '<div class="row grid deck" onclick="window.location=\'create.html?section=decks&header=New Deck&header_color=blue\'">'+
                     '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
                         '<span class="glyphicon glyphicon-plus" style="text-align:center; color:#2c95f4;"></span>'+
                     '</div>'+

@@ -114,6 +114,17 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .grid .points{vertical-align:bottom; margin-top:2em; font-size:0.8em; font-weight:normal;}
 .grid .greenpoints{font-weight:bold; color:#20e58b;}
 
+.shade-10 {background:#4c4766;}
+.shade-30 {background:#5e537e;}
+.shade-50 {background:#6d5c93;}
+.shade-100 {background:#8069ad;}
+.credits-header {color:#ccc; padding:8% 0; font-size:1.2em; text-align:center; border-bottom:1px solid #000;}
+.grid.credits {font-size:1.3em;}
+.grid.credits .padded {line-height:90%;}
+.credits .color{color:#fff; font-size:1.9em; text-align:center;}
+.credits:hover .padded span.secondary-sml{color:#8069ad;}
+
+
 .div-button {font-size:1.4em; color:#fff; font-weight:bold; padding:3% 2%; background:#363c42; cursor:pointer;}
 .div-button:hover {color:#fff; background:#f26b28;}
 .div-button span{color:#9b9d9f; font-weight:normal;}
