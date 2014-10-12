@@ -45,38 +45,42 @@ function newGame($user_id, $deck_id, $computer = 'false') {
 		return getGameData($user_id, $result['game_id']);
 	}*/
 	
-	// Check if this user already has an lfm game
-	$sql = 'select g.game_id
-		from games g
-		join game_statuses gs 
-		on gs.game_status_id = g.game_status
-		where gs.description = "LFM"
-		and g.creator_id = '.$user_id;
-		
-	$results = myqu($sql);
-	
-	// If they do have an open lfm game, return the game xml
-	if ($result=$results[0]) {
-		return getGameData($user_id, $result['game_id'], 'new');
-	}
-	
-	// If they dont have an open game, check if there is an LFM game.
-	$sql = 'select g.game_id
-		from games g
-		join game_statuses gs 
-		on gs.game_status_id = g.game_status
-		where gs.description = "LFM"
-		and g.creator_id != '.$user_id;
-		
-	$results = myqu($sql);
 	$game_id = -1;
 	$joinedGame = false;
 	
-	// If there is an open game, set the game_id
-	if ($result=$results[0]) {
-		$game_id = $result["game_id"];
+	// If the user is wanting to play against the AI, skip the check for an open game.
+	if ($computer == "false") {
+		// Check if this user already has an lfm game
+		$sql = 'select g.game_id
+			from games g
+			join game_statuses gs 
+			on gs.game_status_id = g.game_status
+			where gs.description = "LFM"
+			and g.creator_id = '.$user_id;
+			
+		$results = myqu($sql);
 		
-		$joinedGame = true;
+		// If they do have an open lfm game, return the game xml
+		if ($result=$results[0]) {
+			return getGameData($user_id, $result['game_id'], 'new');
+		}
+		
+		// If they dont have an open game, check if there is an LFM game.
+		$sql = 'select g.game_id
+			from games g
+			join game_statuses gs 
+			on gs.game_status_id = g.game_status
+			where gs.description = "LFM"
+			and g.creator_id != '.$user_id;
+			
+		$results = myqu($sql);
+		
+		// If there is an open game, set the game_id
+		if ($result=$results[0]) {
+			$game_id = $result["game_id"];
+			
+			$joinedGame = true;
+		}
 	}
 	
 	// If there isnt an open LFM game, create one
@@ -105,6 +109,30 @@ function newGame($user_id, $deck_id, $computer = 'false') {
 				,'content'  =>  'Error creating game.'
 			);
 		}
+		
+		// If playing against the AI, create the AI player here, and give it cards.
+		if ($computer == "true") {
+			// select an AI player at random, and a deck for them
+			$aiResult = myqu('select count(dc.card_id) tot, d.deck_id, u.user_id
+				from decks d
+				join deck_cards dc
+				on dc.deck_id = d.deck_id
+				join users u
+				on u.user_id = d.user_id
+				where u.ai = 1
+				group by d.deck_id
+				having count(dc.card_id) = '.$DECK_MAXIMUMCARDS);
+				
+			$aiDetails = $aiResult[rand(0, count($aiResult) - 1)];
+			
+			// create the game player
+			$aiPlayerId = createGamePlayer($aiDetails['user_id'], $game_id);
+			
+			// add their cards
+			addGamePlayerCards($game_id, $aiPlayerId, $aiDetails['deck_id']);
+			
+			$joinedGame = true;
+		}
 	}
 	
 	// Add the user to the game_players table
@@ -112,6 +140,7 @@ function newGame($user_id, $deck_id, $computer = 'false') {
 	
 	// Add the user's cards
 	addGamePlayerCards($game_id, $gamePlayerId, $deck_id);
+	
 	
 	// If a game was joined, set the active player and update the game status
 	if ($joinedGame) {
@@ -200,15 +229,33 @@ function addGamePlayerCards($game_id, $game_player_id, $deck_id) {
 }
 
 function checkGame($user_id, $game_id) {
-	$sql = 'select gs.description game_status, g.active_player 
+	// Get the status, active player, and whether the active player is AI or not.
+	$sql = 'select gs.description game_status, u.ai, u.user_id
 		from games g
 		join game_statuses gs
 		on gs.game_status_id = g.game_status
+		join game_players gp
+		on gp.game_player_id = g.active_player
+		join users u
+		on u.user_id = gp.user_id
 		where g.game_id = '.$game_id;
 		
 	$sqlResult = myqu($sql);
 	
 	if ($gameData = $sqlResult[0]) {
+		// If the active player is AI, have them select a stat.
+		if ($gameData['ai'] == 1) {
+			// Get all the stat ids from the database, then choose one at random.
+			$statTypes = myqu('select stat_type_id from stat_types');
+			
+			// Get the random stat
+			$aiStat = $statTypes[rand(0, count($statTypes) - 1)];
+			
+			// Call selectStat with the AI details, opting not to return data for the AI
+			selectStat($game_id, $gameData['user_id'], $aiStat['stat_type_id'], false);
+		}
+		
+		// Then return that game data
 		return getGameData($user_id, $game_id);
 	}
 	else {
@@ -219,7 +266,7 @@ function checkGame($user_id, $game_id) {
 	}
 }
 
-function selectStat($game_id, $user_id, $stat_id) {
+function selectStat($game_id, $user_id, $stat_id, $returnGameData = true) {
 	global $GAMESTATUS_INPROGRESS;
 	global $GAMESTATUS_COMPLETE;
 	
@@ -413,7 +460,12 @@ function selectStat($game_id, $user_id, $stat_id) {
 				}
 				
 				// Return current game state xml
-				return getGameData($user_id, $game_id);
+				if ($returnGameData) {
+					return getGameData($user_id, $game_id);
+				}
+				else {
+					return;
+				}
 			}
 			else {
 				// Return invalid stat selection

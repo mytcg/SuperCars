@@ -612,6 +612,7 @@ function getLeaderboard($user_id) {
 	
 	$sqlResult = myqu('select u.username, u.ranking as points, "false" as own_score
 		from users u
+		where u.ai = 0
 		order by u.ranking desc
 		limit 10');
 	
