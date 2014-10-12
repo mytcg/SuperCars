@@ -303,11 +303,12 @@ nav {
   height: 100%;
   overflow: auto;
   position: fixed;
-  right: -290px;
+  right: -100%;
   font-size: 15px;
   top: 0;
-  width: 290px;
+  width: 100%;
   z-index: 2000;
+  margin-top: 14%;
   
   transition: right 0.3s ease-in-out 0s;
   -webkit-transition: right 0.3s ease-in-out 0s;

@@ -1162,7 +1162,7 @@ function footerMoreCredits() {
 function navHtml() {
     $('#nav').html(
         '<ul class="list-group main-menu">'+
-            '<li class="text-right"><a href="#" id="nav-close"><img src="elements/supercars_logo.jpg" /></a></li>'+
+            '<!--li class="text-right"><a href="#" id="nav-close"><img src="elements/supercars_logo.jpg" /></a></li-->'+
             '<li class="list-group-item orange-border-right"><a href="dashboard.html?header=Dashboard&header_color=none"><img src="elements/icon_dash.jpg" class="icon-dash" /><p class="nav-menu-text">DASHBOARD</p></a></li>'+
             '<li class="list-group-item red-border-right"><a href="grid-template.html?header=Album&header_color=red"><img src="elements/icon_album.jpg" class="icon-album" /><p class="nav-menu-text">ALBUM</p></a></li>'+
             '<li class="list-group-item yellow-border-right"><a href="grid-template.html?section=shop&header=Shop&header_color=yellow"><img src="elements/icon_shop.jpg" class="icon-shop" /><p class="nav-menu-text">SHOP</p></a></li>'+
