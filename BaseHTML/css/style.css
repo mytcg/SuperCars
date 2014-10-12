@@ -84,8 +84,8 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .page-title {font-size:1.5em; color:#fff; display:inline-block; padding-bottom:2px; border-bottom-width:5px; border-bottom-style:solid; border-bottom-color:#000;}
 
 .footer-options-holder {background:#1f262c; font-size:1.1em;margin:0}
-.footer-options-div {padding:15px; color:#1f262c; text-align:center;}
-.footer-options-div .inactive {color:#3a4046;}
+.footer-options-div {padding:15px; color:#1f262c; text-align:center; cursor:pointer;}
+.footer-options-div .inactive {color:#3a4046; cursor:default;}
 
 .deck-edit-count {color:#f26b28;}
 #deck-card-add, #deck-card-edit {cursor:pointer;}

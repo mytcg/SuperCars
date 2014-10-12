@@ -48,14 +48,14 @@
 
                 jQuery(document).ready(function() {
                     getChooseGame();
-                    footerDeckEdits();
+                    //footerDeckEdits();
                 });
 
             } else if (urlParams.section=='viewDeck') {
 
                 jQuery(document).ready(function() {
-                    getdeckCards(urlParams.deck_id);
                     footerDeckCardEdits();
+                    getdeckCards(urlParams.deck_id);
                 });
 
             } else if (urlParams.section=='addToDeck') { 

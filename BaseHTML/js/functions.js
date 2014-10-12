@@ -399,14 +399,14 @@ function scrapCard (card_id) {
 function footerCardOptions() {
     $('#footer').html(
         '<div onclick="" class="row footer-options-holder">'+
-                '<div class="col-xs-4 footer-options-div divider-right" id="card-wrench">'+
-                    '<span class="glyphicon glyphicon-wrench" onclick="$(\'#scrap-menu\').toggle();$(\'#card-wrench\').toggleClass(\'active\');"></span>'+
+                '<div class="col-xs-4 footer-options-div divider-right" id="card-wrench" onclick="$(\'#scrap-menu\').toggle();$(\'#card-wrench\').toggleClass(\'active\');">'+
+                    '<span class="glyphicon glyphicon-wrench"></span>'+
                 '</div>'+
-                '<div class="col-xs-4 footer-options-div divider-ceter" id="card-flip">'+
-                    '<span id="card-flip" onclick="$(\'.quickflip-wrapper\').quickFlipper();">TAP CARD TO FLIP</span>'+
+                '<div class="col-xs-4 footer-options-div divider-ceter" id="card-flip" onclick="$(\'.quickflip-wrapper\').quickFlipper();">'+
+                    '<span id="card-flip">TAP CARD TO FLIP</span>'+
                 '</div>'+
-                '<div class="col-xs-4 footer-options-div divider-left" id="card-flip">'+
-                    '<i class="fa fa-share-alt-square" onclick="alert(\'Feature coming soon!\');">'+
+                '<div class="col-xs-4 footer-options-div divider-left" id="card-flip" onclick="alert(\'Feature coming soon!\');">'+
+                    '<i class="fa fa-share-alt-square">'+
                 '</div>'+
         '</div>'
     );
@@ -553,11 +553,11 @@ function getdecks (user_id) {
 function footerDeckEdits() {
     $('#footer').html(
         '<div class="row footer-options-holder">'+
-                '<div class="col-xs-4 footer-options-div divider-right">'+
-                    '<span class="glyphicon glyphicon-trash" id="deck-card-trash" onclick="editDeck(\'trash\');"></span>'+
+                '<div class="col-xs-4 footer-options-div divider-right" onclick="editDeck(\'trash\');">'+
+                    '<span class="glyphicon glyphicon-trash" id="deck-card-trash"></span>'+
                 '</div>'+
-                '<div class="col-xs-4 footer-options-div divider-both">'+
-                    '<span class="glyphicon glyphicon-edit" id="deck-card-edit" onclick="editDeck(\'edit\');"></span>'+
+                '<div class="col-xs-4 footer-options-div divider-both" onclick="editDeck(\'edit\');">'+
+                    '<span class="glyphicon glyphicon-edit" id="deck-card-edit"></span>'+
                 '</div>'+
                 '<div class="col-xs-4 active-button divider-left" id="cancel-button" style="display:none;" onclick="uneditDeck();">'+
                     'CANCEL'+
@@ -737,7 +737,7 @@ function getdeckCards (deck_id) {
                 $('#deck-card-count').html(cards.length);
                 if (cards.length==10) {
                     $('#deck-card-add').addClass('inactive');
-                    $('#deck-card-add').attr('onclick','');
+                    $('#deck-card-add').parent().attr('onclick','');
                 }
             }
         }
@@ -796,11 +796,11 @@ function footerDeckCardEdits() {
                 '<div class="col-xs-3 footer-options-div deck-edit-count divider-right">'+
                     '<span id="deck-card-count">'+deckCardCount+'</span>/10'+
                 '</div>'+
-                '<div class="col-xs-3 footer-options-div divider-both">'+
-                    '<span class="glyphicon glyphicon-plus" id="deck-card-add" onclick="window.location=\'grid-template.html?section=addToDeck&deck_id='+urlParams.deck_id+'&cat_id=1&header=Supercars\'"></span>'+
+                '<div class="col-xs-3 footer-options-div divider-both" onclick="window.location=\'grid-template.html?section=addToDeck&deck_id='+urlParams.deck_id+'&cat_id=1&header=Supercars&header_color=blue\'">'+
+                    '<span class="glyphicon glyphicon-plus" id="deck-card-add"></span>'+
                 '</div>'+
-                '<div class="col-xs-3 footer-options-div divider-both">'+
-                    '<span class="glyphicon glyphicon-edit" id="deck-card-edit" onclick="editDecksCards();"></span>'+
+                '<div class="col-xs-3 footer-options-div divider-both" onclick="editDecksCards();">'+
+                    '<span class="glyphicon glyphicon-edit" id="deck-card-edit"></span>'+
                 '</div>'+
                 '<div class="col-xs-3 active-button divider-left" id="cancel-button" style="display:none;" onclick="uneditDecksCards();">'+
                     'CANCEL'+
@@ -1163,11 +1163,11 @@ function footerCardEdits() {
 
 function footerMoreCredits() {
     $('#footer').html(
-        '<div onclick="getMoreCredits()" class="row credits-div">'+
+        '<div class="row credits-div">'+
                 '<div class="col-xs-8 credit-stat">'+
                     'You have <span id="user-credits">'+credit+'</span> credits'+
                 '</div>'+
-                '<div class="col-xs-4 credit-more active-button">'+
+                '<div class="col-xs-4 credit-more active-button" onclick="window.location=\'credits.html?header=Credits&header_color=purple\'">'+
                     'GET MORE'+
                 '</div>'+
         '</div>'
