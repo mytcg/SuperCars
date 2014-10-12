@@ -7,6 +7,8 @@ var urlParams = queryParameters();
 var deckCardCount = 0;
 var cardsToDeck = [];
 
+var menuButton = "icon_menu.jpg";
+
 var appendToken = '&user_id='+user_id+'&PHP_AUTH_PW='+password+'&PHP_AUTH_USER='+username;
 
 
@@ -29,6 +31,7 @@ jQuery(document).ready(function() {
     $('#nav-expander').on('click',function(e){
   		e.preventDefault();
   		$('body').toggleClass('nav-expanded');
+  		changeImage();
   	});
   	$('#nav-close').on('click',function(e){
   		e.preventDefault();
@@ -55,6 +58,19 @@ jQuery(document).ready(function() {
         	
 
 });
+
+
+
+function changeImage() {
+  if ( menuButton == "icon_menu.jpg" ) {
+  	$("#menu_nav_btn").attr("src", "elements/icon_menu_sel.jpg");
+    menuButton  = "icon_menu_sel.jpg";
+  }
+  else {
+    $("#menu_nav_btn").attr("src", "elements/icon_menu.jpg");
+    menuButton  = "icon_menu.jpg";
+  }
+}
 
 function genericAjax(script, resultDiv, formID, js, waitForResult){
 
