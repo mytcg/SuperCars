@@ -507,7 +507,7 @@ function getdecks (user_id) {
             }
 
             $('#body_template').append(
-                '<div class="row grid deck" onclick="window.location=\'create.html?section=decks&header=New Deck\'">'+
+                '<div class="row grid deck" onclick="window.location=\'create.html?section=decks&header=New Deck&header_color=blue\'">'+
                     '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
                         '<span class="glyphicon glyphicon-plus" style="text-align:center; color:#2c95f4;"></span>'+
                     '</div>'+
@@ -1185,8 +1185,8 @@ function navHtml() {
             '<li class="list-group-item blue-border-right"><a href="grid-template.html?section=decks&header=Deck&header_color=blue"><img src="elements/icon_game.jpg" class="icon-deck" /><p class="nav-menu-text">DECKS</p></a></li>'+
             '<li class="list-group-item green-border-right"><a href="grid-template.html?section=chooseGame&header=Challenge&header_color=blue"><img src="elements/icon_game.jpg" class="icon-game" /><p class="nav-menu-text">GAME</p></a></li>'+
             '<li class="list-group-item green-border-right"><a href="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"><img src="elements/icon_leader.jpg" class="icon-leader" /><p class="nav-menu-text">LEADERBOARD</p></a></li>'+
-            '<li class="list-group-item purple-border-right"><a href="credits.html?header=Credits&header_color=green"><img src="elements/icon_credits.jpg" class="icon-credits" /><p class="nav-menu-text">CREDITS</p></a></li>'+
-            '<li class="list-group-item lime-border-right"><a href="profile.html?header=Profile&header_color=green"><img src="elements/icon_profile.jpg" class="icon-profile" /><p class="nav-menu-text">PROFILE</p></a></li>'+
+            '<li class="list-group-item purple-border-right"><a href="credits.html?header=Credits&header_color=purple"><img src="elements/icon_credits.jpg" class="icon-credits" /><p class="nav-menu-text">CREDITS</p></a></li>'+
+            '<li class="list-group-item lime-border-right"><a href="profile.html?header=Profile&header_color=lime"><img src="elements/icon_profile.jpg" class="icon-profile" /><p class="nav-menu-text">PROFILE</p></a></li>'+
         '</ul>'
     );
     $('#nav').show();

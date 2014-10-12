@@ -39,9 +39,53 @@
 	</nav>
     </section>
     <section id="body_template">
-        <div class="container-fluid">
-            <div class="row-fluid">
-				<p>coming soon...</p>
+        <div class="row credits-header" id="10">
+            <div class="col-xs-8 col-xs-offset-2">
+                How much credits would you like to buy?
+            </div>
+        </div>
+        <div class="row grid credits vertical-align" id="10" onclick="$('#modal-content').html($('#credits-buy').html());$('#myModal').modal();">
+            <div class="col-xs-3 vcenter color shade-10">
+                10
+            </div>
+            <div class="col-xs-8 col-xs-offset-1 padded vcenter">
+                10 Credits<br />
+                <span class="secondary-sml">
+                    R10.00
+                </span>
+            </div>
+        </div>
+        <div class="row grid credits vertical-align" id="30" onclick="$('#modal-content').html($('#credits-buy').html());$('#myModal').modal();">
+            <div class="col-xs-3 vcenter color shade-30">
+                30
+            </div>
+            <div class="col-xs-8 col-xs-offset-1 padded vcenter">
+                30 Credits<br />
+                <span class="secondary-sml">
+                    R30.00
+                </span>
+            </div>
+        </div>
+        <div class="row grid credits vertical-align" id="50" onclick="$('#modal-content').html($('#credits-buy').html());$('#myModal').modal();">
+            <div class="col-xs-3 vcenter color shade-50">
+                50
+            </div>
+            <div class="col-xs-8 col-xs-offset-1 padded vcenter">
+                50 Credits<br />
+                <span class="secondary-sml">
+                    R50.00
+                </span>
+            </div>
+        </div>
+        <div class="row grid credits vertical-align" id="10" onclick="$('#modal-content').html($('#credits-buy').html());$('#myModal').modal();">
+            <div class="col-xs-3 vcenter color shade-100">
+                100
+            </div>
+            <div class="col-xs-8 col-xs-offset-1 padded vcenter">
+                100 Credits<br />
+                <span class="secondary-sml">
+                    R100.00
+                </span>
             </div>
         </div>
     </section>
@@ -49,6 +93,27 @@
         <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
         </footer>
     </section>
+    <div id="credits-buy" class="modal-popup-content-holder">
+        <div class="modal-popup-content row-fluid">
+            <div class="col-xs-8 col-xs-offset-2" style="text-align:center;">
+                <div class="hightlight font-purple">
+                    Premium SMS
+                </div>
+                <div class="">
+                    SMS to 'Supercars' followed by your <span class="font-purple">username</span> and the <span class="font-purple">amount</span> to '36262'
+                </div>
+            </div>
+        </div>
+        <br /><br />
+        <div class="row" style="margin-top:10%;">
+            <div class="btn-group col-xs-6" style="">
+                <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">CANCEL</button><br /><br />
+            </div>
+            <div class="btn-group col-xs-6" style="">
+                <button type="button" class="btn btn-default active-button" onclick="$('#myModal').modal('hide');">OK</button><br /><br />
+            </div>
+        </div>
+    </div>
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" id="modal-content">
