@@ -301,10 +301,10 @@ nav {
   height: 100%;
   overflow: auto;
   position: fixed;
-  right: -80%;
+  right: -400px;
   font-size: 15px;
   top: 0;
-  width: 80%;
+  width: 400px;
   z-index: 2000;
   
   transition: right 0.3s ease-in-out 0s;
