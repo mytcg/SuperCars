@@ -37,6 +37,7 @@
         </script>
 </head>
 <body style="background:#2a3137;">
+    <section id="body_top">
 	<header>
 	    <div class="navbar navbar-inverse navbar-fixed-top">
                 <div class="nav-back">
@@ -53,6 +54,7 @@
 	</header>
 	<nav id="nav">
 	</nav>
+    <section>
     <section id="body_template">
         <div class="container-fluid">
             <br /><br /><br /><br />
@@ -68,14 +70,16 @@
             </div>
         </div>
     </section>
-    <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
-        <div class="row credits-div">
-                <div class="col-xs-8 credit-stat">
+    <section id="body_bottom">
+        <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
+            <div class="row credits-div">
+                    <div class="col-xs-8 credit-stat">
 
-                </div>
-                <div onclick="newDeck($('#name').val(), urlParams.deck_id);" class="col-xs-4 credit-more active-button">
-                    SAVE
-                </div>
-        </div>
-    </footer>
+                    </div>
+                    <div onclick="newDeck($('#name').val(), urlParams.deck_id);" class="col-xs-4 credit-more active-button">
+                        SAVE
+                    </div>
+            </div>
+        </footer>
+    </section>
 </body>
