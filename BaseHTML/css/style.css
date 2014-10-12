@@ -23,7 +23,17 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
     margin: 0 5%;
     width: 90%;
 }
-
+.list-group{
+	border-radius:0px;
+}
+.list-group-item:first-child{
+	border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.list-group-item:last-child{
+	border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
 .back img {
     margin: 0 5%;
     width: 90%;
@@ -213,6 +223,14 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 .dashboard-user-creds {color:#fff; text-align:center; margin-top:5%;font-size:16px;}
 
 /*****  Navigation Section Starts *******/
+.menu_divider {
+   	background: none repeat scroll 0 0 #0a0a0a;
+    border-bottom: 1px solid #303030;
+    float: left;
+    height: 2px;
+    position: relative;
+    width: 100%;
+}
 .navbar-header {
     background: none repeat scroll 0 0 #1f262c;
 }
@@ -225,10 +243,10 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 	margin:0;
 	float:none;	
 }
-.navbar-brand { padding: 0; margin-right: 10%; }
+.navbar-brand { padding: 0; margin-right: 10%; height: 49px; }
 
 .navbar-brand img{
-	width:110px;
+	width:106px;
 	margin:0;
 	padding:0;
 }
@@ -308,7 +326,7 @@ nav {
   top: 0;
   width: 100%;
   z-index: 2000;
-  margin-top: 14%;
+  margin-top: 51px;
   
   transition: right 0.3s ease-in-out 0s;
   -webkit-transition: right 0.3s ease-in-out 0s;
@@ -336,7 +354,6 @@ body.nav-expanded {
 }
 
 .main-menu li {
-    border-bottom: 1px solid #0f0f0f;
     font-size: 1em;
     margin-left: 5px;
     padding: 6px
