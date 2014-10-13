@@ -228,8 +228,8 @@ function getCardCategories (cat, deck_id) {
                                                     '&deck_id='+deck_id+
                                                     '&header='+categories[i]['description']+'&header_color='+urlParams.header_color+'&section='+url+'\'">'+
                             '<div class="padded">'+
-                            categories[i]['description']+'<br />'+
-                            ( (categories[i]['cards_owned'])?'<span class="secondary-sml">'+categories[i]['cards_owned']+'/'+categories[i]['cards_in_category']+' cards</span>':'')+
+                            categories[i]['description']+
+                            ( (categories[i]['cards_owned'])?'<span class="secondary-sml">'+categories[i]['cards_owned']+'/'+categories[i]['cards_in_category']+'</span>':'')+
                             '</div>'+
                         '</div>'
                     );
@@ -284,11 +284,11 @@ function getCards (cat, deck_id) {
                                 '<img src="img/cards/'+cards[i]['card_id']+'-thumb.jpg" />'+
                             '</div>'+
                             '<div class="col-xs-8 padded vcenter">'+
-                                cards[i]['name']+'<br />'+
+                                cards[i]['name']+
                                 (
                                     (cards[i]['scrap_value']) ?
                                         '<span class="secondary-sml">'+
-                                            cards[i]['scrap_value']+' credits'+
+                                            cards[i]['scrap_value']+
                                             ((copies!='')?copies:'')+
                                         '</span>'
                                         :''

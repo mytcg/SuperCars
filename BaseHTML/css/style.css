@@ -6,7 +6,7 @@
 body {font-family:"Roboto";background:#2a3137;color:#8f9295;}
 #body_top{height:10%;}
 #body_bottom{height:10%;}
-#body_template{height:80%; margin:16% 0 17%;}
+#body_template{height:80%; margin:51px 0 51px;}
 .row{margin:0}
 .row-fluid > img{margin: 0 4%;width: 90%;}
 img {width:100%;}
@@ -43,6 +43,9 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .album-state {background:#1f262c; display:none;}
 .album-state div{color:#ccc; text-align:center; font-size:1.05em; border-bottom:1px solid #1f262c; padding:6px 0;}
 .album-state div.selected-album-view{color:#fff;}
+.padded .secondary-sml {
+    float: right;
+}
 
 /************* MODAL WINDOW	****************/
 #myModal .btn-group {
@@ -51,8 +54,9 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .model-message {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);
     border: 2px solid #0a0a0a;
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
+    padding:10px;
 }
 .modal-backdrop {background:#2a3137;}
 .modal-backdrop.in {opacity:0.8; MozOpacity:0.8; KhtmlOpacity:0.8; filter: alpha(opacity = 80);}
@@ -93,7 +97,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 
 .active-button {background:#f26b28; font-weight:bold; cursor:pointer; padding:15px; text-align:center; color:#fff;}
 .btn:hover, .btn:focus{ color: #fff;}
-.grid {color:#ccc; font-size:1.5em; border-bottom:1px solid #1a1f23; cursor:pointer;}
+.grid {color:#ccc; font-size:1em; border-bottom:1px solid #1a1f23; cursor:pointer;}
 .grid .padded {padding:3% 4%; line-height:130%;}
 .grid:hover {background:#1f262c; color:#fff;}
 .grid span{padding-right:2%;}
@@ -118,7 +122,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .shade-30 {background:#5e537e;}
 .shade-50 {background:#6d5c93;}
 .shade-100 {background:#8069ad;}
-.credits-header {color:#ccc; padding:8% 0; font-size:1.2em; text-align:center; border-bottom:1px solid #000;}
+.credits-header {color:#ccc; padding:8% 0; font-size:1.2em; text-align:center;}
 .grid.credits {font-size:1.3em;}
 .grid.credits .padded {line-height:90%;}
 .credits .color{color:#fff; font-size:1.9em; text-align:center;}
@@ -187,7 +191,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .credits-div {
 	background: none repeat scroll 0 0 #1f262c;
     color: #ccc;
-    font-size: 1.2em;
+    font-size: 1em;
     margin: 0;
     width: 100%;
 }
@@ -233,6 +237,17 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 /*.dashboard-user-dets span{font-size:2em;}*/
 .dashboard-user-creds {color:#fff; text-align:center; margin-top:5%;font-size:16px;}
 
+.listing_divider{
+	background: none repeat scroll 0 0 #0e0e0e;
+    border-bottom: 1px solid #3c3c3c;
+    border-top: 1px solid #2a3137;
+    height: 3px;
+    position: relative;
+    width: 100%;
+    z-index: 1
+}
+
+
 /*****  Navigation Section Starts *******/
 .menu_divider {
    	background: none repeat scroll 0 0 #0a0a0a;
@@ -271,7 +286,7 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 	background:none;
 }
 .navbar-inverse .navbar-toggle .icon-bar {background-color: #8f9295;height: 3px;width: 25px;}
-.navbar-default{background:none;box-shadow:none;border-color:#000;z-index:1}
+.navbar-default{background:none;box-shadow:none;border-color:#2a3137;z-index:1}
 
 
 /****** new nav styling ************/
