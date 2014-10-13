@@ -16,11 +16,11 @@ clear {clear:both; width:0; height:0; line-height:0; overflow:hidden;}
 input {box-shadow:none !important; color:#4c5156 !important; background:#8f9295 !important; border:0 !important; border-radius:0 !important; }
 input:focus {background:#bcbec0 !important;}
 .input-group-addon {background:#3d4751; border:0; border-radius:0;}
-button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#fff; text-transform:uppercase; padding:10px 12px;}
+button.btn {text-shadow:none;font-size:1em;border:0; border-radius:0; width:100%; background:#363c42; color:#fff; text-transform:uppercase; padding:10px 12px;}
 .glyphicon {color:#bcbec0;}
 
 .front img {
-    margin: 0 5%;
+    margin: 5% 0 0% 18%;
     width: 90%;
 }
 .list-group{
@@ -35,7 +35,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
     border-bottom-right-radius: 0;
 }
 .back img {
-    margin: 0 5%;
+    margin: 5% 0 0 18%;
     width: 90%;
 }
 
@@ -85,9 +85,9 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .vertical-align {display:flex; align-items:center;}
 
 .nav-back {font-size:1.5em; padding:12px 10px 0; display:inline-block;}
-.page-title {font-size:1.5em; color:#fff; display:inline-block; padding-bottom:2px; border-bottom-width:5px; border-bottom-style:solid; border-bottom-color:#000;}
+.page-title {font-size:1em; color:#fff; display:inline-block; padding-bottom:2px; border-bottom-width:5px; border-bottom-style:solid; border-bottom-color:#000;}
 
-.footer-options-holder {background:#1f262c; font-size:1.1em;margin:0}
+.footer-options-holder {background:#1f262c; font-size:1em;margin:0}
 .footer-options-div {padding:15px; color:#1f262c; text-align:center; cursor:pointer;}
 .footer-options-div .inactive {color:#3a4046; cursor:default;}
 
@@ -216,7 +216,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
     margin-top: 9px;
     text-align: right;
 }
-.card-price {font-size:1.5em; color:#e9b31f; font-weight:bold;}
+.card-price {font-size:1em; color:#e9b31f; font-weight:bold;}
 
 button.highlighted {background:#f26b28;font-weight:bold}
 .logo-wrapper {margin:10% auto; width:70%;}
