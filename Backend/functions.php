@@ -245,7 +245,7 @@ function getCard($card_id, $user_id) {
     return $card;
 }
 
-function registerUser($username, $password, $email = '') {
+function registerUser($username, $password, $email) {
 	global $BANNED_NAMES;
 	
 	// Check that the username and password are at least the minimum length.
@@ -282,20 +282,24 @@ function registerUser($username, $password, $email = '') {
         );
 	}
 	
-	$hasEmail = false;
-	// If an email was sent, check that it isnt taken
-	if ($email != '' && $email != null) {
-		$hasEmail = true;
-		$sql = 'SELECT *
+	// Check that the email is valid
+	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		return array(
+            'result'    =>  false
+			,'content'  =>  'Invalid email address.'
+        );
+	}
+	
+	// Check that the email isnt taken
+	$sql = 'SELECT *
 		FROM users
 		WHERE UPPER(email) = UPPER("'.$email.'")';
-		$result = myqu($sql);
-		if ($emailResult=$result[0]) {
-			return array(
-				'result'    =>  false
-				,'content'  =>  'Email already in use.'
-			);
-		}
+	$result = myqu($sql);
+	if ($emailResult=$result[0]) {
+		return array(
+			'result'    =>  false
+			,'content'  =>  'Email already in use.'
+		);
 	}
 	
 	// If we get this far, things are looking good. Create the user.
@@ -309,15 +313,13 @@ function registerUser($username, $password, $email = '') {
 		WHERE username = "'.$username.'"';
 	$result = myqu($sql);
 	if ($user=$result[0]) {
-		if ($hasEmail) {
-			sendEmail($email, 'The Supercars Team', 'Welcome to the Supercars App!', 'Dear '.$username.'
+		sendEmail($email, 'The Supercars Team', 'Welcome to the Supercars App!', 'Dear '.$username.'
 
 Welcome to Supercars! For your records, here are your login details:
 Username: '.$username.'
 Password: '.$password.'
 
 We hope you enjoy the app, and share it with your friends!');
-		}
 		
 		return array(
             'result'    =>  true
