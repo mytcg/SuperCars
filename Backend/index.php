@@ -94,6 +94,9 @@ switch($request) {
 	case $REQUEST_SCRAPCARD:
 		$result = scrapUserCards($_GET['card_id'], $user_id);
 		break;
+	case $REQUEST_CRAFTCARD:
+		$result = craftCard($_GET['card_id'], $user_id);
+		break;
 	case $REQUEST_PRODUCTS:
 		$result = getProducts();
 		break;

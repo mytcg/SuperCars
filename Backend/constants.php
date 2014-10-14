@@ -9,6 +9,7 @@ $REQUEST_CATEGORIES = "categories";
 $REQUEST_ALBUMCARDS = "albumcards";
 $REQUEST_CARD = "card";
 $REQUEST_SCRAPCARD = "scrapcard";
+$REQUEST_CRAFTCARD = "craftcard";
 $REQUEST_PRODUCTS = "products";
 $REQUEST_PURCHASEPRODUCT = "purchaseproduct";
 $REQUEST_GETDECKS = "getdecks";

@@ -373,6 +373,61 @@ function getUser($user_id) {
         return $user;
 }
 
+function craftCard($card_id, $user_id) {
+	global $CARDSTATUS_ALBUM;
+	
+	$sqlResult = myqu('select c.parts_cost, u.parts
+		from cards c, users u
+		where c.card_id = '.$card_id.'
+		and u.user_id = '.$user_id);
+		
+	$cost;
+	$parts;
+	
+	// Check that the card and the user exist
+	if ($result = $sqlResult[0]) {
+		$cost = $result['parts_cost'];
+		$parts = $result['parts'];
+	}
+	else {
+		return array(
+				'result'    =>  false
+				,'content'  =>  'Invalid card.'
+			);
+	}
+	
+	// Check that the user has enough parts to make the card
+	if ($parts >= $cost) {
+		// subtract the parts from the user
+		myqu('update users u set u.parts = u.parts - '.$cost.' where u.user_id = '.$user_id);
+		
+		// Give the user their new card
+		myqu('INSERT INTO user_cards(user_id,
+				   card_id,
+				   user_card_status,
+				   date_created)
+			   SELECT '.$user_id.',
+					  '.$card_id.',
+					  card_status_id,
+					  now()
+				 FROM card_statuses
+				WHERE description = "'.$CARDSTATUS_ALBUM.'"');
+		
+		// Return outcome
+		return array(
+				'result'    	=>  true
+				,'content'   	=>  'Card crafted.'
+				,'new_parts'	=>  ($parts - $cost)
+			);
+	}
+	else {
+		return array(
+				'result'    =>  false
+				,'content'  =>  'You do not have enough parts! Scrap some more cards.'
+			);
+	}
+}
+
 function scrapUserCards($card_id, $user_id) {
 	global $CARDSTATUS_ALBUM;
 	global $CARDSTATUS_SCRAP;
