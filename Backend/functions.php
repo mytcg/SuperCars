@@ -344,7 +344,7 @@ function getUser($user_id) {
 	}
 
 	// Check that the user exists
-	$sql = 'SELECT u.user_id, u.username, u.credits, u.parts, u.ranking, 
+	$sql = 'SELECT u.user_id, u.username, u.credits, u.parts, u.ranking, u.email,
 		count(distinct uc.card_id) cards_owned, count(distinct c.card_id) cards_total
 		FROM users u
 		left outer join user_cards uc
@@ -363,6 +363,7 @@ function getUser($user_id) {
             $user = array(
                 'user_id'       =>  $userData['user_id']
                 ,'username'     =>  $userData['username']
+				,'email'     	=>  $userData['email']
                 ,'credits'      =>  $userData['credits']
                 ,'parts'        =>  $userData['parts']
 				,'points'       =>  $userData['ranking']
