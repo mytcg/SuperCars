@@ -11,6 +11,28 @@ body {font-family:"Roboto";background:#2a3137;color:#8f9295;}
 .row-fluid > img{margin: 0 4%;width: 90%;}
 img {width:100%;}
 
+body {
+
+    /* Default Background */
+    -webkit-backface-visibility: hidden;
+
+    /* Avoid users from Highlighting text */
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+
+    /* Allow Text Selection For Input */
+    -webkit-user-select: text;
+
+    /* Better Looking Text */
+    text-rendering: optimizeLegibility;
+
+    /* Removing Gray Highlight When Tapping Links */
+    -webkit-tap-highlight-color: transparent;
+
+    /* Overflow scrolling more smooth */
+    -webkit-overflow-scrolling: touch;
+}
+
 clear {clear:both; width:0; height:0; line-height:0; overflow:hidden;}
 
 input {box-shadow:none !important; color:#4c5156 !important; background:#8f9295 !important; border:0 !important; border-radius:0 !important; }
