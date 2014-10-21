@@ -4,26 +4,60 @@
 }
 
 body {font-family:"Roboto";background:#2a3137;color:#8f9295;}
-#body_template{margin-top:50px;margin-bottom: 100px;}
+#body_top{height:10%;}
+#body_bottom{height:10%;}
+#body_template{height:80%; margin:51px 0 51px;}
 .row{margin:0}
 .row-fluid > img{margin: 0 4%;width: 90%;}
 img {width:100%;}
+
+body {
+
+    /* Default Background */
+    -webkit-backface-visibility: hidden;
+
+    /* Avoid users from Highlighting text */
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+
+    /* Allow Text Selection For Input */
+    -webkit-user-select: text;
+
+    /* Better Looking Text */
+    text-rendering: optimizeLegibility;
+
+    /* Removing Gray Highlight When Tapping Links */
+    -webkit-tap-highlight-color: transparent;
+
+    /* Overflow scrolling more smooth */
+    -webkit-overflow-scrolling: touch;
+}
 
 clear {clear:both; width:0; height:0; line-height:0; overflow:hidden;}
 
 input {box-shadow:none !important; color:#4c5156 !important; background:#8f9295 !important; border:0 !important; border-radius:0 !important; }
 input:focus {background:#bcbec0 !important;}
 .input-group-addon {background:#3d4751; border:0; border-radius:0;}
-button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#fff; text-transform:uppercase; padding:10px 12px;}
+button.btn {text-shadow:none;font-size:1em;border:0; border-radius:0; width:100%; background:#363c42; color:#fff; text-transform:uppercase; padding:10px 12px;}
 .glyphicon {color:#bcbec0;}
 
 .front img {
-    margin: 0 5%;
+    margin: 5% 0 0% 18%;
     width: 90%;
 }
-
+.list-group{
+	border-radius:0px;
+}
+.list-group-item:first-child{
+	border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.list-group-item:last-child{
+	border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
 .back img {
-    margin: 0 5%;
+    margin: 5% 0 0 18%;
     width: 90%;
 }
 
@@ -31,6 +65,9 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .album-state {background:#1f262c; display:none;}
 .album-state div{color:#ccc; text-align:center; font-size:1.05em; border-bottom:1px solid #1f262c; padding:6px 0;}
 .album-state div.selected-album-view{color:#fff;}
+.padded .secondary-sml {
+    float: right;
+}
 
 /************* MODAL WINDOW	****************/
 #myModal .btn-group {
@@ -39,8 +76,9 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .model-message {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);
     border: 2px solid #0a0a0a;
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
+    padding:10px;
 }
 .modal-backdrop {background:#2a3137;}
 .modal-backdrop.in {opacity:0.8; MozOpacity:0.8; KhtmlOpacity:0.8; filter: alpha(opacity = 80);}
@@ -69,11 +107,11 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .vertical-align {display:flex; align-items:center;}
 
 .nav-back {font-size:1.5em; padding:12px 10px 0; display:inline-block;}
-.page-title {font-size:1.5em; color:#fff; display:inline-block; padding-bottom:2px; border-bottom-width:5px; border-bottom-style:solid; border-bottom-color:#000;}
+.page-title {font-size:1em; color:#fff; display:inline-block; padding-bottom:2px; border-bottom-width:5px; border-bottom-style:solid; border-bottom-color:#000;}
 
-.footer-options-holder {background:#1f262c; font-size:1.1em;margin:0}
-.footer-options-div {padding:15px; color:#1f262c; text-align:center;}
-.footer-options-div .inactive {color:#3a4046;}
+.footer-options-holder {background:#1f262c; font-size:1em;margin:0}
+.footer-options-div {padding:15px; color:#1f262c; text-align:center; cursor:pointer;}
+.footer-options-div .inactive {color:#3a4046; cursor:default;}
 
 .deck-edit-count {color:#f26b28;}
 #deck-card-add, #deck-card-edit {cursor:pointer;}
@@ -81,7 +119,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 
 .active-button {background:#f26b28; font-weight:bold; cursor:pointer; padding:15px; text-align:center; color:#fff;}
 .btn:hover, .btn:focus{ color: #fff;}
-.grid {color:#ccc; font-size:1.5em; border-bottom:1px solid #1a1f23; cursor:pointer;}
+.grid {color:#ccc; font-size:1em; border-bottom:1px solid #1a1f23; cursor:pointer;}
 .grid .padded {padding:3% 4%; line-height:130%;}
 .grid:hover {background:#1f262c; color:#fff;}
 .grid span{padding-right:2%;}
@@ -101,6 +139,17 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .grid:hover .username .secondary{color:#20e58b;}
 .grid .points{vertical-align:bottom; margin-top:2em; font-size:0.8em; font-weight:normal;}
 .grid .greenpoints{font-weight:bold; color:#20e58b;}
+
+.shade-10 {background:#4c4766;}
+.shade-30 {background:#5e537e;}
+.shade-50 {background:#6d5c93;}
+.shade-100 {background:#8069ad;}
+.credits-header {color:#ccc; padding:8% 0; font-size:1.2em; text-align:center;}
+.grid.credits {font-size:1.3em;}
+.grid.credits .padded {line-height:90%;}
+.credits .color{color:#fff; font-size:1.9em; text-align:center;}
+.credits:hover .padded span.secondary-sml{color:#8069ad;}
+
 
 .div-button {font-size:1.4em; color:#fff; font-weight:bold; padding:3% 2%; background:#363c42; cursor:pointer;}
 .div-button:hover {color:#fff; background:#f26b28;}
@@ -164,7 +213,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
 .credits-div {
 	background: none repeat scroll 0 0 #1f262c;
     color: #ccc;
-    font-size: 1.2em;
+    font-size: 1em;
     margin: 0;
     width: 100%;
 }
@@ -189,7 +238,7 @@ button.btn {border:0; border-radius:0; width:100%; background:#363c42; color:#ff
     margin-top: 9px;
     text-align: right;
 }
-.card-price {font-size:1.5em; color:#e9b31f; font-weight:bold;}
+.card-price {font-size:1em; color:#e9b31f; font-weight:bold;}
 
 button.highlighted {background:#f26b28;font-weight:bold}
 .logo-wrapper {margin:10% auto; width:70%;}
@@ -210,7 +259,29 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 /*.dashboard-user-dets span{font-size:2em;}*/
 .dashboard-user-creds {color:#fff; text-align:center; margin-top:5%;font-size:16px;}
 
+.listing_divider{
+	background: none repeat scroll 0 0 #0e0e0e;
+    border-bottom: 1px solid #3c3c3c;
+    border-top: 1px solid #2a3137;
+    height: 3px;
+    position: relative;
+    width: 100%;
+    z-index: 1
+}
+
+
 /*****  Navigation Section Starts *******/
+.menu_divider {
+   	background: none repeat scroll 0 0 #0a0a0a;
+    border-bottom: 1px solid #303030;
+    border-top: 1px solid #1f262c;
+    float: left;
+    height: 3px;
+    margin-left: 1px;
+    position: relative;
+    width: 100%;
+    z-index: 1
+}
 .navbar-header {
     background: none repeat scroll 0 0 #1f262c;
 }
@@ -223,10 +294,10 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 	margin:0;
 	float:none;	
 }
-.navbar-brand { padding: 0; margin-right: 10%; }
+.navbar-brand { padding: 0; margin-right: 10%; height: 49px; }
 
 .navbar-brand img{
-	width:110px;
+	width:106px;
 	margin:0;
 	padding:0;
 }
@@ -237,7 +308,7 @@ input.knob {color:#797d80 !important; margin-top:6% !important;height: 20% !impo
 	background:none;
 }
 .navbar-inverse .navbar-toggle .icon-bar {background-color: #8f9295;height: 3px;width: 25px;}
-.navbar-default{background:none;box-shadow:none;border-color:#000;z-index:1}
+.navbar-default{background:none;box-shadow:none;border-color:#2a3137;z-index:1}
 
 
 /****** new nav styling ************/
@@ -301,11 +372,12 @@ nav {
   height: 100%;
   overflow: auto;
   position: fixed;
-  right: -80%;
+  right: -100%;
   font-size: 15px;
   top: 0;
-  width: 80%;
+  width: 100%;
   z-index: 2000;
+  margin-top: 51px;
   
   transition: right 0.3s ease-in-out 0s;
   -webkit-transition: right 0.3s ease-in-out 0s;
@@ -333,7 +405,6 @@ body.nav-expanded {
 }
 
 .main-menu li {
-    border-bottom: 1px solid #0f0f0f;
     font-size: 1em;
     margin-left: 5px;
     padding: 6px
@@ -436,7 +507,8 @@ body.nav-expanded {
 }
 */
 /************************** rules section *************************/
-#rules-container {
+#rules-holder{padding:10px 0;}
+#rules-holder, #rules-container {
     text-align: justify;
     color:#8f9295;
     margin:0 10px;

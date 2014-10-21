@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Supercars | Application</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reset.css" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" href="css/bootstrap-glyphicons.css" />
+        <link rel="stylesheet" href="css/jquery-ui.css" media="screen" type="text/css" />
+        <link rel="stylesheet" href="css/normalize.css" media="screen" type="text/css" />
+        <link rel="stylesheet" href="css/media.css" media="screen" type="text/css" />
+        <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+
+        <script src="js/jquery-latest.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.navgoco.js"></script>
+        <script src="js/functions.js"></script>
+</head>
+<body style="background:#2a3137;">
+    <section id="body_top">
+	<header>
+	    <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="nav-back" onclick="history.go(-1)">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </div>
+            <div id="page-title" class="page-title" onclick="history.go(-1)">
+            </div>
+	        <div class="navbar-header">
+	          <a id="nav-expander" class="nav-expander fixed">
+	            <img id="menu_nav_btn" src="elements/icon_menu.jpg" />
+	          </a>
+	        </div>
+	    </div>
+	</header>
+	<nav id="nav">
+	</nav>
+    </section>
+    <section id="body_template">
+        <div class="row credits-header" id="10">
+            <div class="col-xs-8 col-xs-offset-2">
+                How much credits would you like to buy?
+            </div>
+        </div>
+        <div class="listing_divider"></div>
+        <div class="row grid credits vertical-align" id="10" onclick="$('#modal-content').html($('#credits-buy').html());$('#myModal').modal();">
+            <div class="col-xs-3 vcenter color shade-10">
+                10
+            </div>
+            <div class="col-xs-8 col-xs-offset-1 padded vcenter">
+                10 Credits<br />
+                <span class="secondary-sml">
+                    R10.00
+                </span>
+            </div>
+        </div>
+        <div class="row grid credits vertical-align" id="30" onclick="$('#modal-content').html($('#credits-buy').html());$('#myModal').modal();">
+            <div class="col-xs-3 vcenter color shade-30">
+                30
+            </div>
+            <div class="col-xs-8 col-xs-offset-1 padded vcenter">
+                30 Credits<br />
+                <span class="secondary-sml">
+                    R30.00
+                </span>
+            </div>
+        </div>
+        <div class="row grid credits vertical-align" id="50" onclick="$('#modal-content').html($('#credits-buy').html());$('#myModal').modal();">
+            <div class="col-xs-3 vcenter color shade-50">
+                50
+            </div>
+            <div class="col-xs-8 col-xs-offset-1 padded vcenter">
+                50 Credits<br />
+                <span class="secondary-sml">
+                    R50.00
+                </span>
+            </div>
+        </div>
+        <div class="row grid credits vertical-align" id="10" onclick="$('#modal-content').html($('#credits-buy').html());$('#myModal').modal();">
+            <div class="col-xs-3 vcenter color shade-100">
+                100
+            </div>
+            <div class="col-xs-8 col-xs-offset-1 padded vcenter">
+                100 Credits<br />
+                <span class="secondary-sml">
+                    R100.00
+                </span>
+            </div>
+        </div>
+    </section>
+    <section id="body_bottom">
+        <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
+        </footer>
+    </section>
+    <div id="credits-buy" class="modal-popup-content-holder">
+        <div class="modal-popup-content row-fluid">
+            <div class="col-xs-8 col-xs-offset-2" style="text-align:center;">
+                <div class="hightlight font-purple">
+                    Premium SMS
+                </div>
+                <div class="">
+                    SMS to 'Supercars' followed by your <span class="font-purple">username</span> and the <span class="font-purple">amount</span> to '36262'
+                </div>
+            </div>
+        </div>
+        <br /><br />
+        <div class="row" style="margin-top:10%;">
+            <div class="btn-group col-xs-6" style="">
+                <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">CANCEL</button><br /><br />
+            </div>
+            <div class="btn-group col-xs-6" style="">
+                <button type="button" class="btn btn-default active-button" onclick="$('#myModal').modal('hide');">OK</button><br /><br />
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="modal-content">
+                ...
+            </div>
+        </div>
+    </div>
+</body>

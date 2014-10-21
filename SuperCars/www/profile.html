@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Supercars | Application</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reset.css" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" href="css/bootstrap-glyphicons.css" />
+        <link rel="stylesheet" href="css/jquery-ui.css" media="screen" type="text/css" />
+        <link rel="stylesheet" href="css/normalize.css" media="screen" type="text/css" />
+        <link rel="stylesheet" href="css/media.css" media="screen" type="text/css" />
+        <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+
+        <script src="js/jquery-latest.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.navgoco.js"></script>
+        <script src="js/functions.js"></script>
+        <script>
+            jQuery(document).ready(function() {
+                $('#user_id').val(user_name);
+                $('#points').html(points);
+                $('#credit').html(credit);
+                $('#parts').html(parts);
+                $('#games').html();
+            });
+        </script>
+</head>
+<body style="background:#2a3137;">
+    <section id="body_top">
+	<header>
+	    <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="nav-back" onclick="history.go(-1)">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </div>
+            <div id="page-title" class="page-title" onclick="history.go(-1)">
+            </div>
+	        <div class="navbar-header">
+	          <a id="nav-expander" class="nav-expander fixed">
+	            <img id="menu_nav_btn" src="elements/icon_menu.jpg" />
+	          </a>
+	        </div>
+	    </div>
+	</header>
+	<nav id="nav">
+	</nav>
+    </section>
+    <section id="body_template">
+        <div class="container-fluid">
+            <div class="row-fluid">
+				<div>
+                                    USERNAME
+                                    <input id="user_id" value="***" />
+                                </div>
+                                <div>
+                                    Points:
+                                    <div id="points">***</div>
+                                </div>
+                                <div>
+                                    Credits:
+                                    <div id="credits">***</div>
+                                </div>
+                                <div>
+                                    Scrap Parts:
+                                    <div id="parts">***</div>
+                                </div>
+                                <div>
+                                    Games Won:
+                                    <div id="games">0</div>
+                                </div>
+            </div>
+        </div>
+    </section>
+    <section id="body_bottom">
+        <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
+        </footer>
+    </section>
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="modal-content">
+                ...
+            </div>
+        </div>
+    </div>
+</body>

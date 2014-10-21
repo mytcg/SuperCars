@@ -9,4 +9,9 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <preference name="Fullscreen" value="true" />
+    <preference name="WebViewBounce" value="true" />
+    <preference name="Orientation" value="landscape" />
+    <preference name="DisallowOverscroll" value="true"/>
+    <preference name="BackgroundColor" value="0xff2a3137"/>
 </widget>

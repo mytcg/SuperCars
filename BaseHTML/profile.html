@@ -19,6 +19,15 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.navgoco.js"></script>
         <script src="js/functions.js"></script>
+        <script>
+            jQuery(document).ready(function() {
+                $('#user_id').val(user_name);
+                $('#points').html(points);
+                $('#credit').html(credit);
+                $('#parts').html(parts);
+                $('#games').html();
+            });
+        </script>
 </head>
 <body style="background:#2a3137;">
     <section id="body_top">
@@ -42,7 +51,26 @@
     <section id="body_template">
         <div class="container-fluid">
             <div class="row-fluid">
-				<p>coming soon...</p>
+				<div>
+                                    USERNAME
+                                    <input id="user_id" value="***" />
+                                </div>
+                                <div>
+                                    Points:
+                                    <div id="points">***</div>
+                                </div>
+                                <div>
+                                    Credits:
+                                    <div id="credits">***</div>
+                                </div>
+                                <div>
+                                    Scrap Parts:
+                                    <div id="parts">***</div>
+                                </div>
+                                <div>
+                                    Games Won:
+                                    <div id="games">0</div>
+                                </div>
             </div>
         </div>
     </section>

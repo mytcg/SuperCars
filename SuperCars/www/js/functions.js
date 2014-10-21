@@ -2,16 +2,32 @@ var username = window.localStorage.getItem("username");
 var password = window.localStorage.getItem("password");
 var email = window.localStorage.getItem("email_add");
 var user_id = window.localStorage.getItem("user_id");
+var user_name = window.localStorage.getItem("user_name");
 var credit = window.localStorage.getItem("credit");
+var parts = window.localStorage.getItem("parts");
+var points = window.localStorage.getItem("points");
+var cards_owned = window.localStorage.getItem("cards_owned");
+var cards_total = window.localStorage.getItem("cards_total");
 var urlParams = queryParameters();
 var deckCardCount = 0;
 var cardsToDeck = [];
+
+var menuButton = "icon_menu.jpg";
 
 var appendToken = '&user_id='+user_id+'&PHP_AUTH_PW='+password+'&PHP_AUTH_USER='+username;
 
 
       
 jQuery(document).ready(function() {
+
+//    $("body").queryLoader2({
+//        barColor: "#6e6d73",
+//        backgroundColor: "#000",
+//        percentage: true,
+//        barHeight: 5,
+//        completeAnimation: "grow",
+//        minimumTime: 10000
+//    });
 
     $('#username').val(username);
     $('#password').val(password);
@@ -22,13 +38,13 @@ jQuery(document).ready(function() {
 
     if (urlParams.ingame!='true') {
         navHtml();
-    }
-    
+    }    
    
    //Navigation Menu Slider
     $('#nav-expander').on('click',function(e){
   		e.preventDefault();
   		$('body').toggleClass('nav-expanded');
+  		changeImage();
   	});
   	$('#nav-close').on('click',function(e){
   		e.preventDefault();
@@ -52,9 +68,43 @@ jQuery(document).ready(function() {
             easing: 'swing'
             }
         });
-        	
+
+    // jQuery no-double-tap-zoom plugin
+    // Triple-licensed: Public Domain, MIT and WTFPL license - share and enjoy!
+
+    (function($) {
+      var IS_IOS = /iphone|ipad/i.test(navigator.userAgent);
+      $.fn.nodoubletapzoom = function() {
+        if (IS_IOS)
+          $(this).bind('touchstart', function preventZoom(e) {
+            var t2 = e.timeStamp
+              , t1 = $(this).data('lastTouch') || t2
+              , dt = t2 - t1
+              , fingers = e.originalEvent.touches.length;
+            $(this).data('lastTouch', t2);
+            if (!dt || dt > 500 || fingers > 1) return; // not double-tap
+
+            e.preventDefault(); // double tap - prevent the zoom
+            // also synthesize click events we just swallowed up
+            $(this).trigger('click').trigger('click');
+          });
+      };
+    })(jQuery);
 
 });
+
+
+
+function changeImage() {
+  if ( menuButton == "icon_menu.jpg" ) {
+  	$("#menu_nav_btn").attr("src", "elements/icon_menu_sel.jpg");
+    menuButton  = "icon_menu_sel.jpg";
+  }
+  else {
+    $("#menu_nav_btn").attr("src", "elements/icon_menu.jpg");
+    menuButton  = "icon_menu.jpg";
+  }
+}
 
 function genericAjax(script, resultDiv, formID, js, waitForResult){
 
@@ -161,14 +211,19 @@ function getuserDets (userid) {
             $('#user-scrap').html(res['parts']);
             $('#user-points').html(res['points']);
             $(".knob").knob({
-            	// min:0,
-    			// max:res['cards_total'],
+            	'min':0,
+                'max':res['cards_total'],
                 format : function (value) {
                     return res['cards_owned'] + '/'+res['cards_total'];
                 }
             }).val(res['cards_owned']);
 
             window.localStorage.setItem("credit", res['credits']);
+            window.localStorage.setItem("user_name", res['username']);
+            window.localStorage.setItem("parts", res['parts']);
+            window.localStorage.setItem("points", res['points']);
+            window.localStorage.setItem("cards_owned", res['cards_owned']);
+            window.localStorage.setItem("cards_total", res['cards_total']);
 
         }
 
@@ -212,8 +267,8 @@ function getCardCategories (cat, deck_id) {
                                                     '&deck_id='+deck_id+
                                                     '&header='+categories[i]['description']+'&header_color='+urlParams.header_color+'&section='+url+'\'">'+
                             '<div class="padded">'+
-                            categories[i]['description']+'<br />'+
-                            ( (categories[i]['cards_owned'])?'<span class="secondary-sml">'+categories[i]['cards_owned']+'/'+categories[i]['cards_in_category']+' cards</span>':'')+
+                            categories[i]['description']+
+                            ( (categories[i]['cards_owned'])?'<span class="secondary-sml">'+categories[i]['cards_owned']+'/'+categories[i]['cards_in_category']+'</span>':'')+
                             '</div>'+
                         '</div>'
                     );
@@ -268,11 +323,11 @@ function getCards (cat, deck_id) {
                                 '<img src="img/cards/'+cards[i]['card_id']+'-thumb.jpg" />'+
                             '</div>'+
                             '<div class="col-xs-8 padded vcenter">'+
-                                cards[i]['name']+'<br />'+
+                                cards[i]['name']+
                                 (
                                     (cards[i]['scrap_value']) ?
                                         '<span class="secondary-sml">'+
-                                            cards[i]['scrap_value']+' credits'+
+                                            cards[i]['scrap_value']+
                                             ((copies!='')?copies:'')+
                                         '</span>'
                                         :''
@@ -380,17 +435,35 @@ function scrapCard (card_id) {
     });
 }
 
+function craftCard (card_id) {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=craftcard&card_id='+card_id+appendToken,
+        data : '',
+        dataType: "json",
+        success: function(res) {
+
+            alert(res['content']);
+        }
+    });
+}
+
 function footerCardOptions() {
     $('#footer').html(
         '<div onclick="" class="row footer-options-holder">'+
-                '<div class="col-xs-4 footer-options-div divider-right" id="card-wrench">'+
-                    '<span class="glyphicon glyphicon-wrench" onclick="$(\'#scrap-menu\').toggle();$(\'#card-wrench\').toggleClass(\'active\');"></span>'+
+                '<div class="col-xs-3 footer-options-div divider-right" id="card-wrench" onclick="$(\'#scrap-menu\').toggle();$(\'#card-wrench\').toggleClass(\'active\');">'+
+                    '<span class="glyphicon glyphicon-wrench"></span>'+
                 '</div>'+
-                '<div class="col-xs-4 footer-options-div divider-ceter" id="card-flip">'+
-                    '<span id="card-flip" onclick="$(\'.quickflip-wrapper\').quickFlipper();">TAP CARD TO FLIP</span>'+
+                '<div class="col-xs-3 footer-options-div divider-ceter" id="card-flip" onclick="$(\'.quickflip-wrapper\').quickFlipper();">'+
+                    '<span id="card-flip">TAP CARD TO FLIP</span>'+
                 '</div>'+
-                '<div class="col-xs-4 footer-options-div divider-left" id="card-flip">'+
-                    '<i class="fa fa-share-alt-square" onclick="alert(\'Feature coming soon!\');">'+
+                '<div class="col-xs-3 footer-options-div divider-ceter" id="craft-flip" onclick="craftCard('+urlParams.card_id+');">'+
+                    '<span id="card-flip">CRAFT CARD</span>'+
+                '</div>'+
+                '<div class="col-xs-3 footer-options-div divider-left" id="card-flip" onclick="alert(\'Feature coming soon!\');">'+
+                    '<i class="fa fa-share-alt-square">'+
                 '</div>'+
         '</div>'
     );
@@ -491,7 +564,7 @@ function getdecks (user_id) {
             }
 
             $('#body_template').append(
-                '<div class="row grid deck" onclick="window.location=\'create.html?section=decks&header=New Deck\'">'+
+                '<div class="row grid deck" onclick="window.location=\'create.html?section=decks&header=New Deck&header_color=blue\'">'+
                     '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
                         '<span class="glyphicon glyphicon-plus" style="text-align:center; color:#2c95f4;"></span>'+
                     '</div>'+
@@ -537,11 +610,11 @@ function getdecks (user_id) {
 function footerDeckEdits() {
     $('#footer').html(
         '<div class="row footer-options-holder">'+
-                '<div class="col-xs-4 footer-options-div divider-right">'+
-                    '<span class="glyphicon glyphicon-trash" id="deck-card-trash" onclick="editDeck(\'trash\');"></span>'+
+                '<div class="col-xs-4 footer-options-div divider-right" onclick="editDeck(\'trash\');">'+
+                    '<span class="glyphicon glyphicon-trash" id="deck-card-trash"></span>'+
                 '</div>'+
-                '<div class="col-xs-4 footer-options-div divider-both">'+
-                    '<span class="glyphicon glyphicon-edit" id="deck-card-edit" onclick="editDeck(\'edit\');"></span>'+
+                '<div class="col-xs-4 footer-options-div divider-both" onclick="editDeck(\'edit\');">'+
+                    '<span class="glyphicon glyphicon-edit" id="deck-card-edit"></span>'+
                 '</div>'+
                 '<div class="col-xs-4 active-button divider-left" id="cancel-button" style="display:none;" onclick="uneditDeck();">'+
                     'CANCEL'+
@@ -566,7 +639,7 @@ function editDeck (action) {
                 onclick = "$('#delete-confirmation #delete-confirmation-confirm').attr('onclick', 'deleteDeck(\\\'"+$(this).attr('id')+"\\\');');"+
                             "$('#modal-content').html($('#delete-confirmation').html());$('#myModal').modal();";
             } else {
-                onclick = "window.location=\'create.html?deck_id="+$(this).attr('id')+"&deck_name="+$('#deck-name-'+$(this).attr('id')).html()+"&deck_id="+$(this).attr('id')+'&header=Deck&header_color=blue'+"\'";
+                onclick = "window.location=\'create.html?deck_id="+$(this).attr('id')+"&deck_name="+$('#deck-name-'+$(this).attr('id')).html()+"&deck_id="+$(this).attr('id')+"&header="+$('#deck-name-'+$(this).attr('id')).html()+"&header_color=blue"+"\'";
             }
             $(this).attr('onclick', onclick);
         }
@@ -659,6 +732,22 @@ function buyproduct (product_id) {
                 if (result['result']) {
                     $('#modal-content').html($('#purchase-confirmation').html());
                     $('#myModal').modal();
+
+                    var ajax = jQuery.ajax({
+                        type: "POST",
+                        crossDomain: true,
+                        url: 'http://topcarcards.co.za/?request=user'+appendToken,
+                        data : '',
+                        dataType: "json",
+                        success: function(res) {
+
+                            $('#user-credits').html(res['credits']);
+                            window.localStorage.setItem("credit", res['credits']);
+
+                        }
+
+                    });
+
                 } else {
                     alert(result['content']);
                 }
@@ -721,7 +810,7 @@ function getdeckCards (deck_id) {
                 $('#deck-card-count').html(cards.length);
                 if (cards.length==10) {
                     $('#deck-card-add').addClass('inactive');
-                    $('#deck-card-add').attr('onclick','');
+                    $('#deck-card-add').parent().attr('onclick','');
                 }
             }
         }
@@ -780,11 +869,11 @@ function footerDeckCardEdits() {
                 '<div class="col-xs-3 footer-options-div deck-edit-count divider-right">'+
                     '<span id="deck-card-count">'+deckCardCount+'</span>/10'+
                 '</div>'+
-                '<div class="col-xs-3 footer-options-div divider-both">'+
-                    '<span class="glyphicon glyphicon-plus" id="deck-card-add" onclick="window.location=\'grid-template.html?section=addToDeck&deck_id='+urlParams.deck_id+'&cat_id=1&header=Supercars\'"></span>'+
+                '<div class="col-xs-3 footer-options-div divider-both" onclick="window.location=\'grid-template.html?section=addToDeck&deck_id='+urlParams.deck_id+'&cat_id=1&header=Supercars&header_color=blue\'">'+
+                    '<span class="glyphicon glyphicon-plus" id="deck-card-add"></span>'+
                 '</div>'+
-                '<div class="col-xs-3 footer-options-div divider-both">'+
-                    '<span class="glyphicon glyphicon-edit" id="deck-card-edit" onclick="editDecksCards();"></span>'+
+                '<div class="col-xs-3 footer-options-div divider-both" onclick="editDecksCards();">'+
+                    '<span class="glyphicon glyphicon-edit" id="deck-card-edit"></span>'+
                 '</div>'+
                 '<div class="col-xs-3 active-button divider-left" id="cancel-button" style="display:none;" onclick="uneditDecksCards();">'+
                     'CANCEL'+
@@ -899,7 +988,7 @@ function getleaderboard () {
 
 /**************************************** Start game functions ***************************************************************/
 
-function init_game () {
+function init_game (computer) {
 
     $( "#user-points #progressbar1" ).progressbar({value: 100}).append('<div class="game-progress-filler">&nbsp;</div>');
     $( "#user-points #progressbar2" ).progressbar({value: 0}).append('<div class="game-progress-filler">&nbsp;</div>');
@@ -908,16 +997,18 @@ function init_game () {
     $( "#game-score-user" ).html('10');
     $( "#game-score-opponent" ).html('10');
 
-    start_game();
+    start_game(computer);
 
 }
 
-function start_game () {
+function start_game (computer) {
+
+    var comp = (computer=='true') ? 'true' : 'false';
 
     var ajax = jQuery.ajax({
         type: "POST",
         crossDomain: true,
-        url: 'http://topcarcards.co.za/?request=newgame&deck_id='+urlParams.deck_id+appendToken,
+        url: 'http://topcarcards.co.za/?request=newgame&deck_id='+urlParams.deck_id+'&computer='+comp+appendToken,
         data : '',
         dataType: "json",
         success: function(gameData) {
@@ -1119,6 +1210,28 @@ function gameMoveAction (gameData) {
 
 /****************************************** END Game Function ***************************************************************/
 
+/****************************************** Credits section ***************************************************************/
+
+function showCreditOptions () {
+
+    $('#body_template').append(
+        '<div class="row grid cards" id="" onclick="$(\'#modal-content\').html($(\'#coming-soon\').html());$(\'#myModal\').modal();">'+
+        //'<div class="row grid cards" id="" onclick="window.location=\'credits-PayU.html?header=Premium SMS&header_color=purple\'">'+
+            '<div class="col-xs-10 col-xs-offset-1 padded">'+
+                'PayU'+
+            '</div>'+
+        '</div>'+
+        '<div class="row grid cards" id="" onclick="window.location=\'credits-Premium-SMS.html?header=Premium SMS&header_color=purple\'">'+
+            '<div class="col-xs-10 col-xs-offset-1 padded">'+
+                'Premium SMS'+
+            '</div>'+
+        '</div>'
+    );
+
+}
+
+/****************************************** END Credits section ***************************************************************/
+
 function checkTrashButton () {
 
     if ($('.selectedCard').attr('id')) { // Make clickable
@@ -1147,11 +1260,11 @@ function footerCardEdits() {
 
 function footerMoreCredits() {
     $('#footer').html(
-        '<div onclick="getMoreCredits()" class="row credits-div">'+
+        '<div class="row credits-div">'+
                 '<div class="col-xs-8 credit-stat">'+
                     'You have <span id="user-credits">'+credit+'</span> credits'+
                 '</div>'+
-                '<div class="col-xs-4 credit-more active-button">'+
+                '<div class="col-xs-4 credit-more active-button" onclick="window.location=\'credits.html?header=Credits&header_color=purple\'">'+
                     'GET MORE'+
                 '</div>'+
         '</div>'
@@ -1162,15 +1275,23 @@ function footerMoreCredits() {
 function navHtml() {
     $('#nav').html(
         '<ul class="list-group main-menu">'+
-            '<li class="text-right"><a href="#" id="nav-close"><img src="elements/supercars_logo.jpg" /></a></li>'+
+            '<!--li class="text-right"><a href="#" id="nav-close"><img src="elements/supercars_logo.jpg" /></a></li-->'+
             '<li class="list-group-item orange-border-right"><a href="dashboard.html?header=Dashboard&header_color=none"><img src="elements/icon_dash.jpg" class="icon-dash" /><p class="nav-menu-text">DASHBOARD</p></a></li>'+
+            '<div class="menu_divider"></div>'+
             '<li class="list-group-item red-border-right"><a href="grid-template.html?header=Album&header_color=red"><img src="elements/icon_album.jpg" class="icon-album" /><p class="nav-menu-text">ALBUM</p></a></li>'+
+            '<div class="menu_divider"></div>'+
             '<li class="list-group-item yellow-border-right"><a href="grid-template.html?section=shop&header=Shop&header_color=yellow"><img src="elements/icon_shop.jpg" class="icon-shop" /><p class="nav-menu-text">SHOP</p></a></li>'+
+            '<div class="menu_divider"></div>'+
             '<li class="list-group-item blue-border-right"><a href="grid-template.html?section=decks&header=Deck&header_color=blue"><img src="elements/icon_game.jpg" class="icon-deck" /><p class="nav-menu-text">DECKS</p></a></li>'+
+            '<div class="menu_divider"></div>'+
             '<li class="list-group-item green-border-right"><a href="grid-template.html?section=chooseGame&header=Challenge&header_color=blue"><img src="elements/icon_game.jpg" class="icon-game" /><p class="nav-menu-text">GAME</p></a></li>'+
+            '<div class="menu_divider"></div>'+
             '<li class="list-group-item green-border-right"><a href="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"><img src="elements/icon_leader.jpg" class="icon-leader" /><p class="nav-menu-text">LEADERBOARD</p></a></li>'+
-            '<li class="list-group-item purple-border-right"><a href="credits.html"><img src="elements/icon_credits.jpg" class="icon-credits" /><p class="nav-menu-text">CREDITS</p></a></li>'+
-            '<li class="list-group-item lime-border-right"><a href="profile.html"><img src="elements/icon_profile.jpg" class="icon-profile" /><p class="nav-menu-text">PROFILE</p></a></li>'+
+            '<div class="menu_divider"></div>'+
+            '<li class="list-group-item purple-border-right"><a href="grid-template.html?section=credits&header=Credits&header_color=purple"><img src="elements/icon_credits.jpg" class="icon-credits" /><p class="nav-menu-text">CREDITS</p></a></li>'+
+            '<div class="menu_divider"></div>'+
+            '<li class="list-group-item lime-border-right"><a href="profile.html?header=Profile&header_color=lime"><img src="elements/icon_profile.jpg" class="icon-profile" /><p class="nav-menu-text">PROFILE</p></a></li>'+
+        	'<div class="menu_divider"></div>'+
         '</ul>'
     );
     $('#nav').show();

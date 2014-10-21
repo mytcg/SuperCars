@@ -3,8 +3,9 @@
 <head>
 	<title>Supercars | Application</title>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
+        <link rel="stylesheet" href="css/reset.css" />
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
         <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
         <link rel="stylesheet" href="css/bootstrap-glyphicons.css" />
@@ -31,19 +32,21 @@
                     ,openSpeed : 150
                     ,refresh:true
                     ,noResize :true
-//                    ,panelWidth:'400px'
-//                    ,panelHeight:'600px'
+                   ,panelWidth:'80%'
+                   ,panelMargin:'margin: 5% 9% 10%'
+                   // ,panelHeight:'600px'
                 });
             });
         </script>
 </head>
 <body style="background:#2a3137;">
+    <section id="body_top">
 	<header>
 	    <div class="navbar navbar-inverse navbar-fixed-top">
-                <div class="nav-back">
-                    <span class="glyphicon glyphicon-chevron-left" onclick="history.go(-1)"></span>
+                <div class="nav-back" onclick="history.go(-1)">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
                 </div>
-                <div id="page-title" class="page-title">
+                <div id="page-title" class="page-title" onclick="history.go(-1)">
                 </div>
 	        <div class="navbar-header">
 	          <a id="nav-expander" class="nav-expander fixed">
@@ -54,7 +57,7 @@
 	</header>
 	<nav id="nav">
 	</nav>
-
+    </section>
     <section id="body_template">
 
         <div class="row-fluid">
@@ -80,7 +83,7 @@
         
         <div id="scrap-confirmation" class="modal-popup-content-holder">
             <div class="modal-popup-content row-fluid">
-                <div class="col-xs-8 col-xs-offset-2" style="text-align:center;">
+                <div class="col-xs-8 col-xs-offset-2 model-message" style="text-align:center;">
                     <div class="hightlight font-red">
                         SCRAPPING CARD
                     </div>
@@ -90,25 +93,28 @@
                         <span id="card-scrap-name2" class="font-red"></span><br />
                         <span id="card-scrap-parts" class="font-red"></span><span class="font-red"> Parts</span>
                     </div>
+                    <div class="row" style="margin-top:10%;">
+		                <div class="btn-group col-xs-6" style="">
+		                    <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">CANCEL</button><br /><br />
+		                </div>
+		                <div class="btn-group col-xs-6" style="">
+		                    <button type="button" class="btn btn-default active-button" onclick="scrapCard(urlParams.card_id);$('#myModal').modal('hide');">SCRAP</button><br /><br />
+		                </div>
+		            </div>
                 </div>
             </div>
-            <div class="row" style="margin-top:10%;">
-                <div class="btn-group col-xs-6" style="">
-                    <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">CANCEL</button><br /><br />
-                </div>
-                <div class="btn-group col-xs-6" style="">
-                    <button type="button" class="btn btn-default active-button" onclick="scrapCard(urlParams.card_id);$('#myModal').modal('hide');">SCRAP</button><br /><br />
+            
+        </div>
+    </section>
+    <section id="body_bottom">
+        <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
+        </footer>
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" id="modal-content">
+                    ...
                 </div>
             </div>
         </div>
     </section>
-    <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
-    </footer>
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content" id="modal-content">
-                ...
-            </div>
-        </div>
-    </div>
 </body>

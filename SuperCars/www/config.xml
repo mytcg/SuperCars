@@ -1,0 +1,16 @@
+<widget id="com.example.hello" version="0.0.1">
+        <name>SuperCars APP</name>
+        <description>
+            Supercars Top Trumph Game
+        </description>
+        <author email="dev@callback.apache.org" href="http://cordova.io">
+            Media24
+        </author>
+        <content src="index.html" />
+        <access origin="*" />
+        <preference name="Fullscreen" value="true" />
+        <preference name="WebViewBounce" value="true" />
+        <preference name="Orientation" value="landscape" />
+        <preference name="DisallowOverscroll" value="true"/>
+        <preference name="BackgroundColor" value="0xff2a3137"/>
+    </widget>
