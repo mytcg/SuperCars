@@ -507,7 +507,8 @@ body.nav-expanded {
 }
 */
 /************************** rules section *************************/
-#rules-container {
+#rules-holder{padding:10px 0;}
+#rules-holder, #rules-container {
     text-align: justify;
     color:#8f9295;
     margin:0 10px;

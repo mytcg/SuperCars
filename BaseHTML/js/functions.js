@@ -435,16 +435,34 @@ function scrapCard (card_id) {
     });
 }
 
+function craftCard (card_id) {
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=craftcard&card_id='+card_id+appendToken,
+        data : '',
+        dataType: "json",
+        success: function(res) {
+
+            alert(res['content']);
+        }
+    });
+}
+
 function footerCardOptions() {
     $('#footer').html(
         '<div onclick="" class="row footer-options-holder">'+
-                '<div class="col-xs-4 footer-options-div divider-right" id="card-wrench" onclick="$(\'#scrap-menu\').toggle();$(\'#card-wrench\').toggleClass(\'active\');">'+
+                '<div class="col-xs-3 footer-options-div divider-right" id="card-wrench" onclick="$(\'#scrap-menu\').toggle();$(\'#card-wrench\').toggleClass(\'active\');">'+
                     '<span class="glyphicon glyphicon-wrench"></span>'+
                 '</div>'+
-                '<div class="col-xs-4 footer-options-div divider-ceter" id="card-flip" onclick="$(\'.quickflip-wrapper\').quickFlipper();">'+
+                '<div class="col-xs-3 footer-options-div divider-ceter" id="card-flip" onclick="$(\'.quickflip-wrapper\').quickFlipper();">'+
                     '<span id="card-flip">TAP CARD TO FLIP</span>'+
                 '</div>'+
-                '<div class="col-xs-4 footer-options-div divider-left" id="card-flip" onclick="alert(\'Feature coming soon!\');">'+
+                '<div class="col-xs-3 footer-options-div divider-ceter" id="craft-flip" onclick="craftCard('+urlParams.card_id+');">'+
+                    '<span id="card-flip">CRAFT CARD</span>'+
+                '</div>'+
+                '<div class="col-xs-3 footer-options-div divider-left" id="card-flip" onclick="alert(\'Feature coming soon!\');">'+
                     '<i class="fa fa-share-alt-square">'+
                 '</div>'+
         '</div>'
@@ -621,7 +639,7 @@ function editDeck (action) {
                 onclick = "$('#delete-confirmation #delete-confirmation-confirm').attr('onclick', 'deleteDeck(\\\'"+$(this).attr('id')+"\\\');');"+
                             "$('#modal-content').html($('#delete-confirmation').html());$('#myModal').modal();";
             } else {
-                onclick = "window.location=\'create.html?deck_id="+$(this).attr('id')+"&deck_name="+$('#deck-name-'+$(this).attr('id')).html()+"&deck_id="+$(this).attr('id')+'&header=Deck&header_color=blue'+"\'";
+                onclick = "window.location=\'create.html?deck_id="+$(this).attr('id')+"&deck_name="+$('#deck-name-'+$(this).attr('id')).html()+"&deck_id="+$(this).attr('id')+"&header="+$('#deck-name-'+$(this).attr('id')).html()+"&header_color=blue"+"\'";
             }
             $(this).attr('onclick', onclick);
         }
