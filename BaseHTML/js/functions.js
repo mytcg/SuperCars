@@ -2,7 +2,12 @@ var username = window.localStorage.getItem("username");
 var password = window.localStorage.getItem("password");
 var email = window.localStorage.getItem("email_add");
 var user_id = window.localStorage.getItem("user_id");
+var user_name = window.localStorage.getItem("user_name");
 var credit = window.localStorage.getItem("credit");
+var parts = window.localStorage.getItem("parts");
+var points = window.localStorage.getItem("points");
+var cards_owned = window.localStorage.getItem("cards_owned");
+var cards_total = window.localStorage.getItem("cards_total");
 var urlParams = queryParameters();
 var deckCardCount = 0;
 var cardsToDeck = [];
@@ -214,6 +219,11 @@ function getuserDets (userid) {
             }).val(res['cards_owned']);
 
             window.localStorage.setItem("credit", res['credits']);
+            window.localStorage.setItem("user_name", res['username']);
+            window.localStorage.setItem("parts", res['parts']);
+            window.localStorage.setItem("points", res['points']);
+            window.localStorage.setItem("cards_owned", res['cards_owned']);
+            window.localStorage.setItem("cards_total", res['cards_total']);
 
         }
 
@@ -960,7 +970,7 @@ function getleaderboard () {
 
 /**************************************** Start game functions ***************************************************************/
 
-function init_game () {
+function init_game (computer) {
 
     $( "#user-points #progressbar1" ).progressbar({value: 100}).append('<div class="game-progress-filler">&nbsp;</div>');
     $( "#user-points #progressbar2" ).progressbar({value: 0}).append('<div class="game-progress-filler">&nbsp;</div>');
@@ -969,16 +979,18 @@ function init_game () {
     $( "#game-score-user" ).html('10');
     $( "#game-score-opponent" ).html('10');
 
-    start_game();
+    start_game(computer);
 
 }
 
-function start_game () {
+function start_game (computer) {
+
+    var comp = (computer=='true') ? 'true' : 'false';
 
     var ajax = jQuery.ajax({
         type: "POST",
         crossDomain: true,
-        url: 'http://topcarcards.co.za/?request=newgame&deck_id='+urlParams.deck_id+appendToken,
+        url: 'http://topcarcards.co.za/?request=newgame&deck_id='+urlParams.deck_id+'&computer='+comp+appendToken,
         data : '',
         dataType: "json",
         success: function(gameData) {
@@ -1180,6 +1192,28 @@ function gameMoveAction (gameData) {
 
 /****************************************** END Game Function ***************************************************************/
 
+/****************************************** Credits section ***************************************************************/
+
+function showCreditOptions () {
+
+    $('#body_template').append(
+        '<div class="row grid cards" id="" onclick="$(\'#modal-content\').html($(\'#coming-soon\').html());$(\'#myModal\').modal();">'+
+        //'<div class="row grid cards" id="" onclick="window.location=\'credits-PayU.html?header=Premium SMS&header_color=purple\'">'+
+            '<div class="col-xs-10 col-xs-offset-1 padded">'+
+                'PayU'+
+            '</div>'+
+        '</div>'+
+        '<div class="row grid cards" id="" onclick="window.location=\'credits-Premium-SMS.html?header=Premium SMS&header_color=purple\'">'+
+            '<div class="col-xs-10 col-xs-offset-1 padded">'+
+                'Premium SMS'+
+            '</div>'+
+        '</div>'
+    );
+
+}
+
+/****************************************** END Credits section ***************************************************************/
+
 function checkTrashButton () {
 
     if ($('.selectedCard').attr('id')) { // Make clickable
@@ -1236,7 +1270,7 @@ function navHtml() {
             '<div class="menu_divider"></div>'+
             '<li class="list-group-item green-border-right"><a href="grid-template.html?section=leaderboard&header=Leaderboard&header_color=green"><img src="elements/icon_leader.jpg" class="icon-leader" /><p class="nav-menu-text">LEADERBOARD</p></a></li>'+
             '<div class="menu_divider"></div>'+
-            '<li class="list-group-item purple-border-right"><a href="credits.html?header=Credits&header_color=purple"><img src="elements/icon_credits.jpg" class="icon-credits" /><p class="nav-menu-text">CREDITS</p></a></li>'+
+            '<li class="list-group-item purple-border-right"><a href="grid-template.html?section=credits&header=Credits&header_color=purple"><img src="elements/icon_credits.jpg" class="icon-credits" /><p class="nav-menu-text">CREDITS</p></a></li>'+
             '<div class="menu_divider"></div>'+
             '<li class="list-group-item lime-border-right"><a href="profile.html?header=Profile&header_color=lime"><img src="elements/icon_profile.jpg" class="icon-profile" /><p class="nav-menu-text">PROFILE</p></a></li>'+
         	'<div class="menu_divider"></div>'+

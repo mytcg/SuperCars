@@ -83,6 +83,13 @@
                     $('#footer').hide();
                 });
 
+            } else if (urlParams.section=='credits') {
+
+                jQuery(document).ready(function() {
+                    showCreditOptions();
+                    $('#footer').hide();
+                });
+
             } else { /* Default to categories page */
 
                 var cat = (urlParams.cat_id) ? urlParams.cat_id : '';
@@ -125,6 +132,18 @@
         <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
             <div class="modal-content" id="modal-content">
                 
+            </div>
+        </div>
+        <div id="coming-soon" class="modal-popup-content-holder">
+            <div class="modal-popup-content row-fluid">
+                <div class="col-xs-8 col-xs-offset-2 model-message">
+                    <div class="">
+                        This feature is coming soon..
+                    </div>
+                    <div class="btn-group" style="margin-top:10%;">
+                        <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">OK</button><br /><br />
+                    </div>
+                </div>
             </div>
         </div>
         <div id="delete-confirmation" class="modal-popup-content-holder">
