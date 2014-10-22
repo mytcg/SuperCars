@@ -14,7 +14,7 @@ function newGame($user_id, $deck_id, $computer = 'false') {
 			// If the deck doesnt have enough cards, return unhappy result.
 			return array(
 				'result'    =>  false
-				,'content'  =>  'Invalid deck.'
+				,'content'  =>  'Incomplete deck.'
 			);
 		}
 	}
@@ -49,7 +49,7 @@ function newGame($user_id, $deck_id, $computer = 'false') {
 	$joinedGame = false;
 	
 	// If the user is wanting to play against the AI, skip the check for an open game.
-	if ($computer == "false") {
+	if ($computer == "false" || $computer == null) {
 		// Check if this user already has an lfm game
 		$sql = 'select g.game_id
 			from games g
@@ -85,6 +85,7 @@ function newGame($user_id, $deck_id, $computer = 'false') {
 	
 	// If there isnt an open LFM game, create one
 	if (!$joinedGame) {
+		// Create a new LFM game for them
 		$sql = 'insert into games (game_status, creator_id)
 			select game_status_id , '.$user_id.'
 			from game_statuses 
