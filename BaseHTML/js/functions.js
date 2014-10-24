@@ -68,7 +68,7 @@ jQuery(document).ready(function() {
             easing: 'swing'
             }
         });
-
+    
     // jQuery no-double-tap-zoom plugin
     // Triple-licensed: Public Domain, MIT and WTFPL license - share and enjoy!
 
@@ -105,6 +105,17 @@ function changeImage() {
     menuButton  = "icon_menu.jpg";
   }
 }
+
+function progress_bar(){
+$('#circle').circleProgress({
+		value: 0.75,
+		size: 80,
+		fill: {
+			gradient: ["red", "orange"]
+		}
+	});
+}
+
 
 function genericAjax(script, resultDiv, formID, js, waitForResult){
 
@@ -210,6 +221,19 @@ function getuserDets (userid) {
             $('#user-creds').html(res['credits']);
             $('#user-scrap').html(res['parts']);
             $('#user-points').html(res['points']);
+            
+            // alert(res['cards_owned']);
+            
+            // $('#circle').circleProgress({
+			    // value: res['cards_owned'],
+			    // size: 160,
+			    // startAngle: -Math.PI / 2.0,
+			    // fill: { gradient: ['#0681c4', '#07c6c1'] }
+			// })
+			// .on('circle-animation-progress', function(event, progress, stepValue) {
+			    // $(this).find('strong').text(String(stepValue.toFixed()).substr(0)+"/"+res['cards_total']);
+			// });
+			
             $(".knob").knob({
             	'min':0,
                 'max':res['cards_total'],

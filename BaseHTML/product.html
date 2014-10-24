@@ -80,7 +80,7 @@
 
             <div id="purchase-confirmation" class="modal-popup-content-holder">
                 <div class="modal-popup-content row-fluid">
-                    <div class="col-xs-8 col-xs-offset-2">
+                    <div class="col-xs-8 col-xs-offset-2 model-message">
                         <div class="hightlight font-green">
                             SUCCESS!
                         </div>
@@ -88,9 +88,11 @@
                             You have successfully bought<br />
                             <span id="success-name">Booster Pack Name</span>
                         </div>
-                        <div class="btn-group" style="margin-top:10%;">
-                            <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">OK</button><br /><br />
-                        </div>
+                        <div class="row" style="margin-top:10%;">
+	                        <div class="btn-group col-xs-6">
+	                            <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">OK</button><br /><br />
+	                        </div>
+	                    </div>
                     </div>
                 </div>
             </div>
