@@ -106,13 +106,18 @@ function changeImage() {
   }
 }
 
-function progress_bar(){
-$('#circle').circleProgress({
-		value: 0.75,
-		size: 80,
-		fill: {
-			gradient: ["red", "orange"]
-		}
+function progress_bar(owned,total){
+	
+	var a = screen.width/2;
+	
+	$('#circle').circleProgress({
+	    value: owned,
+	    size: a,
+	    startAngle: -Math.PI / 2.0,
+	    fill: { gradient: ['#0681c4', '#07c6c1'] }
+	})
+	.on('circle-animation-progress', function(event, progress, stepValue) {
+	    $(this).find('strong').text(String(stepValue.toFixed()).substr(0)+"/"+total);
 	});
 }
 
@@ -224,23 +229,15 @@ function getuserDets (userid) {
             
             // alert(res['cards_owned']);
             
-            // $('#circle').circleProgress({
-			    // value: res['cards_owned'],
-			    // size: 160,
-			    // startAngle: -Math.PI / 2.0,
-			    // fill: { gradient: ['#0681c4', '#07c6c1'] }
-			// })
-			// .on('circle-animation-progress', function(event, progress, stepValue) {
-			    // $(this).find('strong').text(String(stepValue.toFixed()).substr(0)+"/"+res['cards_total']);
-			// });
+            progress_bar(res['cards_owned'],res['cards_total']);
 			
-            $(".knob").knob({
-            	'min':0,
-                'max':res['cards_total'],
-                format : function (value) {
-                    return res['cards_owned'] + '/'+res['cards_total'];
-                }
-            }).val(res['cards_owned']);
+            // $(".knob").knob({
+            	// 'min':0,
+                // 'max':res['cards_total'],
+                // format : function (value) {
+                    // return res['cards_owned'] + '/'+res['cards_total'];
+                // }
+            // }).val(res['cards_owned']);
 
             window.localStorage.setItem("credit", res['credits']);
             window.localStorage.setItem("user_name", res['username']);

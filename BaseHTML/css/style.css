@@ -262,7 +262,7 @@ button.highlighted {background:#f26b28;font-weight:bold}
     width: 100%;
 }
 canvas{
-	width:100%;
+	/*width:100%;*/
 }
 
 .dashboard-progress {text-align:center; padding:10% 0 0;}
