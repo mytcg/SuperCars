@@ -108,17 +108,23 @@ function changeImage() {
 
 function progress_bar(owned,total){
 	
-	var a = screen.width/2;
+	var width = Math.round(screen.width/2);
+	var margin_left = Math.round(screen.width/5);
+	var margin_top = Math.round(screen.width/16);
 	
 	$('#circle').circleProgress({
 	    value: owned,
-	    size: a,
+	    size: width,
 	    startAngle: -Math.PI / 2.0,
 	    fill: { gradient: ['#0681c4', '#07c6c1'] }
 	})
 	.on('circle-animation-progress', function(event, progress, stepValue) {
 	    $(this).find('strong').text(String(stepValue.toFixed()).substr(0)+"/"+total);
+	}).css({
+		"margin-left":margin_left,
+		"margin-top":margin_top
 	});
+	
 }
 
 

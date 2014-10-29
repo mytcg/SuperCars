@@ -254,11 +254,11 @@ button.highlighted {background:#f26b28;font-weight:bold}
 
 #circle strong {
     font-size: 1em;
-    left: -40%;
+    left: 0;
     line-height: 40px;
-    position: relative;
+    position: absolute;
     text-align: center;
-    top: -80%;
+    top: 25%;
     width: 100%;
 }
 canvas{
