@@ -479,7 +479,7 @@ function getChooseGame () {
     $('#body_template').append(
         '<div class="row grid deck" onclick="window.location=\'grid-template.html?section=challenge&header=Challenge&header_color=blue&computer=true\'">'+
             '<div class="col-xs-4 padded vcenter" style="text-align:center;">'+
-            	'<span class="glyphicons glyphicons-display" style="text-align:center; color:#2c95f4;"></span>'+
+            	'<span class="glyphicon glyphicon-hdd" style="text-align:center; color:#2c95f4;"></span>'+
                 // '<img src="elements/icon_game.jpg" />'+
             '</div>'+
             '<div class="col-xs-8 padded vcenter">'+
