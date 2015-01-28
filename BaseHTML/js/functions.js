@@ -233,9 +233,7 @@ function getuserDets (userid) {
             $('#user-creds').html(res['credits']);
             $('#user-scrap').html(res['parts']);
             $('#user-points').html(res['points']);
-            
             // alert(res['cards_owned']);
-            // alert(res['cards_total']);
             
             progress_bar(res['cards_owned'],res['cards_total']);
 			

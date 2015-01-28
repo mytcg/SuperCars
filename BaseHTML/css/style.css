@@ -2,7 +2,6 @@
     font-family: "Roboto";
     src: url("../fonts/content/Roboto-Regular_0.ttf") format("opentype");
 }
-
 body {font-family:"Roboto";background:#2a3137;color:#8f9295;}
 #body_top{height:10%;}
 #body_bottom{height:10%;}
