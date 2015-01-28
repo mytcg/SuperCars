@@ -21,9 +21,9 @@
         <script src="js/functions.js"></script>
         <script>
             jQuery(document).ready(function() {
-                $('#user_id').val(user_name);
+                $('#username').val(user_name);
                 $('#points').html(points);
-                $('#credit').html(credit);
+                $('#credits').html(credit);
                 $('#parts').html(parts);
                 $('#games').html();
             });
@@ -50,39 +50,37 @@
     </section>
     <section id="body_template">
         <div class="container-fluid">
-            <div class="row-fluid">
-				<div>
-                                    USERNAME
-                                    <input id="user_id" value="***" />
-                                </div>
-                                <div>
-                                    Points:
-                                    <div id="points">***</div>
-                                </div>
-                                <div>
-                                    Credits:
-                                    <div id="credits">***</div>
-                                </div>
-                                <div>
-                                    Scrap Parts:
-                                    <div id="parts">***</div>
-                                </div>
-                                <div>
-                                    Games Won:
-                                    <div id="games">0</div>
-                                </div>
-            </div>
+        	<div class="input-group">
+              <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+              <input type="text" class="form-control" id="username" name="username" placeholder="Type Username">
+           </div>	
+        	<div class="row-fluid profile-holder">
+	    		<ul class="list-group profile_info">
+	        		<li class="list-profile-item green-border-left">
+	        			<p class="profile_info_text">Points <span id="user_id">*</span></p>
+	        		</li>
+	        		<li class="list-profile-item purple-border-left">
+	        			<p class="profile_info_text">Credits <span id="points">>*</span></p>
+	        		</li>
+	        		<li class="list-profile-item red-border-left">
+	        			<p class="profile_info_text">Scrap Parts <span id="credits">*</span></p>
+	        		</li>
+	        		<li class="list-profile-item blue-border-left">
+	        			<p class="profile_info_text">Games Won <span id="parts">*</span></p>
+	        		</li>
+	    		</ul>
+	    	</div>
         </div>
     </section>
     <section id="body_bottom">
         <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
         </footer>
-    </section>
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content" id="modal-content">
-                ...
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" id="modal-content">
+                    ...
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 </body>

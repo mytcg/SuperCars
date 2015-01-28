@@ -108,18 +108,19 @@ function changeImage() {
 
 function progress_bar(owned,total){
 	
-	var width = Math.round(screen.width/2);
-	var margin_left = Math.round(screen.width/5);
+	var width = Math.round(screen.width/1.5);
+	var margin_left = Math.round(screen.width/8);
 	var margin_top = Math.round(screen.width/16);
 	
 	$('#circle').circleProgress({
 	    value: owned,
 	    size: width,
+	    thickness:13,
 	    startAngle: -Math.PI / 2.0,
 	    fill: { gradient: ['#0681c4', '#07c6c1'] }
 	})
 	.on('circle-animation-progress', function(event, progress, stepValue) {
-	    $(this).find('strong').text(String(stepValue.toFixed()).substr(0)+"/"+total);
+	    $(this).find('strong').html(String(stepValue.toFixed()).substr(0)+"/"+total+"<br/><span>CARDS</span>");
 	}).css({
 		"margin-left":margin_left,
 		"margin-top":margin_top
@@ -234,6 +235,7 @@ function getuserDets (userid) {
             $('#user-points').html(res['points']);
             
             // alert(res['cards_owned']);
+            // alert(res['cards_total']);
             
             progress_bar(res['cards_owned'],res['cards_total']);
 			

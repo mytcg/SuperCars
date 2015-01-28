@@ -24,6 +24,11 @@
         <script>
             jQuery(document).ready(function() {
                 getuserDets (window.localStorage.getItem("user_id"));
+                $('#user_id').html(user_name);
+                $('.points_1').html(points);
+                $('.credits_1').html(credit);
+                $('.parts_1').html(parts);
+                $('.games_1').html();
             });
         </script>
 </head>
@@ -47,6 +52,9 @@
     <section id="body_template">
         <div class="container">
         	<div class="row-fluid">
+				<div id="usersname"><span id="user_id">USERNAME</span></div>
+			</div>
+        	<div class="row-fluid" style="margin-bottom: 10%;">
 				<div id="circle"><strong>&nbsp;</strong></div>
 			</div>
 			
@@ -63,14 +71,29 @@
             </div>
 
             <br /> -->
-            <div class="row-fluid dashboard-CTA">
+            <!-- <div class="row-fluid dashboard-CTA">
 <!--                    <button type="button" class="btn" style="width:89%;" onclick="window.location='game.html'">play a game</button>
-                    <button type="button" class="btn highlighted" style="width:10%;" onclick="window.location='game.html'">></button>-->
+                    <button type="button" class="btn highlighted" style="width:10%;" onclick="window.location='game.html'">></button>->
                     <button type="button" class="btn" style="width:89%;" onclick="window.location='grid-template.html?section=chooseGame&header=Challenge&header_color=blue'">play a game</button>
                     <button type="button" class="btn highlighted" style="width:10%;" onclick="window.location='grid-template.html?section=chooseGame&header=Challenge&header_color=blue'">></button>
-            </div>
-
+            </div> -->
         </div>
+        <div class="row-fluid profile-holder">
+    		<ul class="list-group profile_info">
+        		<li class="list-profile-item green-border-left">
+        			<p class="profile_info_text">Points <span class="points_1">*</span></p>
+        		</li>
+        		<li class="list-profile-item purple-border-left">
+        			<p class="profile_info_text">Credits <span class="credits_1">*</span></p>
+        		</li>
+        		<li class="list-profile-item red-border-left">
+        			<p class="profile_info_text">Scrap Parts <span class="parts_1">*</span></p>
+        		</li>
+        		<li class="list-profile-item blue-border-left">
+        			<p class="profile_info_text">Games Won <span class="games_1">*</span></p>
+        		</li>
+    		</ul>
+    	</div>
     </section>
     <section id="body_bottom">
     </section>
