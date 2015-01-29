@@ -4,7 +4,7 @@
             Supercars Top Trumps Game
         </description>
         <author email="dev@callback.apache.org" href="http://cordova.io">
-            Media24
+            MyTCG
         </author>
         <content src="index.html" />
         <access origin="*" />
