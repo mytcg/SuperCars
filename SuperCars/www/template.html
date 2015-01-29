@@ -117,27 +117,34 @@
         </div>
         <div id="delete-confirmation" class="modal-popup-content-holder">
             <div class="modal-popup-content row-fluid">
-                <div class="col-xs-8 col-xs-offset-2">
+                <div class="col-xs-8 col-xs-offset-2 model-message">
                     <div class="">
                         Are you sure you want to delete this deck?<br />
                         This can not be un done!
                     </div>
-                    <div class="btn-group" style="margin-top:10%;">
-                        <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">No</button><br /><br />
-                        <button type="button" class="btn btn-default" id="delete-confirmation-confirm">Yes</button>
-                    </div>
+                    <div class="row" style="margin-top:10%;">
+	                    <div class="btn-group col-xs-6" >
+	                        <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">No</button><br /><br />
+	                    </div>
+	                    <div class="btn-group col-xs-6" >
+	                        <button type="button" class="btn btn-default" id="delete-confirmation-confirm">Yes</button>
+	                    </div>
+
+	                </div>
                 </div>
             </div>
         </div>
         <div id="warning-confirmation" class="modal-popup-content-holder">
             <div class="modal-popup-content row-fluid">
-                <div class="col-xs-8 col-xs-offset-2">
+                <div class="col-xs-8 col-xs-offset-2 model-message">
                     <div class="">
                         Sorry there is already 10 cards in your list! (Max 10)
                     </div>
-                    <div class="btn-group" style="margin-top:10%;">
-                        <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">OK</button><br /><br />
-                    </div>
+                    <div class="row" style="margin-top:10%;">
+	                    <div class="btn-group col-xs-6">
+	                        <button type="button" class="btn btn-default" onclick="$('#myModal').modal('hide');">OK</button><br /><br />
+	                    </div>
+	                </div>
                 </div>
             </div>
         </div>
