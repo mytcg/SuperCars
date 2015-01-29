@@ -111,16 +111,15 @@ function progress_bar(owned,total){
 	var width = Math.round(screen.width/1.5);
 	var margin_left = Math.round(screen.width/8);
 	var margin_top = Math.round(screen.width/16);
-	
+
 	$('#circle').circleProgress({
-	    value: owned,
+	    value: owned/total,
 	    size: width,
-	    thickness:13,
 	    startAngle: -Math.PI / 2.0,
 	    fill: { gradient: ['#0681c4', '#07c6c1'] }
 	})
 	.on('circle-animation-progress', function(event, progress, stepValue) {
-	    $(this).find('strong').html(String(stepValue.toFixed()).substr(0)+"/"+total+"<br/><span>CARDS</span>");
+	    $(this).find('strong').html(owned+"/"+total+"<br/><span>CARDS</span>");
 	}).css({
 		"margin-left":margin_left,
 		"margin-top":margin_top
@@ -215,6 +214,37 @@ function doRegistration () {
 
 
 
+/******************************************* Edit Profile Functions ******************************************************************/
+function doProfileSave () {
+		
+	// window.location.replace("register.html");
+
+    window.localStorage.setItem("username", $('#username').val());
+    window.localStorage.setItem("password", $('#password').val());
+    window.localStorage.setItem("email", $('#email_add').val());
+
+    var ajax = jQuery.ajax({
+        type: "POST",
+        crossDomain: true,
+        url: 'http://topcarcards.co.za/?request=reset&password='+$('#password').val()+'&username='+$('#username').val()+'&email='+$('#email_add').val(),
+        data : '',
+        dataType: "json",
+        success: function(res) {
+
+                if (res['result']) {
+                    window.localStorage.setItem("user_id", res['user_id']);
+                    window.location = 'dashboard.html?header=Dashboard&header_color=none';
+                } else {
+                    alert(res['content']);
+                }
+        }
+    });
+}
+
+/******************************************* END Registration Functions ******************************************************************/
+
+
+
 
 
 /******************************************* User Details --Dashboard ******************************************************************/
@@ -233,6 +263,7 @@ function getuserDets (userid) {
             $('#user-creds').html(res['credits']);
             $('#user-scrap').html(res['parts']);
             $('#user-points').html(res['points']);
+            $('#email_add').html(res['emails']);
             // alert(res['cards_owned']);
             
             progress_bar(res['cards_owned'],res['cards_total']);
@@ -251,6 +282,7 @@ function getuserDets (userid) {
             window.localStorage.setItem("points", res['points']);
             window.localStorage.setItem("cards_owned", res['cards_owned']);
             window.localStorage.setItem("cards_total", res['cards_total']);
+            window.localStorage.setItem("email", res['emails']);
 
         }
 
@@ -490,7 +522,7 @@ function footerCardOptions() {
                     '<span id="card-flip">CRAFT CARD</span>'+
                 '</div>'+
                 '<div class="col-xs-3 footer-options-div divider-left" id="card-flip" onclick="alert(\'Feature coming soon!\');">'+
-                    '<i class="fa fa-share-alt-square">'+
+                    '<span class="glyphicon glyphicon-share-alt"></span>'+
                 '</div>'+
         '</div>'
     );
@@ -672,6 +704,21 @@ function editDeck (action) {
         }
     );
 }
+
+function closeWindow () {
+
+    $('#deck-card-edit').removeClass('inactive');
+    $('#deck-card-trash').removeClass('inactive');
+    $('#cancel-button').hide();
+    $('.decks').each(
+        function() {
+            var newonclick = 'window.location=\'grid-template.html?deck_id='+$(this).attr('id')+'&section=viewDeck&header=Deck&header_color=blue\'';
+            $(this).attr('onclick', newonclick);
+        }
+    );
+
+}
+
 
 function uneditDeck () {
 
@@ -1291,7 +1338,7 @@ function footerMoreCredits() {
                 '<div class="col-xs-8 credit-stat">'+
                     'You have <span id="user-credits">'+credit+'</span> credits'+
                 '</div>'+
-                '<div class="col-xs-4 credit-more active-button" onclick="window.location=\'credits.html?header=Credits&header_color=purple\'">'+
+                '<div class="col-xs-4 credit-more active-button" onclick="window.location=\'grid-template.html?section=credits&header=Credits&header_color=purple\'">'+
                     'GET MORE'+
                 '</div>'+
         '</div>'

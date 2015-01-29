@@ -23,6 +23,8 @@ $REQUEST_CREATEDECK = "createdeck";
 $REQUEST_DELETEDECK = "deletedeck";
 $REQUEST_RENAMEDECK = "renamedeck";
 $REQUEST_GETLEADERBOARD = "leaderboard";
+// Profile details change request
+$REQUEST_USERDETAILSCHANGE = "changedetails";
 
 // Game requests
 $GAMEREQUEST_NEWGAME = "newgame";
